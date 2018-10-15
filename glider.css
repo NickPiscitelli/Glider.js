@@ -1,0 +1,66 @@
+.glider-track {
+  width: 100%;
+}
+.glider-track {
+  display: flex;
+}
+.glider::-webkit-scrollbar {
+	opacity: 0;
+}
+.glider-prev, .glider-next {
+  position: absolute;
+  width: 10px;
+  z-index: 999999;
+  font-size: 24px;
+  text-decoration: none;
+  display: none;
+  left: -15px;
+  color: blue;
+  top: 40%;
+}
+.show-arrows .glider-next,
+.show-arrows .glider-prev {
+  display: block;
+}
+.glider-next {
+  right: -15px;
+  left: auto;
+  content: ">";
+  visibility: visible;
+}
+.glider-prev {
+  display: none;
+}
+&.hide-prev .glider-prev,
+&.hide-next .glider-next {
+  display: none;
+}
+@media(max-width: 36em){
+  .glider::-webkit-scrollbar {
+    opacity: 1;
+    -webkit-appearance: none;
+    width: 7px;
+    height: 3px;
+  }
+  .glider::-webkit-scrollbar-thumb {
+    opacity: 1;
+    border-radius: 99px;
+    background-color: rgba(156, 156, 156, 0.25);
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.25);
+  }
+}
+
+.glider {
+  width: 300px;
+  height: 300px;
+  border: 1px solid red;
+  margin: 0 auto;
+  position:relative;
+    overflow-x: auto;
+  overflow-y: hidden;
+  overflow: -moz-scrollbars-none;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+  -ms-overflow-style: none;
+  position: relative;
+}
