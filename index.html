@@ -8,37 +8,40 @@
     <div class="glider" id="glider">
       <div class="glider-track">
         <div class="glider-item">
-          <img src="https://placehold.it/300x300?text=1">
+          <img src="https://i.imgur.com/JAmmf1y.jpg">
         </div>
         <div class="glider-item">
-          <img src="https://placehold.it/300x150?text=2">
+          <img src="https://i.imgur.com/5dGCuKO.jpg">
         </div>
         <div class="glider-item">
-          <img src="https://placehold.it/300x300?text=3">
+          <img src="https://i.imgur.com/JAmmf1y.jpg">
         </div>
         <div class="glider-item">
-          <img src="https://placehold.it/300x300?text=4">
+          <img src="https://i.imgur.com/5dGCuKO.jpg">
         </div>
         <div class="glider-item">
-          <img src="https://placehold.it/300x300?text=5">
+          <img src="https://i.imgur.com/JAmmf1y.jpg">
         </div>
         <div class="glider-item">
-          <img src="https://placehold.it/300x300?text=6">
+          <img src="https://i.imgur.com/5dGCuKO.jpg">
         </div>
         <div class="glider-item">
-          <img src="https://placehold.it/300x300?text=7">
+          <img src="https://i.imgur.com/JAmmf1y.jpg">
         </div>
         <div class="glider-item">
-          <img src="https://placehold.it/300x300?text=8">
+          <img src="https://i.imgur.com/5dGCuKO.jpg">
         </div>
         <div class="glider-item">
-          <img src="https://placehold.it/300x300?text=9">
+          <img src="https://i.imgur.com/JAmmf1y.jpg">
         </div>
         <div class="glider-item">
-          <img src="https://placehold.it/300x300?text=10">
+          <img src="https://i.imgur.com/5dGCuKO.jpg">
         </div>
         <div class="glider-item">
-          <img src="https://placehold.it/300x300?text=11">
+          <img src="https://i.imgur.com/JAmmf1y.jpg">
+        </div>
+        <div class="glider-item">
+          <img src="https://i.imgur.com/5dGCuKO.jpg">
         </div>
       </div>
     </div>
@@ -48,11 +51,25 @@
 </body>
 <script>
 window.addEventListener('load',function(){
-  new Glider(document.getElementById('glider'),{
+  window.glides = new Glider(document.getElementById('glider'),{
     slidesToShow: 1,
     prevArrow: '.glider-prev',
-    nextArrow: '.glider-next'
+    nextArrow: '.glider-next',
+    responsive: {
+      breakpoint: 700,
+      slidesToShow: 2
+    }
   })
 });
+document.addEventListener("glider-loaded", function(event) { // (1)
+  console.log(event.target)
+  console.log('load')
+});
+
+document.getElementById('glider').addEventListener("glider-loaded", function(event) { // (1)
+  console.log(event.target)
+  console.log('load')
+});
 </script>
+
 </html>
