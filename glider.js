@@ -1,4 +1,3 @@
-if (window.HTMLCollection && !HTMLCollection.prototype.forEach) HTMLCollection.prototype.forEach = Array.prototype.forEach;
 (function() {
   'use strict';
   
@@ -23,12 +22,12 @@ if (window.HTMLCollection && !HTMLCollection.prototype.forEach) HTMLCollection.p
           _.opt = _.extend({
               prevArrow: true,
               nextArrow: true,
+              slidesToShow: 1,
               dots: true,
-              slidesToShow: 1
           }, settings);
 
-          _.origOpt =  _.opt;
-          _.activeSlide = 0;
+          _.originalOptions =  _.opt;
+          _.activeSlide = 1;
           _.instanceUid = instanceUid++;
 
           _.init();
@@ -47,7 +46,7 @@ if (window.HTMLCollection && !HTMLCollection.prototype.forEach) HTMLCollection.p
       _.track = _.ele.children[0];
       _.slides = _.track.children;
 
-      _.slides.forEach(function(_){
+      [].forEach.call(_.slides, function(_){
         _.classList.add('glider-slide');
       });
 
@@ -55,17 +54,18 @@ if (window.HTMLCollection && !HTMLCollection.prototype.forEach) HTMLCollection.p
       _.containerHeight = 0;
 
       var width = 0, height = 0;
-
+      _.opt = _.getSettingsBreakpoint()
       _.itemWidth = Math.floor(_.containerWidth / _.opt.slidesToShow);
-    console.log(_.itemWidth)
-      _.slides.forEach(function(__){
+
+      [].forEach.call(_.slides, function(__){
           __.style.height = 'auto';
           __.style.width = _.itemWidth + 'px';
           width += _.itemWidth;
           height = Math.max(__.offsetHeight, height);
       });
+
       if (_.opt.equalHeight){
-        _.slides.forEach(function(_){
+        [].forEach.call(_.slides, function(_){
             _.style.height = height + 'px';
         });
       }
@@ -76,7 +76,7 @@ if (window.HTMLCollection && !HTMLCollection.prototype.forEach) HTMLCollection.p
       _.bindArrows();
       _.showArrows();
       _.buildDots();
-      _.ele.addEventListener('scroll', Glider.prototype.showArrows.bind(_))
+      _.ele.addEventListener('scroll', _.showArrows.bind(_))
   };
 
   Glider.prototype.buildDots = function(){
@@ -85,10 +85,11 @@ if (window.HTMLCollection && !HTMLCollection.prototype.forEach) HTMLCollection.p
     var fragment = document.createDocumentFragment(),
       ul = document.createElement('ul');
     ul.className = 'glider-dots';
-    _.slides.forEach(function(ele, i){
+    [].forEach.call(_.slides, function(ele, i){
       var li = document.createElement('li');
-      li.setAttribute('data-index', i);
+      li.setAttribute('data-index', i + 1);
       li.className = i ? '' : 'glider-active';
+      li.addEventListener('click',_.scrollItem.bind(_, i))
       ul.appendChild(li);
       _.dots.push(li);
     });
@@ -104,7 +105,7 @@ if (window.HTMLCollection && !HTMLCollection.prototype.forEach) HTMLCollection.p
       if (arrow){
         if (typeof arrow === 'string')  arrow = document.querySelector(arrow);
         _[direction+'Arrow'] = arrow;
-        arrow.addEventListener('click', Glider.prototype.scrollItem.bind(_, direction))
+        arrow.addEventListener('click', _.scrollItem.bind(_, direction))
       }
     });
   }
@@ -119,53 +120,52 @@ if (window.HTMLCollection && !HTMLCollection.prototype.forEach) HTMLCollection.p
       });
     }
     
-    _.activeSlide = Math.floor(_.ele.scrollLeft / _.itemWidth);
+    _.activeSlide = Math.floor(_.ele.scrollLeft / _.itemWidth) + 1;
+    console.log(_.activeSlide)
     _.dots.forEach(function(dot,index){
-      dot.classList.toggle('glider-active', _.activeSlide === index)
+      dot.classList.toggle('glider-active', _.activeSlide === index + 1)
     })
   }
 
-  Glider.prototype.scrollItem = function(direction, e){
 
+  Glider.prototype.scrollItem = function(slide, e){
     if(e)   e.preventDefault();
 
     var _ = this
 
-    var num = 1, scrollLeft = _.ele.scrollLeft;
+    if (typeof slide === 'string')  slide = slide === 'prev' ? (_.activeSlide - 2) : (_.activeSlide);
+    slide = Math.max(Math.min(slide, _.slides.length), 0)
 
-    if (_.ele.scrollLeft >= _.itemWidth)    num = Math.ceil(scrollLeft / _.itemWidth);
-    if (_.ele.scrollLeft === _.itemWidth * num) num++;
-    scrollLeft = _.itemWidth * num;
-    console.log(direction)
-    if (direction === 'prev')    scrollLeft -= (_.itemWidth * 2);
-
-    _.scrollTo(250, scrollLeft)
+    _.scrollTo(_.itemWidth * slide, 250)
     _.showArrows();
     return false;
   }
+
 
   Glider.prototype.getSettingsBreakpoint = function(){
       var _ = this, resp = _.opt.responsive;
       if (resp){
         resp.forEach(function(v){
           if (window.innerWidth > v.breakpoint){
-            return _.extend(_.opt, v);
+            return _.extend(_.originalOptions, v);
           }
         })
       }
       return _.opt;
   }
 
-  Glider.prototype.scrollTo = function(scrollDuration, scrollTarget) {
-    var _ = this
-    var start = new Date().getTime(), animate = function(){
-      var now = (new Date().getTime() - start);
-      _.ele.scrollLeft = (_.ele.scrollLeft + (scrollTarget - _.ele.scrollLeft) * _.easing(0, now, 0, 1, scrollDuration));
-      console.log([now, scrollDuration])
-      if(now < scrollDuration){
-        window.requestAnimationFrame(animate);
-      }
-    };
+  Glider.prototype.scrollTo = function(scrollTarget, scrollDuration) {
+    var
+      _ = this,
+      start = new Date().getTime(),
+      animate = function(){
+        var now = (new Date().getTime() - start);
+        _.ele.scrollLeft = (_.ele.scrollLeft + (scrollTarget - _.ele.scrollLeft) * _.easing(0, now, 0, 1, scrollDuration));
+        if(now < scrollDuration){
+          window.requestAnimationFrame(animate);
+        }
+      };
+
     window.requestAnimationFrame(animate);
   };
 
