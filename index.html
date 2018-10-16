@@ -4,17 +4,55 @@
     <script src="glider.js"></script>
   </head>
 <body>
-  <div class="glider" id="glider">
-    <div class="glider-track">
-      <div class="glider-item">
-        TEST
-      </div>
-      <div class="glider-item">
-        TEST 2
+  <div class="glider-contain">
+    <div class="glider" id="glider">
+      <div class="glider-track">
+        <div class="glider-item">
+          <img src="https://placehold.it/300x300?text=1">
+        </div>
+        <div class="glider-item">
+          <img src="https://placehold.it/300x300?text=2">
+        </div>
+        <div class="glider-item">
+          <img src="https://placehold.it/300x300?text=3">
+        </div>
+        <div class="glider-item">
+          <img src="https://placehold.it/300x300?text=4">
+        </div>
+        <div class="glider-item">
+          <img src="https://placehold.it/300x300?text=5">
+        </div>
+        <div class="glider-item">
+          <img src="https://placehold.it/300x300?text=6">
+        </div>
+        <div class="glider-item">
+          <img src="https://placehold.it/300x300?text=7">
+        </div>
+        <div class="glider-item">
+          <img src="https://placehold.it/300x300?text=8">
+        </div>
+        <div class="glider-item">
+          <img src="https://placehold.it/300x300?text=9">
+        </div>
+        <div class="glider-item">
+          <img src="https://placehold.it/300x300?text=10">
+        </div>
+        <div class="glider-item">
+          <img src="https://placehold.it/300x300?text=11">
+        </div>
       </div>
     </div>
+    <a class="glider-prev">Prev</a>
+    <a class="glider-next">Next</a>
   </div>
-  <a class="prev">Prev</a>
-  <a class="next">Next</a>
 </body>
+<script>
+window.addEventListener('load',function(){
+  new Glider(document.getElementById('glider'),{
+    slidesToShow: 1,
+    prevArrow: '.glider-prev',
+    nextArrow: '.glider-next'
+  })
+});
+</script>
 </html>
