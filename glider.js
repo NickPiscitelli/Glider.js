@@ -75,7 +75,7 @@
       _.updateControls();
       _.ele.addEventListener('scroll', _.updateControls.bind(_))
 
-      _.ele.dispatchEvent(new Event('glider-'+(refresh ? 'refresh' : 'loaded', {bubbles: !!_.opt.propagateEvents}));
+      _.ele.dispatchEvent(new Event('glider-'+(refresh ? 'refresh' : 'loaded', {bubbles: !!_.opt.propagateEvents})));
   };
 
   Glider.prototype.buildDots = function(){
