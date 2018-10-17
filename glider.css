@@ -40,7 +40,7 @@
   margin: 0 auto;
   padding: 0;
 }
-.glider-dots > li {
+.glider-dot {
   display: block;
   cursor: pointer;
   color: #ccc;
@@ -50,7 +50,7 @@
   height: 12px;
   margin: 7px;
 }
-.glider-dots > .glider-active {
+.glider-dot.active {
   background: darkred
 }
 @media(max-width: 36em){

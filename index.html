@@ -13,52 +13,28 @@
         <div class="glider-item">
           <img src="https://i.imgur.com/5dGCuKO.jpg">
         </div>
-        <div class="glider-item">
-          <img src="https://i.imgur.com/JAmmf1y.jpg">
-        </div>
-        <div class="glider-item">
-          <img src="https://i.imgur.com/5dGCuKO.jpg">
-        </div>
-        <div class="glider-item">
-          <img src="https://i.imgur.com/JAmmf1y.jpg">
-        </div>
-        <div class="glider-item">
-          <img src="https://i.imgur.com/5dGCuKO.jpg">
-        </div>
-        <div class="glider-item">
-          <img src="https://i.imgur.com/JAmmf1y.jpg">
-        </div>
-        <div class="glider-item">
-          <img src="https://i.imgur.com/5dGCuKO.jpg">
-        </div>
-        <div class="glider-item">
-          <img src="https://i.imgur.com/JAmmf1y.jpg">
-        </div>
-        <div class="glider-item">
-          <img src="https://i.imgur.com/5dGCuKO.jpg">
-        </div>
-        <div class="glider-item">
-          <img src="https://i.imgur.com/JAmmf1y.jpg">
-        </div>
-        <div class="glider-item">
-          <img src="https://i.imgur.com/5dGCuKO.jpg">
-        </div>
       </div>
+      
     </div>
-    <a class="glider-prev">&laquo;</a>
-    <a class="glider-next">&raquo;</a>
+    <div id="dots"></div>
+    <a class="glider-prev"></a>
+    <a class="glider-next"></a>
   </div>
 </body>
 <script>
 window.addEventListener('load',function(){
   window.glides = new Glider(document.getElementById('glider'),{
     slidesToShow: 1,
-    prevArrow: '.glider-prev',
-    nextArrow: '.glider-next',
-    responsive: {
+    dots: '#dots',
+    arrows: {
+      prev: '.glider-prev',
+      next: '.glider-next'
+    },
+    responsive: [{
       breakpoint: 700,
-      slidesToShow: 2
-    }
+      slidesToShow: 2,
+      dots: false
+    }]
   })
 });
 document.addEventListener("glider-loaded", function(event) { // (1)
