@@ -7,12 +7,15 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="assets/css/main.css" />
 	<link rel="stylesheet" href="assets/css/glider.css" />
+	<link rel="stylesheet" href="assets/css/prism.css" />
 	<noscript>
-		<link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<link rel="stylesheet" href="assets/css/noscript.css" />
+	</noscript>
+	<script src="assets/js/glider.js"></script>
 </head>
 
 <body class="is-preload">
-
+		<div id="add" class="glider-item"><h2>Added</h2></div>
 	<!-- Wrapper -->
 	<div id="wrapper">
 
@@ -84,9 +87,10 @@
 				<header class="major">
 					<h2>Demos</h2>
 				</header>
-				<div class="demo">
+				<div class="demo first">
+					<h2>Single Item</h2>
 					<div class="glider-contain">
-						<div class="glider" id="glider">
+						<div class="glider" id="glider-single">
 							<div class="glider-track">
 								<div class="glider-item">
 									<h1>1</h1>
@@ -112,55 +116,43 @@
 							</div>
 						</div>
 						<div id="dots"></div>
-						<a id="glider-prev">Prev</a>
-						<a id="glider-next">Next</a>
+						<a class="glider-prev" id="glider-prev">&laquo;</a>
+						<a class="glider-next" id="glider-next">&raquo;</a>
 					</div>
 					<script>
-						window.addEventListener('load', function () {
-							window.glides = new Glider(document.getElementById('glider'), {
+						var g = new Glider(document.getElementById('glider-single'), {
 								slidesToShow: 1,
 								dots: '#dots',
 								arrows: {
 									prev: '#glider-prev',
 									next: '#glider-next'
-								},
-							})
-						});
-					</script>
-					<!--
-					<xmp>
-						<script>
-							window.addEventListener('load', function () {
-								window.glides = new Glider(document.getElementById('glider'), {
-									slidesToShow: 1,
-									dots: '#dots',
-									arrows: {
-										prev: '.glider-prev',
-										next: '.glider-next'
-									},
-									responsive: [{
-										breakpoint: 600,
-										slidesToShow: 1,
-										slidesToScroll: 1,
-										arrows: false
-									}, {
-										breakpoint: 700,
-										slidesToShow: 2,
-										slidesToScroll: 1,
-										dots: false
-									}, {
-										breakpoint: 800,
-										slidesToShow: 2,
-										slidesToScroll: 2,
-										dots: document.getElementById('dots')
-									}]
-								})
+								}
 							});
-						</script>
-					</xmp>
-					<xmp>
-						<div class="glider-contain">
-							<div class="glider" id="glider">
+							var a = document.getElementById('add')
+							a = a.cloneNode();
+							a.id = '';
+							g.addItem(a)
+					</script>
+					
+					<pre class="line-numbers language-javascript">
+						<code class="line-numbers language-javascript">
+							new Glider(document.getElementById('glider'), {
+								slidesToShow: 1,
+								dots: '#dots',
+								arrows: {
+									prev: '.glider-prev',
+									next: '.glider-next'
+								}
+							});
+						</code>
+					</pre>
+				</div>
+				
+				<div class="demo">
+					<h2>Multiple Item</h2>
+					<div class="glider-contain">
+						<div class="glider" id="glider-double">
+							<div class="glider-track">
 								<div class="glider-item">
 									<h1>1</h1>
 								</div>
@@ -182,72 +174,157 @@
 								<div class="glider-item">
 									<h1>7</h1>
 								</div>
-							</div>
-							<div id="dots"></div>
-							<a class="glider-prev">Prev</a>
-							<a class="glider-next">Next</a>
-						</div>
-					</xmp>-->
-				</div>
-				<div class="demo">
-						<div class="glider-contain">
-							<div class="glider" id="glider2">
-								<div class="glider-track">
-									<div class="glider-item">
-										<h1>1</h1>
-									</div>
-									<div class="glider-item">
-										<h1>2</h1>
-									</div>
-									<div class="glider-item">
-										<h1>3</h1>
-									</div>
-									<div class="glider-item">
-										<h1>4</h1>
-									</div>
-									<div class="glider-item">
-										<h1>5</h1>
-									</div>
-									<div class="glider-item">
-										<h1>6</h1>
-									</div>
-									<div class="glider-item">
-										<h1>1</h1>
-									</div>
-									<div class="glider-item">
-										<h1>2</h1>
-									</div>
-									<div class="glider-item">
-										<h1>3</h1>
-									</div>
-									<div class="glider-item">
-										<h1>4</h1>
-									</div>
-									<div class="glider-item">
-										<h1>5</h1>
-									</div>
-									<div class="glider-item">
-										<h1>6</h1>
-									</div>
+								<div class="glider-item">
+									<h1>8</h1>
+								</div>
+								<div class="glider-item">
+									<h1>9</h1>
+								</div>
+								<div class="glider-item">
+									<h1>10</h1>
+								</div>
+								<div class="glider-item">
+									<h1>11</h1>
+								</div>
+								<div class="glider-item">
+									<h1>12</h1>
 								</div>
 							</div>
-							<div id="dots2"></div>
-							<a id="glider-prev-2">Prev</a>
-							<a id="glider-next-2">Next</a>
 						</div>
-						<script>
-							window.addEventListener('load', function () {
-								window.glides = new Glider(document.getElementById('glider2'), {
-									slidesToShow: 6,
-									slidesToScroll: 6,
-									dots: '#dots2',
-									arrows: {
-										prev: '#glider-prev-2',
-										next: '#glider-next-2'
+						<div id="dots2"></div>
+						<a class="glider-prev" id="glider-prev-2">&laquo;</a>
+						<a class="glider-next" id="glider-next-2">&raquo;</a>
+					</div>
+					<script>
+						window.addEventListener('load', function () {
+							window.glides = new Glider(document.getElementById('glider-double'), {
+								slidesToShow: 6,
+								slidesToScroll: 6,
+								dots: '#dots2',
+								arrows: {
+									prev: '#glider-prev-2',
+									next: '#glider-next-2'
+								}
+							})
+						});
+					</script>
+				</div>
+				<div class="demo">
+					<h2>Responsive Settings Item</h2>
+					<div class="glider-contain">
+						<div class="glider" id="glider-resp">
+							<div class="glider-track">
+								<div class="glider-item">
+									<h1>1</h1>
+								</div>
+								<div class="glider-item">
+									<h1>2</h1>
+								</div>
+								<div class="glider-item">
+									<h1>3</h1>
+								</div>
+								<div class="glider-item">
+									<h1>4</h1>
+								</div>
+								<div class="glider-item">
+									<h1>5</h1>
+								</div>
+								<div class="glider-item">
+									<h1>6</h1>
+								</div>
+								<div class="glider-item">
+									<h1>7</h1>
+								</div>
+								<div class="glider-item">
+									<h1>8</h1>
+								</div>
+								<div class="glider-item">
+									<h1>9</h1>
+								</div>
+								<div class="glider-item">
+									<h1>10</h1>
+								</div>
+							</div>
+						</div>
+						<div id="resp-dots"></div>
+						<a class="glider-prev" id="glider-prev-resp">&laquo;</a>
+						<a class="glider-next" id="glider-next-resp">&raquo;</a>
+					</div>
+					<script>
+						new Glider(document.getElementById('glider-resp'), {
+								slidesToShow: 1,
+								dots: '#resp-dots',
+								arrows: {
+									prev: '#glider-prev-resp',
+									next: '#glider-next-resp'
+								},
+								responsive: [
+									{
+										breakpoint: 320,
+										settings: {
+											slidesToShow: 1,
+											slidesToScroll: 1,
+											arrows: false
+										}
 									},
-								})
+									{
+										breakpoint: 775,
+										settings: {
+											slidesToShow: 2,
+											slidesToScroll: 2
+										}
+									},
+									{
+										breakpoint: 1100,
+										settings: {
+											slidesToShow: 4,
+											slidesToScroll: 4,
+											dots: document.getElementById('resp-dots')
+										}
+									}
+								]
 							});
-						</script>
+					</script>
+					
+					<pre class="line-numbers language-javascript">
+						<code class="line-numbers language-javascript">
+							new Glider(document.getElementById('glider'), {
+								slidesToShow: 1,
+								dots: '#dots',
+								arrows: {
+									prev: '.glider-prev',
+									next: '.glider-next'
+								},
+								responsive: [
+									{
+										breakpoint: 320,
+										settings: {
+											slidesToShow: 1,
+											slidesToScroll: 1,
+											arrows: false
+										}
+									},
+									{
+										breakpoint: 775,
+										settings: {
+											slidesToShow: 2,
+											slidesToScroll: 2,
+											dots: false
+										}
+									},
+									{
+										breakpoint: 1100,
+										settings: {
+											slidesToShow: 4,
+											slidesToScroll: 4,
+											dots: document.getElementById('resp-dots')
+										}
+									}
+								]
+							});
+						</code>
+					</pre>
+				</div>
 				<footer class="major">
 					<ul class="actions special">
 						<li><a href="generic.html" class="button">Learn More</a></li>
@@ -347,7 +424,7 @@
 		</footer>
 
 	</div>
-	<script src="assets/js/glider.js"></script>
+	
 	<!-- Scripts -->
 	<script src="assets/js/jquery.min.js"></script>
 	<script src="assets/js/jquery.scrollex.min.js"></script>
@@ -355,6 +432,7 @@
 	<script src="assets/js/browser.min.js"></script>
 	<script src="assets/js/breakpoints.min.js"></script>
 	<script src="assets/js/util.js"></script>
+	<script src="assets/js/prism.js"></script>
 	<script src="assets/js/main.js"></script>
 	<!-- Kick-ass template designed by: -->
 	<!--

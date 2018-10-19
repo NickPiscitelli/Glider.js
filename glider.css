@@ -16,9 +16,12 @@
   font-size: 40px;
   text-decoration: none;
   left: -15px;
+  border: 0;
   top: 40%;
   cursor: pointer;
+  color: #333;
   opacity: 1;
+  line-height: 1;
   transition: opacity .5s cubic-bezier(.17,.67,.83,.67);
 }
 .glider-next {
@@ -27,7 +30,8 @@
 }
 .glider-next.disabled,
 .glider-prev.disabled {
-  display: none;
+  opacity: .5;
+  color: #666;
 }
 .glider-item {
   justify-content: center;
@@ -110,4 +114,31 @@
 }
 .glider-item.active {
   background: lightblue
+}
+
+#main code {
+  margin: 0;
+}
+#main pre {
+  padding: 0;
+  border-radius: 8px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+header.major h2:after {
+  margin-top: .2em;
+}
+.demo {
+  padding: 60px 0;
+  border-top: 1px solid #ddd;
+}
+.demo.first{
+  border-top: 0;
+  padding-top: 0;
+}
+li {
+  list-style-type: none;
+}
+#add {
+  display: none;
 }

@@ -11,7 +11,7 @@
         _.default = {
             slidesToScroll: 1,
             slidesToShow: 1,
-            duration: 1,
+            duration: .5,
             easing: function(x, t, b, c, d){
               // ease-in out expo
               if (!t) return b;
@@ -76,7 +76,6 @@
     _.trackWidth = width;
 
     if (!_.activeBreakpoint || _.activeBreakpoint !== currentBreakpoint){
-      console.log('AS: '+_.activeSlide)
       _.scrollTo(_.activeSlide, 0)
       _.bindArrows();
       _.buildDots();
@@ -92,7 +91,10 @@
   Glider.prototype.buildDots = function(){
     var _ = this;
   
-    if (!_.opt.dots) return _.dots.innerHTML = '';
+    if (!_.opt.dots){
+      if (_.dots) _.dots.innerHTML = '';
+      return;
+    }
 
     if (typeof _.opt.dots === 'string') _.dots = document.querySelector(_.opt.dots)
     else  _.dots = _.opt.dots
@@ -132,8 +134,8 @@
     if (_.arrows.next) _.arrows.next.classList.toggle('disabled', _.ele.scrollLeft + _.ele.offsetWidth >=  _.trackWidth || disableArrows)
 
     _.activeSlide = Math.round(_.ele.scrollLeft / _.itemWidth);
-    _.activePage = Math.round(_.ele.scrollLeft / _.containerWidth)
-    console.log([_.activeSlide, _.activePage]);
+    _.activePage = Math.round(_.ele.scrollLeft / _.containerWidth);
+
     [].forEach.call(_.slides,function(slide,index){
       slide.classList.toggle('active', _.activeSlide === index)
       var
@@ -141,9 +143,7 @@
         end = _.ele.scrollLeft + _.containerWidth,
         itemStart = _.itemWidth * index,
         itemEnd = itemStart + _.itemWidth;
-        console.log([
-          start,end,itemStart,itemEnd
-        ])
+
       slide.classList.toggle('visible',
         itemStart >= start && itemEnd <= end
       )
@@ -158,9 +158,8 @@
     if(e)   e.preventDefault();
 
     var _ = this
-console.log(dot)
+
     if (dot === true) {
-      console.log('slide')
       slide = slide * _.containerWidth
     } else {
       if (typeof slide === 'string') {
@@ -187,7 +186,7 @@ console.log(dot)
       [].forEach.call(resp,function(v){
         if (window.innerWidth > v.breakpoint){
           _.activeBreakpoint = v.breakpoint;
-          _.opt = Object.assign({}, _.originalOptions, v);
+          _.opt = Object.assign({}, _.originalOptions, v.settings);
         }
       })
     }

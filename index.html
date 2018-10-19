@@ -64,19 +64,25 @@
       },
       responsive: [{
         breakpoint: 600,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        arrows: false
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          arrows: false
+        }
       }, {
         breakpoint: 700,
-        slidesToShow: 2,
-        slidesToScroll: 1,
-        dots: false
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          dots: false
+        }
       }, {
         breakpoint: 800,
-        slidesToShow:6,
-        slidesToScroll: 6,
-        dots: document.getElementById('dots')
+        settings: {
+          slidesToShow:6,
+          slidesToScroll: 6,
+          dots: document.getElementById('dots')
+        }
       }]
     })
   });
