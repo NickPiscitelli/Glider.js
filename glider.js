@@ -115,6 +115,7 @@
     ['prev','next'].forEach(function(direction){
       var arrow = _.opt.arrows[direction]
       if (arrow){
+        console.log(arrow)
         if (typeof arrow === 'string')  arrow = document.querySelector(arrow);
         else _.ele.parentNode.insertBefore(arrow, _.ele.nextSibling);
         arrow.addEventListener('click', _.scrollItem.bind(_, direction))
@@ -182,7 +183,7 @@ console.log(dot)
   }
 
   Glider.prototype.checkSettingsBreakpoint = function(){
-    var _ = this, resp = _.originalOptions.responsive, settings;
+    var _ = this, resp = _.originalOptions.responsive;
     if (resp){
       [].forEach.call(resp,function(v){
         if (window.innerWidth > v.breakpoint){

@@ -94,8 +94,9 @@
   height: 300px !important;
 }
 .glider-contain {
-  padding: 15px 0px;
-  width: 50vw;
+  padding: 5px 0px;
+  width: 75%;
+  margin: 0 auto;
 }
 .glider-item {
   min-height: 300px;
