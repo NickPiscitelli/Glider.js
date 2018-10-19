@@ -115,7 +115,6 @@
     ['prev','next'].forEach(function(direction){
       var arrow = _.opt.arrows[direction]
       if (arrow){
-        console.log(arrow)
         if (typeof arrow === 'string')  arrow = document.querySelector(arrow);
         else _.ele.parentNode.insertBefore(arrow, _.ele.nextSibling);
         arrow.addEventListener('click', _.scrollItem.bind(_, direction))
@@ -210,6 +209,20 @@ console.log(dot)
       };
 
     window.requestAnimationFrame(animate);
+  }
+
+  Glider.prototype.removeItem = function(index){
+    var _ = this
+    _.track.removeChild(_.slides[index]);
+    _.activeBreakpoint = undefined;
+    _.init(true);
+  }
+
+  Glider.prototype.addItem = function(ele){
+    var _ = this
+    _.track.appendChild(ele);
+    _.activeBreakpoint = undefined;
+    _.init(true);
   }
 
   Glider.prototype.remove = function(ele){
