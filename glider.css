@@ -25,6 +25,10 @@
   right: -15px;
   left: auto;
 }
+.glider-next.disabled,
+.glider-prev.disabled {
+  display: none;
+}
 .glider-item {
   justify-content: center;
   align-content: center;
@@ -92,4 +96,17 @@
 .glider-contain {
   padding: 15px 0px;
   width: 50vw;
+}
+.glider-item {
+  min-height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #f5f5f5;
+}
+.glider-item.visible {
+  background: pink
+}
+.glider-item.active {
+  background: lightblue
 }
