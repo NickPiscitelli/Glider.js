@@ -76,7 +76,8 @@
     _.trackWidth = width;
 
     if (!_.activeBreakpoint || _.activeBreakpoint !== currentBreakpoint){
-      _.scrollTo(_.activeSlide, 0)
+
+      //_.scrollTo(_.activeSlide, 0)
       _.bindArrows();
       _.buildDots();
       _.updateControls();
@@ -85,7 +86,7 @@
     if (!refresh) _.ele.addEventListener('scroll', _.updateControls.bind(_))
 
 
-    _.event(refresh ? 'refresh' : 'loaded')
+    _.event(refresh ? 'refresh ' : 'loaded')
   };
 
   Glider.prototype.buildDots = function(){
@@ -99,7 +100,9 @@
     if (typeof _.opt.dots === 'string') _.dots = document.querySelector(_.opt.dots)
     else  _.dots = _.opt.dots
 
+    _.dots.innerHTML = '';
     _.dots.className = 'glider-dots';
+
     for (var i = 0; i < Math.ceil(_.slides.length / _.opt.slidesToShow); ++i){
       var li = document.createElement(_.dots.nodeName === 'UL' ? 'li' : 'span');
       li.setAttribute('data-index', i);
@@ -174,7 +177,7 @@
       _.opt.duration * (Math.abs(_.ele.scrollLeft - slide)),
       function() {
         _.updateControls();
-        _.event('animate', { glider: _ })
+        _.event('animated', { glider: _ })
       });
     
     return false;
@@ -213,15 +216,31 @@
   Glider.prototype.removeItem = function(index){
     var _ = this
     _.track.removeChild(_.slides[index]);
+    if (!_.track.children.length){
+      _.slides = undefined
+      //return _.destroy();
+    }
+    _.event('remove')
     _.activeBreakpoint = undefined;
     _.init(true);
   }
 
   Glider.prototype.addItem = function(ele){
     var _ = this
+
     _.track.appendChild(ele);
+    _.slides = _.track.children
+    _.event('add')
     _.activeBreakpoint = undefined;
     _.init(true);
+  }
+
+  Glider.prototype.refresh = function(){
+    this.init(true)
+  }
+
+  Glider.prototype.setOption = function(opt){
+    this.opt = Object.assign({}, _.opt, opt)
   }
 
   Glider.prototype.remove = function(ele){
@@ -229,14 +248,17 @@
   }
 
   Glider.prototype.destroy = function(){
-    var _ = this
-    [_.ele,_.track,_.slides].forEach(function(_){
-      _.style.width = 'auto';
-      _.style.height = 'auto';
+    var _ = this;
+    [].forEach.call([_.track, _.ele, _.slide ],function(ele){
+      if(ele) {
+        ele.style.width = 'auto';
+        ele.style.height = 'auto';
+      }
     });
     _.remove(_.arrows.prev)
     _.remove(_.arrows.next)
     _.remove(_.dots)
+    _.event('destroy')
   }
 
   Glider.prototype.event = function(name, arg){
