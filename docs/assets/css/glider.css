@@ -199,10 +199,10 @@ li {
   margin: 12px 0;
 }
 .aside {
-  display: inline-block;
+  display: block;
   font-style: italic;
   font-size: .9em;
-  margin-top: 7px;
+  margin-top: 15px;
 }
 
 .questions > li {
