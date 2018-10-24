@@ -139,6 +139,11 @@
     _.activeSlide = Math.round(_.ele.scrollLeft / _.itemWidth);
     _.activePage = Math.round(_.ele.scrollLeft / _.containerWidth);
 
+    if (_.ele.scrollLeft + _.containerWidth >= _.trackWidth){
+      _.activePage = _.dots ? _.dots.children.length - 1 : 0;
+      _.activeSlide = _.slides.length - 1;
+    }
+
     [].forEach.call(_.slides,function(slide,index){
       slide.classList.toggle('active', _.activeSlide === index)
       var
@@ -218,7 +223,6 @@
     _.track.removeChild(_.slides[index]);
     if (!_.track.children.length){
       _.slides = undefined
-      //return _.destroy();
     }
     _.event('remove')
     _.activeBreakpoint = undefined;

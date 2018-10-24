@@ -28,8 +28,16 @@
         _.activeSlide = 0;
         _.activeBreakpoint;
 
+        _.track = document.createElement('div');
+        _.track.className = 'glider-track';
+        _.ele.appendChild(_.track)
+        while (_.ele.children.length !== 1){
+          _.track.appendChild(_.ele.children[0])
+        }
+        
         _.init();
         
+        _.ele.addEventListener('scroll', _.updateControls.bind(_))
         window.addEventListener('resize', _.init.bind(_, true));
     }
 
@@ -41,7 +49,7 @@
 
     var _ = this;
 
-    _.track = _.ele.children[0];
+    //_.track = _.ele.children[0];
     _.slides = _.track.children;
 
     [].forEach.call(_.slides, function(_){
@@ -76,15 +84,14 @@
     _.trackWidth = width;
 
     if (!_.activeBreakpoint || _.activeBreakpoint !== currentBreakpoint){
-
-      //_.scrollTo(_.activeSlide, 0)
+console.log(_.activeSlide)
+//_.scrollItem(_.activeSlide)
       _.bindArrows();
       _.buildDots();
-      _.updateControls();
+      
+     
+      //_.updateControls();
     }
-    
-    if (!refresh) _.ele.addEventListener('scroll', _.updateControls.bind(_))
-
 
     _.event(refresh ? 'refresh ' : 'loaded')
   };
@@ -138,6 +145,11 @@
 
     _.activeSlide = Math.round(_.ele.scrollLeft / _.itemWidth);
     _.activePage = Math.round(_.ele.scrollLeft / _.containerWidth);
+
+    if (_.ele.scrollLeft + _.containerWidth >= _.trackWidth){
+      _.activePage = _.dots ? _.dots.children.length - 1 : 0;
+      _.activeSlide = _.slides.length - 1;
+    }
 
     [].forEach.call(_.slides,function(slide,index){
       slide.classList.toggle('active', _.activeSlide === index)
@@ -218,7 +230,6 @@
     _.track.removeChild(_.slides[index]);
     if (!_.track.children.length){
       _.slides = undefined
-      //return _.destroy();
     }
     _.event('remove')
     _.activeBreakpoint = undefined;
@@ -262,6 +273,7 @@
   }
 
   Glider.prototype.event = function(name, arg){
+   // console.log('fire event: '+name)
     var _ = this, e = new CustomEvent('glider-'+name, {
       bubbles: !!_.opt.propagateEvents,
       detail: arg

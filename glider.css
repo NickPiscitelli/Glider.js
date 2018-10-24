@@ -316,9 +316,12 @@ li {
   border-width: 2px;
 }
 #nav ul li a.active {
-  border: 1px solid #8cc9f0;
+  border: 1px solid #a89cc8;
 }
 #header > p {
   max-width: 600px;
   margin: 0 auto 2em auto;
+}
+.spotlight .content p {
+  font-size: 18px;
 }
