@@ -4,8 +4,9 @@
 <head>
 	<title>Glider.js - A fast, lightweight "carousel"</title>
 	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<link rel="stylesheet" href="assets/css/main.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/main.css" />
 	<link rel="stylesheet" href="assets/css/glider.css" />
 	<link rel="stylesheet" href="assets/css/prism.css" />
 	<noscript>
@@ -15,7 +16,7 @@
 </head>
 
 <body class="is-preload">
-		<div id="add" class="glider-item"><h2></h2></div>
+	<div id="add"><h1></h1></div>
 	<!-- Wrapper -->
 	<div id="wrapper">
 
@@ -70,16 +71,16 @@
 						<header class="major">
 							<h2>Features</h2>
 						</header>
-						<ul>
-							<li>Insanely Small (1.7kb gzipped)</li>
-							<li>Ridiculously Fast (~15ms initilization)</li>
-							<li>Vanilla JS - No Dependencies (look Mom, no jQuery!)</li>
-							<li>Native Browser Scrolling (momentum scrolling on mobile)</li>
-							<li>Fully Responsive (breakpoint based settings)</li>
-							<li>Customizable Arrow and Dot Navigation</li>
-							<li>Flexbox Support (enabled by default)</li>
-							<li>Easily Extendable</li>
-							<li>Custom Events</li>
+						<ul class="script-features">
+							<li><i class="fas fa-check"></i>Insanely Small (1.7kb gzipped)</li>
+							<li><i class="fas fa-check"></i>Ridiculously Fast (~15ms initilization)</li>
+							<li><i class="fas fa-check"></i>Vanilla JS - No Dependencies (look Mom, no jQuery!)</li>
+							<li><i class="fas fa-check"></i>Native Browser Scrolling (momentum scrolling on mobile)</li>
+							<li><i class="fas fa-check"></i>Fully Responsive (breakpoint based settings)</li>
+							<li><i class="fas fa-check"></i>Customizable Arrow and Dot Navigation</li>
+							<li><i class="fas fa-check"></i>Flexbox Support (enabled by default)</li>
+							<li><i class="fas fa-check"></i>Easily Extendable</li>
+							<li><i class="fas fa-check"></i>Custom Events</li>
 						</ul>
 
 
@@ -95,25 +96,28 @@
 				<div class="demo first">
 					<h2>Single Item</h2>
 					<div class="glider-contain">
-						<div class="glider" id="glider-single">
-							<div class="glider-track">
-								<div class="glider-item"><h1>1</h1></div>
-								<div class="glider-item"><h1>2</h1></div>
-								<div class="glider-item"><h1>3</h1></div>
-								<div class="glider-item"><h1>4</h1></div>
-								<div class="glider-item"><h1>5</h1></div>
-								<div class="glider-item"><h1>6</h1></div>
-								<div class="glider-item"><h1>7</h1></div>
-							</div>
-						</div>
+						<div class="gradient-border">
+                            <div class="glider" id="glider-single">
+                                <div class="glider-track">
+                                    <div><h1>1</h1></div>
+                                    <div><h1>2</h1></div>
+                                    <div><h1>3</h1></div>
+                                    <div><h1>4</h1></div>
+                                    <div><h1>5</h1></div>
+                                    <div><h1>6</h1></div>
+                                    <div><h1>7</h1></div>
+                                </div>
+                            </div>
+                        </div>
 						<div id="dots"></div>
-						<a class="glider-prev" id="glider-prev">&laquo;</a>
-						<a class="glider-next" id="glider-next">&raquo;</a>
+						<a class="glider-prev" id="glider-prev"><i class="fa fa-chevron-left"></i></i></a>
+						<a class="glider-next" id="glider-next"><i class="fa fa-chevron-right"></i></i></a>
 					</div>
 					<script>
 						new Glider(document.getElementById('glider-single'), {
 							slidesToShow: 1,
-							dots: '#dots',
+                            dots: '#dots',
+                            equalHeight: true,
 							arrows: {
 								prev: '#glider-prev',
 								next: '#glider-next'
@@ -138,25 +142,27 @@
 				<div class="demo">
 					<h2>Multiple Item</h2>
 					<div class="glider-contain multiple">
-						<div class="glider" id="glider-double">
-							<div class="glider-track">
-								<div class="glider-item"><h1>1</h1></div>
-								<div class="glider-item"><h1>2</h1></div>
-								<div class="glider-item"><h1>3</h1></div>
-								<div class="glider-item"><h1>4</h1></div>
-								<div class="glider-item"><h1>5</h1></div>
-								<div class="glider-item"><h1>6</h1></div>
-								<div class="glider-item"><h1>7</h1></div>
-								<div class="glider-item"><h1>8</h1></div>
-								<div class="glider-item"><h1>9</h1></div>
-								<div class="glider-item"><h1>10</h1></div>
-								<div class="glider-item"><h1>11</h1></div>
-								<div class="glider-item"><h1>12</h1></div>
-							</div>
-						</div>
+                        <div class="gradient-border">
+                            <div class="glider" id="glider-double">
+                                <div class="glider-track">
+                                    <div><h1>1</h1></div>
+                                    <div><h1>2</h1></div>
+                                    <div><h1>3</h1></div>
+                                    <div><h1>4</h1></div>
+                                    <div><h1>5</h1></div>
+                                    <div><h1>6</h1></div>
+                                    <div><h1>7</h1></div>
+                                    <div><h1>8</h1></div>
+                                    <div><h1>9</h1></div>
+                                    <div><h1>10</h1></div>
+                                    <div><h1>11</h1></div>
+                                    <div><h1>12</h1></div>
+                                </div>
+                            </div>
+                        </div>
 						<div id="dots2"></div>
-						<a class="glider-prev" id="glider-prev-2">&laquo;</a>
-						<a class="glider-next" id="glider-next-2">&raquo;</a>
+						<a class="glider-prev" id="glider-prev-2"><i class="fa fa-chevron-left"></i></i></a>
+						<a class="glider-next" id="glider-next-2"><i class="fa fa-chevron-right"></i></i></a>
 					</div>
 					<script>
 						window.addEventListener('load', function () {
@@ -175,23 +181,25 @@
 				<div class="demo">
 					<h2>Responsive Settings Item</h2>
 					<div class="glider-contain multiple">
-						<div class="glider" id="glider-resp">
-							<div class="glider-track">
-								<div class="glider-item"><h1>1</h1></div>
-								<div class="glider-item"><h1>2</h1></div>
-								<div class="glider-item"><h1>3</h1></div>
-								<div class="glider-item"><h1>4</h1></div>
-								<div class="glider-item"><h1>5</h1></div>
-								<div class="glider-item"><h1>6</h1></div>
-								<div class="glider-item"><h1>7</h1></div>
-								<div class="glider-item"><h1>8</h1></div>
-								<div class="glider-item"><h1>9</h1></div>
-								<div class="glider-item"><h1>10</h1></div>
-							</div>
-						</div>
+                        <div class="gradient-border">
+                            <div class="glider" id="glider-resp">
+                                <div class="glider-track">
+                                    <div><h1>1</h1></div>
+                                    <div><h1>2</h1></div>
+                                    <div><h1>3</h1></div>
+                                    <div><h1>4</h1></div>
+                                    <div><h1>5</h1></div>
+                                    <div><h1>6</h1></div>
+                                    <div><h1>7</h1></div>
+                                    <div><h1>8</h1></div>
+                                    <div><h1>9</h1></div>
+                                    <div><h1>10</h1></div>
+                                </div>
+                            </div>
+                        </div>
 						<div id="resp-dots"></div>
-						<a class="glider-prev" id="glider-prev-resp">&laquo;</a>
-						<a class="glider-next" id="glider-next-resp">&raquo;</a>
+						<a class="glider-prev" id="glider-prev-resp"><i class="fa fa-chevron-left"></i></i></a>
+						<a class="glider-next" id="glider-next-resp"><i class="fa fa-chevron-right"></i></i></a>
 					</div>
 					<script>
 						new Glider(document.getElementById('glider-resp'), {
@@ -271,23 +279,25 @@
 				<div class="demo">
 					<h2>Add/Remove Items</h2>
 					<div class="glider-contain multiple">
-						<div class="glider" id="glider-add">
-							<div class="glider-track">
-								<div class="glider-item"><h1>1</h1></div>
-								<div class="glider-item"><h1>2</h1></div>
-								<div class="glider-item"><h1>3</h1></div>
-								<div class="glider-item"><h1>4</h1></div>
-								<div class="glider-item"><h1>5</h1></div>
-								<div class="glider-item"><h1>6</h1></div>
-								<div class="glider-item"><h1>7</h1></div>
-								<div class="glider-item"><h1>8</h1></div>
-								<div class="glider-item"><h1>9</h1></div>
-								<div class="glider-item"><h1>10</h1></div>
-							</div>
-						</div>
+                        <div class="gradient-border">
+                            <div class="glider" id="glider-add">
+                                <div class="glider-track">
+                                    <div><h1>1</h1></div>
+                                    <div><h1>2</h1></div>
+                                    <div><h1>3</h1></div>
+                                    <div><h1>4</h1></div>
+                                    <div><h1>5</h1></div>
+                                    <div><h1>6</h1></div>
+                                    <div><h1>7</h1></div>
+                                    <div><h1>8</h1></div>
+                                    <div><h1>9</h1></div>
+                                    <div><h1>10</h1></div>
+                                </div>
+                            </div>
+                        </div>
 						<div id="add-dots"></div>
-						<a class="glider-prev" id="glider-prev-add">&laquo;</a>
-						<a class="glider-next" id="glider-next-add">&raquo;</a>
+						<a class="glider-prev" id="glider-prev-add"><i class="fa fa-chevron-left"></i></i></a>
+						<a class="glider-next" id="glider-next-add"><i class="fa fa-chevron-right"></i></i></a>
 					</div>
 					<p class="buttons">
 						<a class="button" id="addSlide">Add</a>
@@ -295,7 +305,7 @@
 					</p>
 					<script>
 						var glider = new Glider(document.getElementById('glider-add'), {
-							slidesToShow: 1,
+							slidesToShow: 3,
 							dots: '#add-dots',
 							arrows: {
 								prev: '#glider-prev-add',
@@ -305,7 +315,7 @@
 						document.getElementById('addSlide').addEventListener('click',function(){
 							var ele = document.getElementById('add').cloneNode(true);
 							ele.id = '';
-							ele.querySelector('h2').textContent = glider.slides.length + 1
+							ele.querySelector('h1').textContent = glider.slides.length + 1
 							glider.addItem(ele);
 						});
 						document.getElementById('removeSlide').addEventListener('click',function(){
@@ -317,7 +327,7 @@
 					<pre class="line-numbers language-javascript">
 						<code class="line-numbers language-javascript">
 							new Glider(document.getElementById('glider'), {
-								slidesToShow: 1,
+								slidesToShow: 3,
 								dots: '#dots',
 								arrows: {
 									prev: '.glider-prev',
@@ -374,8 +384,8 @@
 								&lt;/div&gt;
 							&lt;/div&gt;
 							&lt;div id="dots"&gt;&lt;/div&gt;
-							&lt;a class="glider-prev"&gt;&laquo;&lt;/a&gt;
-							&lt;a class="glider-next"&gt;&raquo;&lt;/a&gt;
+							&lt;a class="glider-prev"&gt;<i class="fa fa-chevron-left"></i></i>&lt;/a&gt;
+							&lt;a class="glider-next"&gt;<i class="fa fa-chevron-right"></i></i>&lt;/a&gt;
 						&lt;/div&gt;
 					</code>
 				</pre>
@@ -618,7 +628,7 @@
 							<span class="aside">NOTE: By default, scrollbars are hidden with CSS. Remove the code to allow scrollbar functionality.</aside>
 						</p>
 					</li>
-					<li>
+					<!-- <li>
 						<p class="question">
 							Can I buy you a coffee? Maybe a beer?
 						</p>
@@ -627,7 +637,7 @@
 							
 							<span class="address">0x6BbfCc3d25799fD4e9c4fD17D3FD350A57665F16</span>
 						</p>
-					</li>
+					</li> -->
 				</ul>
 			</section>
 		</div>
