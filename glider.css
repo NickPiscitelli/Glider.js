@@ -318,3 +318,7 @@ li {
 #nav ul li a.active {
   border: 1px solid #8cc9f0;
 }
+#header > p {
+  max-width: 600px;
+  margin: 0 auto 2em auto;
+}
