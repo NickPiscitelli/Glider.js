@@ -174,6 +174,19 @@
 							})
 						});
 					</script>
+					<pre class="line-numbers language-javascript">
+						<code class="line-numbers language-javascript">
+							new Glider(document.getElementById('glider'), {
+								slidesToShow: 6,
+								slidesToScroll: 6,
+								dots: '#dots',
+								arrows: {
+									prev: '.glider-prev',
+									next: '.glider-next'
+								}
+							});
+						</code>
+					</pre>
 				</div>
 				<div class="demo">
 					<h2>Responsive Settings Item</h2>
@@ -388,6 +401,15 @@
 				</pre>
 
 				<p>
+					Include the required CSS in your &lt;head&gt; tag
+				</p>
+				<pre class="line-numbers language-html">
+					<code class="line-numbers language-html"> 
+						&lt;link rel="stylesheet" type="text/css" href="glider.css"&gt;
+					</code>
+				</pre>
+
+				<p>
 					Initialize Glider.js inline or via your script files
 				</p>
 				<pre class="line-numbers language-javascript">
@@ -458,13 +480,20 @@
 						An object containing custom settings per provided breakpoint. See demo for details.
 						<span class="aside">NOTE: All responsive calculation are provided "mobile-first". Be conscious of your breakpoint order!</span>
 					</li>
+					<li>
+						<span class="setting-name">easing</span><br>
+						<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">array</a> of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">objects</a> [{}]<br>
+						<span class="type default">Default:</span> Ease-In Out<br>
+						A custom easing function may be provided. All functions from the standard <a href="http://gsgd.co.uk/sandbox/jquery/easing/jquery.easing.1.3.js">jQuery easing library</a>
+						are supported.
+					</li>
 				</ul>
 			</section>
 			<section id="events" class="main special">
 				<header class="major">
 					<h2>Events</h2>
 					<p>
-						All events are passed the . A lot of basic events, such as scroll, click, etc,
+						A lot of basic events, such as scroll, click, etc,
 						were left off as they can be directly bound to their elements as usual.
 					</p>
 				</header>
@@ -514,7 +543,8 @@
 								}
 							});
 
-							// depending upon the options set, a refresh may need to be called
+							// a refresh may need to be called depending 
+							// upon the options passed to setOptions
 							glider.refresh();
 
 							// adding or removing items automatically calls refresh()
@@ -533,13 +563,14 @@
 					</li>
 					<li>
 						<span class="setting-name">removeItem</span><br>
-						<span class="type">Arguments:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a> (slide position - starts at 0!)<br>
+						<span class="type">Arguments:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a> (slide position)<br>
 						Remove an item from the list<br>
+						<span class="aside">NOTE: Slide position starts at 0, not 1!</span>
 					</li>
 					<li>
 						<span class="setting-name">scrollItem</span><br>
 						<span class="type">Arguments:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a> | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a><br>
-						Scroll to any slide or page<br>
+						Scroll to any slide or page. If second argument is explicitly true, then the first argument will refer to the page to scroll to, as opposed to the slide.<br>
 					</li>
 					<li>
 						<span class="setting-name">scrollTo</span><br>

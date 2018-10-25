@@ -61,6 +61,7 @@
 }
 .glider-dots {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   margin: 0 auto;
   padding: 0;
@@ -118,6 +119,12 @@
   padding: 5px 0px;
   width: 75%;
   margin: 0 auto;
+}
+@media(max-width: 575px){
+  .glider-contain {
+    width: 90%;
+    
+  }
 }
 .glider-slide {
   min-height: 300px;
@@ -186,6 +193,14 @@ li {
   text-align: left;
   padding-right: 25px;
 }
+@media(max-width: 575px){
+  .settings li {
+    width: 100%;
+  }
+  .settings li:last-child {
+    border: 0;
+  }
+}
 .setting-name {
   color: #000;
   font-weight: bold;
@@ -233,6 +248,12 @@ li {
   border-bottom: 1px solid #ddd;
   margin-bottom: 10px;
   display: inline-block;
+}
+@media(max-width: 575px){
+  .questions .question {
+    border: 0;
+    margin-bottom: 20px;
+  }
 }
 .script-features li {
   margin-bottom: 12px;
@@ -332,6 +353,15 @@ li {
 #nav {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+}
+@media(max-width: 575px){
+  #nav {
+    width: calc(100% - 2em);
+    max-width: calc(100% - 2em);
+  }
+  #nav ul {
+    display: flex;
+  }
 }
 .spotlight .content > p {
   font-size: 18px

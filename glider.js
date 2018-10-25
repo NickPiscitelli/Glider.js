@@ -25,11 +25,19 @@
 
         _.arrows = {};
         _.originalOptions =  _.opt;
-        _.activeSlide = 0;
+        _.activePage = _.activeSlide = 0;
         _.activeBreakpoint;
 
+        _.track = document.createElement('div');
+        _.track.className = 'glider-track';
+        _.ele.appendChild(_.track)
+        while (_.ele.children.length !== 1){
+          _.track.appendChild(_.ele.children[0])
+        }
+        
         _.init();
         
+        _.ele.addEventListener('scroll', _.updateControls.bind(_))
         window.addEventListener('resize', _.init.bind(_, true));
     }
 
@@ -41,7 +49,6 @@
 
     var _ = this;
 
-    _.track = _.ele.children[0];
     _.slides = _.track.children;
 
     [].forEach.call(_.slides, function(_){
@@ -76,15 +83,11 @@
     _.trackWidth = width;
 
     if (!_.activeBreakpoint || _.activeBreakpoint !== currentBreakpoint){
-
-      //_.scrollTo(_.activeSlide, 0)
+      //console.log(_.activeSlide)
+      //_.scrollItem(_.activeSlide)
       _.bindArrows();
       _.buildDots();
-      _.updateControls();
     }
-    
-    if (!refresh) _.ele.addEventListener('scroll', _.updateControls.bind(_))
-
 
     _.event(refresh ? 'refresh ' : 'loaded')
   };
@@ -171,8 +174,16 @@
       slide = slide * _.containerWidth
     } else {
       if (typeof slide === 'string') {
-        slide = slide === 'prev' ? (_.activeSlide - _.opt.slidesToScroll) : (_.activeSlide + _.opt.slidesToScroll);
+        var is_prev = slide === 'prev';
+        slide  = (_.activePage * _.opt.slidesToShow);
+          
+        if (is_prev) slide -= _.opt.slidesToShow;
+        else  slide += _.opt.slidesToShow;
+        console.log([_.activePage, _.opt.slidesToShow,  (_.activePage * _.opt.slidesToShow) + 1, slide])
+        //slide = slide === 'prev' ? (_.activeSlide - position) : (_.activeSlide + _.opt.slidesToScroll);
+        
         slide = Math.max(Math.min(slide, _.slides.length), 0)
+        console.log('slide to '+slide)
         slide = _.itemWidth * slide
       }
     }
@@ -266,6 +277,7 @@
   }
 
   Glider.prototype.event = function(name, arg){
+   // console.log('fire event: '+name)
     var _ = this, e = new CustomEvent('glider-'+name, {
       bubbles: !!_.opt.propagateEvents,
       detail: arg

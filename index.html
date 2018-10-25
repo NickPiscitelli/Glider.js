@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="glider.css" />
+    <script src="glider.js"></script>
+    <script>
+      window.addEventListener('load',function(){
+        new Glider(document.querySelector('.glider'), {
+            slidesToShow: 1,
+            dots: '#dots',
+            arrows: {
+                prev: '.glider-prev',
+                next: '.glider-next'
+            }
+        });
+      });
+    </script>
+
+
+    <!--
+        Used to frame the glider on the page
+
+        Not necessary for Glider.js
+    -->
+    <style type="text/css">
+        body, html, .glider-slide {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .glider-contain {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .glider-slide {
+            min-height: 150px;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="glider-contain">
+        <div class="glider">
+            <div>any content here</div>
+            <div>any content here</div>
+            <div>any content here</div>
+            <div>any content here</div>
+        </div>
+        <div id="dots"></div>
+        <a class="glider-prev">&laquo;</a>
+        <a class="glider-next">&raquo;</a>
+    </div>
+  </body>
+</html>
