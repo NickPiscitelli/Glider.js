@@ -25,7 +25,8 @@
 			<span class="logo"><img src="images/logo.svg" alt="" /></span>
 			<h1>Glider.js</h1>
 			<p>A blazingly fast, mobile-friendly, lightweight, dependency free, fully-responsive, minimal "carousel" with
-				momentum scrolling!</p>
+				native scrolling!
+			</p>
 			<p>
 				<a href="https://github.com/NickPiscitelli/Glider.js" class="button">View on Github</a>
 				<a href="https://github.com/NickPiscitelli/Glider.js/archive/master.zip" class="button">Download ZIP</a>
@@ -56,9 +57,9 @@
 						</header>
 						<p>
 							Glider.js was born out of a frustration for carousels on mobile devices. Inspired by Slick.js, Glider.js aims
-							to be a mobile-focused, fast, lightweight, responsive, dependency-free "carousel". The term carousel is used
+							to be a mobile-focused, fast, lightweight, responsive, unopinionated, dependency-free "carousel". The term carousel is used
 							loosely, as
-							Glider.js lacks some basic carousel features, primarily "infinite" looping and autoplay. Glider.js does not aim
+							Glider.js is not truly a carousel. It lacks some basic carousel features, including the defining infinite looping "feature" and other "features" such as autoplay. Glider.js does not aim
 							to replace
 							the de-facto homepage image carousel, but to enhance the list browsing experience on mobile while retaining
 							functionality with
@@ -324,7 +325,6 @@
 							glider.addItem(ele);
 						});
 						document.getElementById('removeSlide').addEventListener('click',function(){
-							console.log(glider.slides.length)
 							glider.removeItem(glider.slides.length - 1);
 						});
 					</script>
@@ -438,7 +438,7 @@
 				<header class="major">
 					<h2>Settings</h2>
 				</header>
-				<ul class="settings">
+				<ul class="settings uneven">
 					<li>
 						<span class="setting-name">slidesToShow</span><br>
 						<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a><br>
@@ -469,7 +469,7 @@
 						<span class="type default">Default:</span> undefined<br>
 						An object containing the prev/next arrows<br>
 						<span class="indent">
-							<span class="type">Keys:</span> prev|next<br>
+							<span class="type">Keys:</span> prev | next<br>
 							<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">Element</a> | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a> (HTML Selector)<br>
 						</span>
 					</li>
@@ -482,7 +482,7 @@
 					</li>
 					<li>
 						<span class="setting-name">easing</span><br>
-						<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">array</a> of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">objects</a> [{}]<br>
+						<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a><br>
 						<span class="type default">Default:</span> Ease-In Out<br>
 						A custom easing function may be provided. All functions from the standard <a href="http://gsgd.co.uk/sandbox/jquery/easing/jquery.easing.1.3.js">jQuery easing library</a>
 						are supported.
@@ -496,6 +496,30 @@
 						A lot of basic events, such as scroll, click, etc,
 						were left off as they can be directly bound to their elements as usual.
 					</p>
+					<p>
+						A reference to the Glider.js object is available via this <code class="slim">this._glider</code>. Any custom 
+						event data is passed via the event, located at <code class="slim">event.detail</code>
+					</p>
+					<p class="little-margin"><b>Examples:</b></p>
+					<pre class="language-javascript">
+						<code class="language-javascript">
+							// example event hook implementing basic lazy loading images
+							document.querySelector('.glider').addEventListener('glider-slide-visible', function(event){
+								var imgs_to_anticipate = 3;
+								for (var i = 0; i &lt;= imgs_to_anticipate; ++i){
+									loadImages.call(this._glider.slides[event.detail.slide + i])
+								}
+							});
+
+							// this is only for instructional purposes
+							// use an actual lazy load library
+							function loadImages(){
+								[].forEach.call(this.querySelectorAll('img'),function(img){
+									img.src = img.getAttribute('data-src');
+								});
+							}
+						</code>
+					</pre>
 				</header>
 				<ul class="settings">
 					<li>
@@ -508,11 +532,11 @@
 					</li>
 					<li>
 						<span class="setting-name">glider-animated</span><br>
-						Called whenever a Glider.js animation is complete
+						Called whenever a Glider.js paging animation is complete
 					</li>
 					<li>
 						<span class="setting-name">glider-add</span><br>
-						Called whenever a Glider.js animation is complete
+						Called whenever an item is added to Glider.js
 					</li>
 					<li>
 						<span class="setting-name">glider-remove</span><br>
@@ -521,6 +545,14 @@
 					<li>
 						<span class="setting-name">glider-destroy</span><br>
 						Called whenever a Glider.js is destroyed
+					</li>
+					<li>
+						<span class="setting-name">glider-slide-visible</span><br>
+						Called whenever a slide a shown. Passed an object containing the slide index
+					</li>
+					<li>
+						<span class="setting-name">glider-slide-hidden</span><br>
+						Called whenever a slide a hidden. Passed an object containing the slide index
 					</li>
 				</ul>
 			</section>
@@ -555,7 +587,7 @@
 						</code>
 					</pre>
 				</header>
-				<ul class="settings">
+				<ul class="settings uneven">
 					<li>
 						<span class="setting-name">addItem</span><br>
 						<span class="type">Arguments:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">Element</a><br>

@@ -12,13 +12,6 @@
         document.querySelector('.glider').addEventListener('glider-animated',function(e){
             console.log(e.detail)
         });
-        // example event hook implementing basic lazy loading images
-        document.querySelector('.glider').addEventListener('glider-slide-visible',function(event){
-            var imgs_to_anticipate = 1;
-            for (var i = 0; i <= imgs_to_anticipate; ++i){
-                loadImages.call(this._glider.slides[event.detail.slide + i + 1])
-            }
-        });
         new Glider(document.querySelector('.glider'), {
             slidesToShow: 1,
             dots: '#dots',
@@ -27,8 +20,14 @@
                 next: '.glider-next'
             }
         });
-        
-        function loadImages(){
+        // example event hook implementing basic lazy loading images
+        document.querySelector('.glider').addEventListener('glider-slide-visible',function(event){
+            var imgs_to_anticipate = 3, slide = event.detail.slide;
+            for (var i = 1; i < imgs_to_anticipate; ++i){
+                loadImages.call(this._glider.slides[evet.detil.slide + i])
+            }
+        });
+        function loadImages(slide){
             var imgs = this.querySelectorAll('img');
             [].forEach.call(imgs,function(img){
                 img.src = img.getAttribute('data-src');
@@ -62,10 +61,10 @@
   <body>
     <div class="glider-contain">
         <div class="glider">
-            <div><img alt="Test" data-src="http://placehold.it/300x300?text=1"></div>
-            <div><img alt="Test" data-src="http://placehold.it/300x300?text=2"></div>
-            <div><img alt="Test" data-src="http://placehold.it/300x300?text=3"></div>
-            <div><img alt="Test" data-src="http://placehold.it/300x300?text=4"></div>
+            <div>any content here</div>
+            <div>any content here</div>
+            <div>any content here</div>
+            <div>any content here</div>
         </div>
         <div id="dots"></div>
         <a class="glider-prev">&laquo;</a>
