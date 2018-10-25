@@ -254,7 +254,6 @@
       _.init(true);
       _.event('remove')
     }
-    return false;
   }
 
   Glider.prototype.addItem = function(ele){
