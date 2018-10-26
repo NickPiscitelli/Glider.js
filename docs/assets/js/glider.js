@@ -252,9 +252,11 @@
 
   Glider.prototype.removeItem = function(index){
     var _ = this
+    console.log('hi')
     if (_.slides.length){
-      _.remove(_.slides[index]);
-      _.breakpoint = 0;
+      _.track.removeChild(_.slides[index]);
+      _.slides = _.track.children
+      _.breakpoint = undefined;
       _.init(true);
       _.event('remove')
     }
