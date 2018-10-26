@@ -8,7 +8,10 @@
         var _ = this;
 
         _.ele = element
+
+        // expose glider object to its DOM element
         _.ele._glider = _
+
         _.default = {
             slidesToScroll: 1,
             slidesToShow: 1,
@@ -25,9 +28,12 @@
         _.opt = Object.assign({}, _.default, settings);
 
         _.arrows = {};
-        _.originalOptions =  _.opt;
-        _.activePage = _.activeSlide = 0;
-        _.activeBreakpoint;
+        // preserve original options to
+        // extend breakpoint settings
+        _._opt =  _.opt;
+        
+        _.page = _.slide = 0;
+        _.breakpoint;
 
         _.track = document.createElement('div');
         _.track.className = 'glider-track';
@@ -61,9 +67,9 @@
 
     var width = 0, height = 0;
 
-    var currentBreakpoint = _.activeBreakpoint;
+    var currentBreakpoint = _.breakpoint;
     
-    _.checkSettingsBreakpoint();
+    _.settingsBreakpoint();
 
     _.itemWidth = _.containerWidth / _.opt.slidesToShow;
 
@@ -83,7 +89,7 @@
     _.track.style.width = width + 'px';
     _.trackWidth = width;
 
-    if (!_.activeBreakpoint || _.activeBreakpoint !== currentBreakpoint){
+    if (!_.breakpoint || _.breakpoint !== currentBreakpoint){
       _.bindArrows();
       _.buildDots();
       _.updateControls();
@@ -113,8 +119,6 @@
       li.addEventListener('click',_.scrollItem.bind(_, i, true))
       _.dots.appendChild(li);
     }
-    if (!document.body.contains(_.dots)) _.ele.parentNode.insertBefore(_.dots, _.ele.nextSibling);
-
   }
  
   Glider.prototype.bindArrows = function(){
@@ -143,16 +147,16 @@
     if (_.arrows.prev) _.arrows.prev.classList.toggle('disabled', _.ele.scrollLeft <= 0 || disableArrows)
     if (_.arrows.next) _.arrows.next.classList.toggle('disabled', _.ele.scrollLeft + _.ele.offsetWidth >=  _.trackWidth || disableArrows)
 
-    _.activeSlide = Math.round(_.ele.scrollLeft / _.itemWidth);
-    _.activePage = Math.round(_.ele.scrollLeft / _.containerWidth);
+    _.slide = Math.round(_.ele.scrollLeft / _.itemWidth);
+    _.page = Math.round(_.ele.scrollLeft / _.containerWidth);
 
     if (_.ele.scrollLeft + _.containerWidth >= _.trackWidth){
-      _.activePage = _.dots ? _.dots.children.length - 1 : 0;
-      _.activeSlide = _.slides.length - 1;
+      _.page = _.dots ? _.dots.children.length - 1 : 0;
+      _.slide = _.slides.length - 1;
     }
 
     [].forEach.call(_.slides,function(slide,index){
-      slide.classList.toggle('active', _.activeSlide === index)
+      slide.classList.toggle('active', _.slide === index)
       var
         start = _.ele.scrollLeft,
         end = _.ele.scrollLeft + _.containerWidth,
@@ -176,7 +180,7 @@
       }
     })
     if (_.dots) [].forEach.call(_.dots.children,function(dot,index){
-      dot.classList.toggle('active', _.activePage === index)
+      dot.classList.toggle('active', _.page === index)
     })
   }
 
@@ -191,7 +195,7 @@
     } else {
       if (typeof slide === 'string') {
         var isPrev = slide === 'prev';
-        slide  = (_.activePage * _.opt.slidesToShow);
+        slide  = (_.page * _.opt.slidesToShow);
           
         if (isPrev) slide -= _.opt.slidesToShow;
         else  slide += _.opt.slidesToShow;
@@ -216,13 +220,13 @@
     return false;
   }
 
-  Glider.prototype.checkSettingsBreakpoint = function(){
-    var _ = this, resp = _.originalOptions.responsive;
+  Glider.prototype.settingsBreakpoint = function(){
+    var _ = this, resp = _._opt.responsive;
     if (resp){
       [].forEach.call(resp,function(v){
         if (window.innerWidth > v.breakpoint){
-          _.activeBreakpoint = v.breakpoint;
-          _.opt = Object.assign({}, _.originalOptions, v.settings);
+          _.breakpoint = v.breakpoint;
+          _.opt = Object.assign({}, _._opt, v.settings);
         }
       })
     }
@@ -249,8 +253,8 @@
   Glider.prototype.removeItem = function(index){
     var _ = this
     if (_.slides.length){
-      _.track.removeChild(_.slides[index]);
-      _.activeBreakpoint = undefined;
+      _.remove(_.slides[index]);
+      _.breakpoint = 0;
       _.init(true);
       _.event('remove')
     }
@@ -260,7 +264,7 @@
     var _ = this
 
     _.track.appendChild(ele);
-    _.activeBreakpoint = undefined;
+    _.breakpoint = undefined;
     _.init(true);
     _.event('add')
   }

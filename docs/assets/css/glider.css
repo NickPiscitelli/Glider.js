@@ -387,3 +387,7 @@ li {
     margin-top: 50px;
   }
 }
+code.slim {
+  margin: 0 5px;
+  padding: .15em .4em;
+}
