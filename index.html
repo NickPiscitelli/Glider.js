@@ -1,33 +1,26 @@
 <!doctype html>
 <html>
   <head>
-    <link rel="stylesheet" type="text/css" href="glider.css" />
-    <script src="docs/assets/js/glider.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="glider.min.css" />
+    <script src="glider.min.js"></script>
     <script>
       window.addEventListener('load',function(){
-        document.querySelector('.glider').addEventListener('glider-slide-visible',function(e){
-            console.log(e.detail)
-            console.log(this._glider)
-        });
-        document.querySelector('.glider').addEventListener('glider-animated',function(e){
-            console.log(e.detail)
-        });
         // example event hook implementing basic lazy loading images
         document.querySelector('.glider').addEventListener('glider-slide-visible',function(event){
             var imgs_to_anticipate = 1;
             for (var i = 0; i <= imgs_to_anticipate; ++i){
-                loadImages.call(this._glider.slides[event.detail.slide + i + 1])
+                loadImages.call(this._glider.slides[event.detail.slide + i])
             }
         });
         new Glider(document.querySelector('.glider'), {
-            slidesToShow: 1,
+            slidesToShow: 4,
+            slidesToScroll: 2,
             dots: '#dots',
             arrows: {
                 prev: '.glider-prev',
                 next: '.glider-next'
             }
         });
-        
         function loadImages(){
             var imgs = this.querySelectorAll('img');
             [].forEach.call(imgs,function(img){
@@ -57,11 +50,24 @@
         .glider-slide {
             min-height: 150px;
         }
+        
     </style>
   </head>
   <body>
     <div class="glider-contain">
         <div class="glider">
+            <div><img alt="Test" data-src="http://placehold.it/300x300?text=1"></div>
+            <div><img alt="Test" data-src="http://placehold.it/300x300?text=2"></div>
+            <div><img alt="Test" data-src="http://placehold.it/300x300?text=3"></div>
+            <div><img alt="Test" data-src="http://placehold.it/300x300?text=4"></div>
+            <div><img alt="Test" data-src="http://placehold.it/300x300?text=1"></div>
+            <div><img alt="Test" data-src="http://placehold.it/300x300?text=2"></div>
+            <div><img alt="Test" data-src="http://placehold.it/300x300?text=3"></div>
+            <div><img alt="Test" data-src="http://placehold.it/300x300?text=4"></div>
+            <div><img alt="Test" data-src="http://placehold.it/300x300?text=1"></div>
+            <div><img alt="Test" data-src="http://placehold.it/300x300?text=2"></div>
+            <div><img alt="Test" data-src="http://placehold.it/300x300?text=3"></div>
+            <div><img alt="Test" data-src="http://placehold.it/300x300?text=4"></div>
             <div><img alt="Test" data-src="http://placehold.it/300x300?text=1"></div>
             <div><img alt="Test" data-src="http://placehold.it/300x300?text=2"></div>
             <div><img alt="Test" data-src="http://placehold.it/300x300?text=3"></div>

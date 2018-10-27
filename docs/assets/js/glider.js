@@ -1,3 +1,18 @@
+/*
+    _____ __ _     __                _    
+  / ___// /(_)___/ /___  ____      (_)___
+  / (_ // // // _  // -_)/ __/_    / /(_-<
+  \___//_//_/ \_,_/ \__//_/  (_)__/ //___/
+                              |___/      
+                              
+  Version: 1.0
+  Author: Nick Piscitelli (pickykneee)
+  Website: https://nickpiscitelli.com
+  Documentation: http://nickpiscitelli.github.io/Glider.js
+  Release Date: October 25th, 2018
+
+*/
+
 (function() {
   'use strict';
   
@@ -54,7 +69,9 @@
 
   Glider.prototype.init = function(refresh) {
 
-    var _ = this;
+    var _ = this,
+      width = 0, height = 0,
+      currentBreakpoint = _.breakpoint;
 
     _.slides = _.track.children;
 
@@ -63,12 +80,7 @@
     });
 
     _.containerWidth = _.ele.offsetWidth;
-    _.containerHeight = 0;
 
-    var width = 0, height = 0;
-
-    var currentBreakpoint = _.breakpoint;
-    
     _.settingsBreakpoint();
 
     _.itemWidth = _.containerWidth / _.opt.slidesToShow;
@@ -108,12 +120,13 @@
 
     if (typeof _.opt.dots === 'string') _.dots = document.querySelector(_.opt.dots)
     else  _.dots = _.opt.dots
+    if (!_.dots)  return;
 
     _.dots.innerHTML = '';
     _.dots.className = 'glider-dots';
 
     for (var i = 0; i < Math.ceil(_.slides.length / _.opt.slidesToShow); ++i){
-      var li = document.createElement(_.dots.nodeName === 'UL' ? 'li' : 'span');
+      var li = document.createElement(_.opt.dotTag || 'i');
       li.setAttribute('data-index', i);
       li.className = 'glider-dot '+(i ? '' : 'active');
       li.addEventListener('click',_.scrollItem.bind(_, i, true))
@@ -128,7 +141,6 @@
       var arrow = _.opt.arrows[direction]
       if (arrow){
         if (typeof arrow === 'string')  arrow = document.querySelector(arrow);
-        else _.ele.parentNode.insertBefore(arrow, _.ele.nextSibling);
         arrow.addEventListener('click', _.scrollItem.bind(_, direction))
         _.arrows[direction] = arrow;
       }
@@ -156,26 +168,28 @@
     }
 
     [].forEach.call(_.slides,function(slide,index){
-      slide.classList.toggle('active', _.slide === index)
       var
+        slideClasses = slide.classList,
+        isVisible = slideClasses.contains('visible'),
         start = _.ele.scrollLeft,
         end = _.ele.scrollLeft + _.containerWidth,
         itemStart = _.itemWidth * index,
         itemEnd = itemStart + _.itemWidth;
 
+      slideClasses.toggle('active', _.slide === index)
       if (itemStart >= start && itemEnd <= end){
-        if (!slide.classList.contains('visible')){
+        if (!isVisible){
           _.event('slide-visible', {
             slide: index
           })
-          slide.classList.add('visible')
+          slideClasses.add('visible')
         }
       } else {
-        if (slide.classList.contains('visible')){
-          _.event('slide-hidden', {
+        if (isVisible){
+          _.event('slide-visible', {
             slide: index
           })
-          slide.classList.remove('visible')
+          slideClasses.remove('visible')
         }
       }
     })
@@ -195,12 +209,14 @@
     } else {
       if (typeof slide === 'string') {
         var isPrev = slide === 'prev';
-        slide  = (_.page * _.opt.slidesToShow);
-          
-        if (isPrev) slide -= _.opt.slidesToShow;
-        else  slide += _.opt.slidesToShow;
+
+        slide  = _.slide
+
+        if (isPrev) slide -= _.opt.slidesToScroll;
+        else  slide += _.opt.slidesToScroll;
 
         slide = Math.max(Math.min(slide, _.slides.length), 0)
+        _.slide = slide;
         slide = _.itemWidth * slide
       }
     }
@@ -252,7 +268,7 @@
 
   Glider.prototype.removeItem = function(index){
     var _ = this
-    console.log('hi')
+
     if (_.slides.length){
       _.track.removeChild(_.slides[index]);
       _.slides = _.track.children

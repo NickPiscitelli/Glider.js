@@ -1,3 +1,18 @@
+/*
+    _____ __ _     __                _    
+  / ___// /(_)___/ /___  ____      (_)___
+  / (_ // // // _  // -_)/ __/_    / /(_-<
+  \___//_//_/ \_,_/ \__//_/  (_)__/ //___/
+                              |___/      
+                              
+  Version: 1.0
+  Author: Nick Piscitelli (pickykneee)
+  Website: https://nickpiscitelli.com
+  Documentation: http://nickpiscitelli.github.io/Glider.js
+  Release Date: October 25th, 2018
+
+*/
+
 (function() {
   'use strict';
   
@@ -8,6 +23,10 @@
         var _ = this;
 
         _.ele = element
+
+        // expose glider object to its DOM element
+        _.ele._glider = _
+
         _.default = {
             slidesToScroll: 1,
             slidesToShow: 1,
@@ -24,9 +43,12 @@
         _.opt = Object.assign({}, _.default, settings);
 
         _.arrows = {};
-        _.originalOptions =  _.opt;
-        _.activePage = _.activeSlide = 0;
-        _.activeBreakpoint;
+        // preserve original options to
+        // extend breakpoint settings
+        _._opt =  _.opt;
+        
+        _.page = _.slide = 0;
+        _.breakpoint;
 
         _.track = document.createElement('div');
         _.track.className = 'glider-track';
@@ -47,7 +69,9 @@
 
   Glider.prototype.init = function(refresh) {
 
-    var _ = this;
+    var _ = this,
+      width = 0, height = 0,
+      currentBreakpoint = _.breakpoint;
 
     _.slides = _.track.children;
 
@@ -56,13 +80,8 @@
     });
 
     _.containerWidth = _.ele.offsetWidth;
-    _.containerHeight = 0;
 
-    var width = 0, height = 0;
-
-    var currentBreakpoint = _.activeBreakpoint;
-    
-    _.checkSettingsBreakpoint();
+    _.settingsBreakpoint();
 
     _.itemWidth = _.containerWidth / _.opt.slidesToShow;
 
@@ -82,11 +101,10 @@
     _.track.style.width = width + 'px';
     _.trackWidth = width;
 
-    if (!_.activeBreakpoint || _.activeBreakpoint !== currentBreakpoint){
-      //console.log(_.activeSlide)
-      //_.scrollItem(_.activeSlide)
+    if (!_.breakpoint || _.breakpoint !== currentBreakpoint){
       _.bindArrows();
       _.buildDots();
+      _.updateControls();
     }
 
     _.event(refresh ? 'refresh ' : 'loaded')
@@ -102,19 +120,18 @@
 
     if (typeof _.opt.dots === 'string') _.dots = document.querySelector(_.opt.dots)
     else  _.dots = _.opt.dots
+    if (!_.dots)  return;
 
     _.dots.innerHTML = '';
     _.dots.className = 'glider-dots';
 
     for (var i = 0; i < Math.ceil(_.slides.length / _.opt.slidesToShow); ++i){
-      var li = document.createElement(_.dots.nodeName === 'UL' ? 'li' : 'span');
+      var li = document.createElement(_.opt.dotTag || 'i');
       li.setAttribute('data-index', i);
       li.className = 'glider-dot '+(i ? '' : 'active');
       li.addEventListener('click',_.scrollItem.bind(_, i, true))
       _.dots.appendChild(li);
     }
-    if (!document.body.contains(_.dots)) _.ele.parentNode.insertBefore(_.dots, _.ele.nextSibling);
-
   }
  
   Glider.prototype.bindArrows = function(){
@@ -124,43 +141,60 @@
       var arrow = _.opt.arrows[direction]
       if (arrow){
         if (typeof arrow === 'string')  arrow = document.querySelector(arrow);
-        else _.ele.parentNode.insertBefore(arrow, _.ele.nextSibling);
         arrow.addEventListener('click', _.scrollItem.bind(_, direction))
         _.arrows[direction] = arrow;
       }
     });
   }
 
-  Glider.prototype.updateControls = function(){
+  Glider.prototype.updateControls = function(event){
     var _ = this
+
+    if (event && !_.opt.scrollPropagate){
+      event.stopPropagation();
+    }
 
     var disableArrows = _.ele.offsetWidth >= _.trackWidth;
 
     if (_.arrows.prev) _.arrows.prev.classList.toggle('disabled', _.ele.scrollLeft <= 0 || disableArrows)
     if (_.arrows.next) _.arrows.next.classList.toggle('disabled', _.ele.scrollLeft + _.ele.offsetWidth >=  _.trackWidth || disableArrows)
 
-    _.activeSlide = Math.round(_.ele.scrollLeft / _.itemWidth);
-    _.activePage = Math.round(_.ele.scrollLeft / _.containerWidth);
+    _.slide = Math.round(_.ele.scrollLeft / _.itemWidth);
+    _.page = Math.round(_.ele.scrollLeft / _.containerWidth);
 
     if (_.ele.scrollLeft + _.containerWidth >= _.trackWidth){
-      _.activePage = _.dots ? _.dots.children.length - 1 : 0;
-      _.activeSlide = _.slides.length - 1;
+      _.page = _.dots ? _.dots.children.length - 1 : 0;
+      _.slide = _.slides.length - 1;
     }
 
     [].forEach.call(_.slides,function(slide,index){
-      slide.classList.toggle('active', _.activeSlide === index)
       var
+        slideClasses = slide.classList,
+        isVisible = slideClasses.contains('visible'),
         start = _.ele.scrollLeft,
         end = _.ele.scrollLeft + _.containerWidth,
         itemStart = _.itemWidth * index,
         itemEnd = itemStart + _.itemWidth;
 
-      slide.classList.toggle('visible',
-        itemStart >= start && itemEnd <= end
-      )
+      slideClasses.toggle('active', _.slide === index)
+      if (itemStart >= start && itemEnd <= end){
+        if (!isVisible){
+          _.event('slide-visible', {
+            slide: index
+          })
+          slideClasses.add('visible')
+        }
+      } else {
+        if (isVisible){
+          _.event('slide-visible', {
+            slide: index
+          })
+          slideClasses.remove('visible')
+        }
+      }
     })
     if (_.dots) [].forEach.call(_.dots.children,function(dot,index){
-      dot.classList.toggle('active', _.activePage === index)
+      dot.classList.toggle('active', _.page === index)
     })
   }
 
@@ -168,22 +202,19 @@
   Glider.prototype.scrollItem = function(slide, dot, e){
     if(e)   e.preventDefault();
 
-    var _ = this
+    var _ = this, originalSlide = slide;
 
     if (dot === true) {
       slide = slide * _.containerWidth
     } else {
       if (typeof slide === 'string') {
-        var is_prev = slide === 'prev';
-        slide  = (_.activePage * _.opt.slidesToShow);
+        var isPrev = slide === 'prev';
+        slide  = (_.page * _.opt.slidesToShow);
           
-        if (is_prev) slide -= _.opt.slidesToShow;
+        if (isPrev) slide -= _.opt.slidesToShow;
         else  slide += _.opt.slidesToShow;
-        console.log([_.activePage, _.opt.slidesToShow,  (_.activePage * _.opt.slidesToShow) + 1, slide])
-        //slide = slide === 'prev' ? (_.activeSlide - position) : (_.activeSlide + _.opt.slidesToScroll);
-        
+
         slide = Math.max(Math.min(slide, _.slides.length), 0)
-        console.log('slide to '+slide)
         slide = _.itemWidth * slide
       }
     }
@@ -193,19 +224,23 @@
       _.opt.duration * (Math.abs(_.ele.scrollLeft - slide)),
       function() {
         _.updateControls();
-        _.event('animated', { glider: _ })
+        _.event('animated',{
+          value: originalSlide,
+          type: typeof originalSlide === 'string' ? 'arrow' :
+            dot ? 'dot' : 'slide'
+        })
       });
     
     return false;
   }
 
-  Glider.prototype.checkSettingsBreakpoint = function(){
-    var _ = this, resp = _.originalOptions.responsive;
+  Glider.prototype.settingsBreakpoint = function(){
+    var _ = this, resp = _._opt.responsive;
     if (resp){
       [].forEach.call(resp,function(v){
         if (window.innerWidth > v.breakpoint){
-          _.activeBreakpoint = v.breakpoint;
-          _.opt = Object.assign({}, _.originalOptions, v.settings);
+          _.breakpoint = v.breakpoint;
+          _.opt = Object.assign({}, _._opt, v.settings);
         }
       })
     }
@@ -231,23 +266,23 @@
 
   Glider.prototype.removeItem = function(index){
     var _ = this
-    _.track.removeChild(_.slides[index]);
-    if (!_.track.children.length){
-      _.slides = undefined
+
+    if (_.slides.length){
+      _.track.removeChild(_.slides[index]);
+      _.slides = _.track.children
+      _.breakpoint = undefined;
+      _.init(true);
+      _.event('remove')
     }
-    _.event('remove')
-    _.activeBreakpoint = undefined;
-    _.init(true);
   }
 
   Glider.prototype.addItem = function(ele){
     var _ = this
 
     _.track.appendChild(ele);
-    _.slides = _.track.children
-    _.event('add')
-    _.activeBreakpoint = undefined;
+    _.breakpoint = undefined;
     _.init(true);
+    _.event('add')
   }
 
   Glider.prototype.refresh = function(){
@@ -277,9 +312,8 @@
   }
 
   Glider.prototype.event = function(name, arg){
-   // console.log('fire event: '+name)
     var _ = this, e = new CustomEvent('glider-'+name, {
-      bubbles: !!_.opt.propagateEvents,
+      bubbles: !_.opt.eventPropagate,
       detail: arg
     });
     _.ele.dispatchEvent(e);
