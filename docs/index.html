@@ -104,7 +104,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="dots"></div>
+						<div id="dots"></div>
 						<a class="glider-prev" id="glider-prev"><i class="fa fa-chevron-left"></i></i></a>
 						<a class="glider-next" id="glider-next"><i class="fa fa-chevron-right"></i></i></a>
 					</div>
@@ -182,10 +182,10 @@
 					</script>
 					<pre class="line-numbers language-javascript">
 						<code class="line-numbers language-javascript">
-							new Glider(document.getElementById('glider'), {
+							new Glider(document.querySelector('.glider'), {
 								slidesToShow: 6,
 								slidesToScroll: 6,
-								dots: '#dots',
+								dots: '.dots',
 								arrows: {
 									prev: '.glider-prev',
 									next: '.glider-next'
@@ -255,7 +255,7 @@
 					
 					<pre class="line-numbers language-javascript">
 						<code class="line-numbers language-javascript">
-							new Glider(document.getElementById('glider'), {
+							new Glider(document.querySelector('.glider'), {
 								slidesToShow: 1,
 								dots: '#dots',
 								arrows: {
@@ -343,7 +343,7 @@
 					
 					<pre class="line-numbers language-javascript">
 						<code class="line-numbers language-javascript">
-							new Glider(document.getElementById('glider'), {
+							new Glider(document.querySelector('.glider'), {
 								slidesToShow: 3,
 								dots: '#dots',
 								arrows: {
@@ -476,8 +476,7 @@
 						var glider = new Glider(document.getElementById('glider-content'), {
 							slidesToShow: 3,
 							slidesToScroll: 3,
-							dots: '#add-dots-content',
-							duration: .25,
+							duration: .75,
 							arrows: {
 								prev: '#glider-prev-content',
 								next: '#glider-next-content'
@@ -487,9 +486,10 @@
 					
 					<pre class="line-numbers language-javascript">
 						<code class="line-numbers language-javascript">
-							new Glider(document.getElementById('glider'), {
+							new Glider(document.querySelector('.glider'), {
 								slidesToShow: 3,
 								slidesToScroll: 3,
+								duration: .75,
 								arrows: {
 									prev: '.glider-prev',
 									next: '.glider-next'
