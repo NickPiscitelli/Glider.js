@@ -1,4 +1,4 @@
-Glider.js
+# Glider.js
 
 A fast, light-weight, responsive free-flowing list with paging controls.
 
