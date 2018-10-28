@@ -45,17 +45,22 @@ new Glider(document.querySelector('.glider'), {
   slidesToScroll: 1,
   duration: .5,
   equalHeight: false,
-  scrollPropagate: false,
-  eventPropagate: true,
-  easing: function (x, t, b, c, d) {
-    return c*(t/=d)*t + b;
-  },
   dots: '.glider-dots',
   arrows: {
     prev: '.glider-prev',
     next: '.glider-next'
   },
   
+  // use any custom easing function
+  // compatible with most easing plugins
+  easing: function (x, t, b, c, d) {
+    return c*(t/=d)*t + b;
+  },
+  
+  // event control
+  scrollPropagate: false,
+  eventPropagate: true,
+
   // Glider.js breakpoints are mobile-first
   // be conscious of your ordering
   responsive: [
