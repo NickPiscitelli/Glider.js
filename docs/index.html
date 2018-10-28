@@ -127,7 +127,6 @@
 						new Glider(document.getElementById('glider-single'), {
 							slidesToShow: 1,
                             dots: '#dots',
-                            equalHeight: true,
 							arrows: {
 								prev: '#glider-prev',
 								next: '#glider-next'
@@ -245,11 +244,10 @@
 								},
 								responsive: [
 									{
-										breakpoint: 320,
+										breakpoint: 1100,
 										settings: {
-											slidesToShow: 1,
-											slidesToScroll: 1,
-											arrows: false
+											slidesToShow: 4,
+											slidesToScroll: 4
 										}
 									},
 									{
@@ -260,10 +258,11 @@
 										}
 									},
 									{
-										breakpoint: 1100,
+										breakpoint: 320,
 										settings: {
-											slidesToShow: 4,
-											slidesToScroll: 4
+											slidesToShow: 1,
+											slidesToScroll: 1,
+											arrows: false
 										}
 									}
 								]
@@ -280,12 +279,14 @@
 									next: '.glider-next'
 								},
 								responsive: [
+									
+									
 									{
-										breakpoint: 320,
+										breakpoint: 1100,
 										settings: {
-											slidesToShow: 1,
-											slidesToScroll: 1,
-											arrows: false
+											slidesToShow: 4,
+											slidesToScroll: 4,
+											dots: document.getElementById('resp-dots')
 										}
 									},
 									{
@@ -297,11 +298,11 @@
 										}
 									},
 									{
-										breakpoint: 1100,
+										breakpoint: 320,
 										settings: {
-											slidesToShow: 4,
-											slidesToScroll: 4,
-											dots: document.getElementById('resp-dots')
+											slidesToShow: 1,
+											slidesToScroll: 1,
+											arrows: false
 										}
 									}
 								]
@@ -609,8 +610,6 @@
 			<section id="usage" class="main code special">
 				<header class="major">
 					<h2>Getting Started</h2>
-					
-
 				</header>
 				<p>
 					The following minimal HTML structure is required:
@@ -693,7 +692,7 @@
 				<header class="major">
 					<h2>Settings</h2>
 				</header>
-				<ul class="settings uneven">
+				<ul class="settings">
 					<li>
 						<span class="setting-name">slidesToShow</span><br>
 						<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a><br>
@@ -735,12 +734,6 @@
 						<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a><br>
 						<span class="type default">Default:</span> 0.5<br>
 						An aggravator used to control animation speed. <br>Higher is slower!<br>
-					</li>
-					<li>
-						<span class="setting-name">equalHeight</span><br>
-						<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a><br>
-						<span class="type">Default:</span> false<br>
-						If true, Glider.js will set all elements to the height of the tallest element in the carousel<br>
 					</li>
 					
 					<li>
@@ -814,22 +807,25 @@
 							document.querySelector('.glider').addEventListener('glider-slide-visible', function(event){
 								var imgs_to_anticipate = 3;
 								for (var i = 0; i &lt;= imgs_to_anticipate; ++i){
-									loadImages.call(this._glider.slides[event.detail.slide + i])
+									var index = Math.min(event.detail.slide + i, this._glider.slides.length - 1),
+										glider = this._glider;
+									loadImages.call(glider.slides[index],function(){
+										glider.refresh(true);
+									})
 								}
 							});
 
-							function loadImages(){
+							function loadImages(callback){
 								[].forEach.call(this.querySelectorAll('img'),function(img){
 									var _img = new Image,  _src = img.getAttribute('data-src');
 									_img.onload = function(){
 										img.src = _src;
 										img.classList.add('loaded');
+										callback &amp;&amp; callback(img);
 									}
-									_img.src = _src;
+									if(img.src !== _src)	_img.src = _src;
 								});
 							}
-
-							
 						</code>
 					</pre>
 					<p>
@@ -871,7 +867,7 @@
 
 							// a refresh may need to be called depending 
 							// upon the options passed to setOptions
-							glider.refresh();
+							glider.refresh(true);
 
 							// adding or removing items automatically calls refresh()
 							glider.removeItem(4);
@@ -905,8 +901,9 @@
 					</li>
 					<li>
 						<span class="setting-name">refresh</span><br>
-						<span class="type">Arguments:</span> None <br>
-						Force a refresh of Glider.js
+						<span class="type">Arguments:</span> rebuildPaging <br>
+						Force a refresh of Glider.js. If rebuildPaging is true, paging controls will force a rebuild as well. This 
+						arument must be true if any options affecting paging controls (dots/arrows) are modified. 
 					</li>
 					<li>
 						<span class="setting-name">updateControls</span><br>

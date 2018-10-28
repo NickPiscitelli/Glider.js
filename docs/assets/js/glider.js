@@ -28,6 +28,7 @@
         // expose glider object to its DOM element
         _.ele._glider = _
 
+        // set required defaults
         _.default = {
             slidesToScroll: 1,
             slidesToShow: 1,
@@ -38,15 +39,18 @@
             }
         };
 
+        // merge user setting
         _.opt = Object.assign({}, _.default, settings);
 
+        // set defaults
+        _.aIndex = _.page = _.slide = 0;
         _.arrows = {};
+
         // preserve original options to
         // extend breakpoint settings
         _._opt =  _.opt;
-        
-        _.aIndex = _.page = _.slide = 0;
 
+        // create track and wrap slides
         _.track = document.createElement('div');
         _.track.className = 'glider-track';
         _.ele.appendChild(_.track)
@@ -54,8 +58,10 @@
           _.track.appendChild(_.ele.children[0])
         }
         
+        // calculate list dimensions
         _.init();
         
+        // set events
         _.ele.addEventListener('scroll', _.updateControls.bind(_))
         window.addEventListener('resize', _.init.bind(_, true));
     }
@@ -64,11 +70,10 @@
 
   }());
 
-  Glider.prototype.init = function(refresh) {
+  Glider.prototype.init = function(refresh, paging) {
 
     var _ = this,
-      width = 0, height = 0,
-      currentBreakpoint = _.breakpoint;
+      width = 0, height = 0;
 
     _.slides = _.track.children;
 
@@ -78,10 +83,13 @@
 
     _.containerWidth = _.ele.offsetWidth;
     _.opt = _._opt;
-    _.settingsBreakpoint();
+
+    var breakpointChanged = _.settingsBreakpoint();
+    if (!paging) paging = breakpointChanged;
 
     _.itemWidth = _.containerWidth / _.opt.slidesToShow;
 
+    // set slide dimensions
     [].forEach.call(_.slides, function(__){
         __.style.height = 'auto';
         __.style.width = _.itemWidth + 'px';
@@ -89,16 +97,11 @@
         height = Math.max(__.offsetHeight, height);
     });
 
-    if (_.opt.equalHeight){
-      [].forEach.call(_.slides, function(_){
-          _.style.height = height + 'px';
-      });
-    }
-
     _.track.style.width = width + 'px';
     _.trackWidth = width;
 
-    if (!_.breakpoint || _.breakpoint !== currentBreakpoint){
+    // rebuild paging controls when settings changed
+    if (!refresh || paging){
       _.bindArrows();
       _.buildDots();
       _.updateControls();
@@ -144,7 +147,6 @@
         _.arrows[direction] = arrow;
       }
     });
-    _.bound = true;
   }
 
   Glider.prototype.updateControls = function(event){
@@ -204,24 +206,21 @@
 
     var _ = this, originalSlide = slide;
     _.aIndex++;
-    // stop any existing animations
-    _.stop = true;
 
     if (dot === true) {
       slide = slide * _.containerWidth
     } else {
       if (typeof slide === 'string') {
-        var isPrev = slide === 'prev';
+        var backwards = slide === 'prev';
 
         slide  = _.slide
 
-        if (isPrev) slide -= _.opt.slidesToScroll;
+        if (backwards) slide -= _.opt.slidesToScroll;
         else  slide += _.opt.slidesToScroll;
-
-        slide = Math.max(Math.min(slide, _.slides.length), 0)
-        _.slide = slide;
-        slide = _.itemWidth * slide
       }
+      slide = Math.max(Math.min(slide, _.slides.length), 0)
+      _.slide = slide;
+      slide = _.itemWidth * slide
     }
     
     _.scrollTo(
@@ -242,14 +241,15 @@
   Glider.prototype.settingsBreakpoint = function(){
     var _ = this, resp = _._opt.responsive;
     if (resp){
-      [].forEach.call(resp,function(v){
-        if (window.innerWidth > v.breakpoint){
-          _.breakpoint = v.breakpoint;
-          _.opt = Object.assign({}, _._opt, v.settings);
+      for (var i = 0; i < resp.length;++i){
+        var size = resp[i];
+        if (window.innerWidth > size.breakpoint){
+          _.opt = Object.assign({}, _._opt, size.settings);
+          return true;
         }
-      })
+      }
     }
-    return;
+    return false;
   }
 
   Glider.prototype.scrollTo = function(scrollTarget, scrollDuration, callback) {
@@ -265,7 +265,6 @@
         } else {
           _.ele.scrollLeft = scrollTarget
           callback && callback.call(_)
-          _.stop = false;
         }
       };
 
@@ -277,9 +276,7 @@
 
     if (_.slides.length){
       _.track.removeChild(_.slides[index]);
-      _.slides = _.track.children
-      _.breakpoint = undefined;
-      _.init(true);
+      _.init(true, true);
       _.event('remove')
     }
   }
@@ -288,13 +285,12 @@
     var _ = this
 
     _.track.appendChild(ele);
-    _.breakpoint = undefined;
-    _.init(true);
+    _.init(true, true);
     _.event('add')
   }
 
-  Glider.prototype.refresh = function(){
-    this.init(true)
+  Glider.prototype.refresh = function(paging){
+    this.init(true, paging)
   }
 
   Glider.prototype.setOption = function(opt){
