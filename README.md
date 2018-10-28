@@ -1,5 +1,4 @@
-# Glider.js
--------
+Glider.js
 
 A fast, light-weight, responsive free-flowing list with paging controls.
 
@@ -10,7 +9,7 @@ Demos and full documentation available on Github Pages: https://nickpiscitelli.g
 Include glider.min.css:
 
 ```html
-<link rel="stylesheet" type="text/css" href="glider.min.css"/>
+<link href="glider.min.css" rel="stylesheet" type="text/css">
 ```
 
 Include Glider.js:
@@ -42,19 +41,19 @@ Glider.js Initialization w/ full options:
 
 ```javascript
 new Glider(document.querySelector('.glider'), {
-  slidesToShow: 6,
-  slidesToScroll: 6,
-  duration: .75,
-  equalHeight: true,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  duration: .5,
+  equalHeight: false,
   scrollPropagate: false,
   eventPropagate: true,
   easing: function (x, t, b, c, d) {
     return c*(t/=d)*t + b;
   },
-  dots: '#dots-content',
+  dots: '.glider-dots',
   arrows: {
-    prev: '#glider-prev-content',
-    next: '#glider-next-content'
+    prev: '.glider-prev',
+    next: '.glider-next'
   },
   
   // Glider.js breakpoints are mobile-first
@@ -92,7 +91,7 @@ Bind event:
 ```javascript
 document.querySelector(element_path).addEventListener('glider-slide-visible', function(event){
   // `this` is bound to the glider object
-	...
+  ...
 });
 ```
 
