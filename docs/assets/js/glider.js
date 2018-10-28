@@ -31,13 +31,10 @@
             slidesToScroll: 1,
             slidesToShow: 1,
             duration: .5,
-            easing: function(x, t, b, c, d){
-              // ease-in out expo
-              if (!t) return b;
-              if (t==d) return b+c;
-              if ((t/=d/2) < 1) return c/2 * Math.pow(2, 10 * (t - 1)) + b;
-              return c/2 * (-Math.pow(2, -10 * --t) + 2) + b;
-            },
+            // easeInQuad
+            easing: function (x, t, b, c, d) {
+              return c*(t/=d)*t + b;
+            }
         };
 
         _.opt = Object.assign({}, _.default, settings);
@@ -141,10 +138,11 @@
       var arrow = _.opt.arrows[direction]
       if (arrow){
         if (typeof arrow === 'string')  arrow = document.querySelector(arrow);
-        arrow.addEventListener('click', _.scrollItem.bind(_, direction))
+        if (!_.bound) arrow.addEventListener('click', _.scrollItem.bind(_, direction))
         _.arrows[direction] = arrow;
       }
     });
+    _.bound = true;
   }
 
   Glider.prototype.updateControls = function(event){

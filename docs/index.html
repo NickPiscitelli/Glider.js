@@ -116,6 +116,9 @@
 							arrows: {
 								prev: '#glider-prev',
 								next: '#glider-next'
+							},
+							easing: function (x, t, b, c, d) {
+								return c*(t/=d)*t + b;
 							}
 						});
 					</script>
@@ -245,8 +248,7 @@
 										breakpoint: 1100,
 										settings: {
 											slidesToShow: 4,
-											slidesToScroll: 4,
-											dots: document.getElementById('resp-dots')
+											slidesToScroll: 4
 										}
 									}
 								]
@@ -334,6 +336,8 @@
 							var ele = document.getElementById('add').cloneNode(true);
 							ele.id = '';
 							ele.querySelector('h1').textContent = glider.slides.length + 1
+							console.log(ele)
+							console.log(glider)
 							glider.addItem(ele);
 						});
 						document.getElementById('removeSlide').addEventListener('click',function(){
@@ -364,9 +368,9 @@
 								<div class="gradient-border-bottom">
 									<div class="gradient-border">
 										<div class="article">
-											<img src="http://placehold.it/150/C9E1F5/FFFFFF?text=Image">
+											<img src="http://placehold.it/150/C9E1F5/FFFFFF?text=$_">
 											<h4 class="cool-border">Awesome JS</h4>
-											<p>Wow! Can you believe that Glider.js is only 1.7kb when gzipped?! That's pretty small!</p>
+											<p>Wow! Can you believe that Glider.js is only 1.7kb gzipped?! That's pretty small!</p>
 											<a class="read-more">Read More</a>
 										</div>
 									</div>
@@ -376,7 +380,7 @@
 								<div class="gradient-border-bottom">
 									<div class="gradient-border">
 										<div class="article">
-											<img src="http://placehold.it/150/C9E1F5/FFFFFF?text=Image">
+											<img src="http://placehold.it/150/C9E1F5/FFFFFF?text=>_">
 											<h4 class="cool-border short">JS Weekly</h4>
 											<p>New library Glider.js has absolutely no dependenices! jQuery?  What's that?</p>
 											<a class="read-more">Read More</a>
@@ -388,9 +392,9 @@
 								<div class="gradient-border-bottom">
 									<div class="gradient-border">
 										<div class="article">
-											<img src="http://placehold.it/150/C9E1F5/FFFFFF?text=Image">
+											<img src="http://placehold.it/150/C9E1F5/FFFFFF?text=0x">
 											<h4 class="cool-border long">Readers MD5 Digest</h4>
-											<p>Glider.js - Wow. Just wow. A must have for any product upsell!</p>
+											<p>Glider.js - Wow. Just wow. A must have for any product upsell or content list!</p>
 											<a class="read-more">Read More</a>
 										</div>
 									</div>
@@ -400,7 +404,7 @@
 								<div class="gradient-border-bottom">
 									<div class="gradient-border">
 										<div class="article">
-											<img src="http://placehold.it/150/C9E1F5/FFFFFF?text=Image">
+											<img src="http://placehold.it/150/C9E1F5/FFFFFF?text=$_">
 											<h4 class="cool-border">Awesome JS</h4>
 											<p>Did you really think they would be different than the previous?</p>
 											<a class="read-more">Read More</a>
@@ -412,7 +416,7 @@
 								<div class="gradient-border-bottom">
 									<div class="gradient-border">
 										<div class="article">
-											<img src="http://placehold.it/150/C9E1F5/FFFFFF?text=Image">
+											<img src="http://placehold.it/150/C9E1F5/FFFFFF?text=>_">
 											<h4 class="cool-border short">JS Weekly</h4>
 											<p>I'm a programmer, not a writer. Don't expect so much.</p>
 											<a class="read-more">Read More</a>
@@ -424,7 +428,7 @@
 								<div class="gradient-border-bottom">
 									<div class="gradient-border">
 										<div class="article">
-											<img src="http://placehold.it/150/C9E1F5/FFFFFF?text=Image">
+											<img src="http://placehold.it/150/C9E1F5/FFFFFF?text=0x">
 											<h4 class="cool-border long">Readers SHA1 Digest</h4>
 											<p>Well, at least there was an issue upgrade.</p>
 											<a class="read-more">Read More</a>
@@ -436,7 +440,7 @@
 								<div class="gradient-border-bottom">
 									<div class="gradient-border">
 										<div class="article">
-											<img src="http://placehold.it/150/C9E1F5/FFFFFF?text=Image">
+											<img src="http://placehold.it/150/C9E1F5/FFFFFF?text=$_">
 											<h4 class="cool-border">Awesome JS</h4>
 											<p>Ok, now you're getting greedy.</p>
 											<a class="read-more">Read More</a>
@@ -448,9 +452,9 @@
 								<div class="gradient-border-bottom">
 									<div class="gradient-border">
 										<div class="article">
-											<img src="http://placehold.it/150/C9E1F5/FFFFFF?text=Image">
+											<img src="http://placehold.it/150/C9E1F5/FFFFFF?text=>_">
 											<h4 class="cool-border short">JS Weekly</h4>
-											<p>I disabled dots just to keep the suspense.</p>
+											<p>How much content do you think I can produce?</p>
 											<a class="read-more">Read More</a>
 										</div>
 									</div>
@@ -460,23 +464,66 @@
 								<div class="gradient-border-bottom">
 									<div class="gradient-border">
 										<div class="article">
-											<img src="http://placehold.it/150/C9E1F5/FFFFFF?text=Image">
+											<img src="http://placehold.it/150/C9E1F5/FFFFFF?text=0x">
 											<h4 class="cool-border long">Readers SHA256 Digest</h4>
-											<p>Just try not to look at the arrow states...</p>
+											<p>I should have disabled the dots for optimal suspense.</p>
 											<a class="read-more">Read More</a>
 										</div>
 									</div>
 								</div>
 							</div>
+							<div>
+									<div class="gradient-border-bottom">
+										<div class="gradient-border">
+											<div class="article">
+												<img src="http://placehold.it/150/C9E1F5/FFFFFF?text=$_">
+												<h4 class="cool-border">Awesome JS</h4>
+												<p>You would have just ended up looking at the arrows anyway.</p>
+												<a class="read-more">Read More</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div>
+									<div class="gradient-border-bottom">
+										<div class="gradient-border">
+											<div class="article">
+												<img src="http://placehold.it/150/C9E1F5/FFFFFF?text=>_">
+												<h4 class="cool-border short">JS Weekly</h4>
+												<p>I should've disabled dots just to keep the suspense.</p>
+												<a class="read-more">Read More</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div>
+									<div class="gradient-border-bottom">
+										<div class="gradient-border">
+											<div class="article">
+												<img src="http://placehold.it/150/C9E1F5/FFFFFF?text=0x">
+												<h4 class="cool-border long">Readers SHA512 Digest</h4>
+												<p>
+														2b38627595da6be f6dc2f528a3207b94
+												</p>
+												<a class="read-more">Read More</a>
+											</div>
+										</div>
+									</div>
+								</div>
 						</div>
+						<div id="dots-content"></div>
 						<a class="glider-prev" id="glider-prev-content"><i class="fa fa-chevron-left"></i></i></a>
 						<a class="glider-next" id="glider-next-content"><i class="fa fa-chevron-right"></i></i></a>
 					</div>
 					<script>
-						var glider = new Glider(document.getElementById('glider-content'), {
+						new Glider(document.getElementById('glider-content'), {
 							slidesToShow: 1,
 							slidesToScroll: 1,
 							duration: .75,
+							easing: function (x, t, b, c, d) {
+								return c*(t/=d)*t + b;
+							},
+							dots: '#dots-content',
 							arrows: {
 								prev: '#glider-prev-content',
 								next: '#glider-next-content'
@@ -503,10 +550,28 @@
 								slidesToShow: 1,
 								slidesToScroll: 1,
 								duration: .75,
+								// easeInQuad
+								easing: function (x, t, b, c, d) {
+									return c*(t/=d)*t + b;
+								},
 								arrows: {
 									prev: '.glider-prev',
 									next: '.glider-next'
-								}
+								},
+								dots: '#dots',
+								responsive: [{
+									breakpoint: 575,
+									settings: {
+										slidesToShow: 2,
+										slidesToScroll: 2,
+									}
+								},{
+									breakpoint: 900,
+									settings: {
+										slidesToShow: 3,
+										slidesToScroll: 3,
+									}
+								}]
 							});
 						</code>
 					</pre>
@@ -688,11 +753,14 @@
 								}
 							});
 
-							// this is only for instructional purposes
-							// use an actual lazy load library
 							function loadImages(){
 								[].forEach.call(this.querySelectorAll('img'),function(img){
-									img.src = img.getAttribute('data-src');
+									var _img = new Image,  _src = img.getAttribute('data-src');
+									_img.onload = function(){
+										img.src = _src;
+										img.classList.add('loaded');
+									}
+									_img.src = _src;
 								});
 							}
 						</code>
@@ -943,8 +1011,21 @@
 	<script src="assets/js/prism.js"></script>
 	<script src="assets/js/main.js"></script>
 
-	<!-- Place this tag in your head or just before your close body tag. -->
 	<script async defer src="https://buttons.github.io/buttons.js"></script>
 	
+	
+	<!-- Ugh, google. why am I downloading tag manager for GA? sighh -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-20216161-1"></script>
+	
+	<!-- I see you. -->
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'UA-20216161-5');
+	</script>
+
+
 </body>
 </html>

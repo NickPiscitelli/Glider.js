@@ -4210,6 +4210,9 @@ input, select, textarea {
 	  font-weight: bold;
 	  color: #000;
   }
+  .article a {
+	  cursor: pointer;
+  }
   .article p {
 	  margin: 5px 0;
   }
