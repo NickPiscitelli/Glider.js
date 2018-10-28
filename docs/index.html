@@ -474,21 +474,34 @@
 					</div>
 					<script>
 						var glider = new Glider(document.getElementById('glider-content'), {
-							slidesToShow: 3,
-							slidesToScroll: 3,
+							slidesToShow: 1,
+							slidesToScroll: 1,
 							duration: .75,
 							arrows: {
 								prev: '#glider-prev-content',
 								next: '#glider-next-content'
-							}
+							},
+							responsive: [{
+								breakpoint: 575,
+								settings: {
+									slidesToShow: 2,
+									slidesToScroll: 2,
+								}
+							},{
+								breakpoint: 900,
+								settings: {
+									slidesToShow: 3,
+									slidesToScroll: 3,
+								}
+							}]
 						});
 					</script>
 					
 					<pre class="line-numbers language-javascript">
 						<code class="line-numbers language-javascript">
 							new Glider(document.querySelector('.glider'), {
-								slidesToShow: 3,
-								slidesToScroll: 3,
+								slidesToShow: 1,
+								slidesToScroll: 1,
 								duration: .75,
 								arrows: {
 									prev: '.glider-prev',

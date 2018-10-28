@@ -80,7 +80,7 @@
     });
 
     _.containerWidth = _.ele.offsetWidth;
-
+    _.opt = _._opt;
     _.settingsBreakpoint();
 
     _.itemWidth = _.containerWidth / _.opt.slidesToShow;
