@@ -5,10 +5,11 @@
   \___//_//_/ \_,_/ \__//_/  (_)__/ //___/
                               |___/      
                               
-  Version: 1.0
+  Version: 1.1
   Author: Nick Piscitelli (pickykneee)
   Website: https://nickpiscitelli.com
   Documentation: http://nickpiscitelli.github.io/Glider.js
+  License: MIT License
   Release Date: October 25th, 2018
 
 */
@@ -44,8 +45,7 @@
         // extend breakpoint settings
         _._opt =  _.opt;
         
-        _.page = _.slide = 0;
-        _.breakpoint;
+        _.aIndex = _.page = _.slide = 0;
 
         _.track = document.createElement('div');
         _.track.className = 'glider-track';
@@ -138,7 +138,9 @@
       var arrow = _.opt.arrows[direction]
       if (arrow){
         if (typeof arrow === 'string')  arrow = document.querySelector(arrow);
-        if (!_.bound) arrow.addEventListener('click', _.scrollItem.bind(_, direction))
+        arrow._func = arrow._func || _.scrollItem.bind(_, direction)
+        arrow.removeEventListener('click', arrow._func)
+        arrow.addEventListener('click', arrow._func)
         _.arrows[direction] = arrow;
       }
     });
@@ -201,6 +203,9 @@
     if(e)   e.preventDefault();
 
     var _ = this, originalSlide = slide;
+    _.aIndex++;
+    // stop any existing animations
+    _.stop = true;
 
     if (dot === true) {
       slide = slide * _.containerWidth
@@ -218,7 +223,7 @@
         slide = _.itemWidth * slide
       }
     }
-
+    
     _.scrollTo(
       slide,
       _.opt.duration * (Math.abs(_.ele.scrollLeft - slide)),
@@ -251,13 +256,16 @@
     var
       _ = this,
       start = new Date().getTime(),
+      animateIndex = _.aIndex,
       animate = function(){
         var now = (new Date().getTime() - start);
-        _.ele.scrollLeft = (_.ele.scrollLeft + (scrollTarget - _.ele.scrollLeft) * _.opt.easing(0, now, 0, 1, scrollDuration));
-        if(now < scrollDuration){
+        _.ele.scrollLeft = _.ele.scrollLeft + (scrollTarget - _.ele.scrollLeft) * _.opt.easing(0, now, 0, 1, scrollDuration);
+        if(now < scrollDuration && animateIndex == _.aIndex){
           window.requestAnimationFrame(animate);
         } else {
+          _.ele.scrollLeft = scrollTarget
           callback && callback.call(_)
+          _.stop = false;
         }
       };
 
