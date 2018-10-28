@@ -44,7 +44,6 @@ new Glider(document.querySelector('.glider'), {
   slidesToShow: 1,
   slidesToScroll: 1,
   duration: .5,
-  equalHeight: false,
   dots: '.glider-dots',
   arrows: {
     prev: '.glider-prev',
