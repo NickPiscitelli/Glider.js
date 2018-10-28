@@ -4260,3 +4260,25 @@ input, select, textarea {
 	  transform: translateZ(0);
 
   }
+  #header .logo:hover {
+	transition-delay: 0s;
+	transition: transform 1s ease;
+	transform: rotate(-45deg);
+  }
+  #events p {
+	  max-width: 750px;
+	  margin-left: auto;
+	  margin-right: auto;
+  }
+  .collapse {
+	  height: 0;
+	  overflow: hidden;
+	  transform: translateZ(0);
+	  transition: height .2s ease;
+  }
+  .collapse.in {
+	  height: 210px;
+  }
+  a, #main a {
+	  cursor: pointer;
+  }

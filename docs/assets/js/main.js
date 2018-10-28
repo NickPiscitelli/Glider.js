@@ -135,6 +135,11 @@ var browser=function(){"use strict";var e={name:null,version:null,os:null,osVers
 
 		scrollIt($($(this).attr('href'))[0].offsetTop)
 	});
+	$('.collapse-control').on('click',function(e){
+		var ele = $('#'+$(this).attr('data-collapse'));
+		ele.toggleClass('in');
+		return false;
+	})
 })($);
 
 function scrollIt(destination, duration = 350, easing = 'linear', callback) {
