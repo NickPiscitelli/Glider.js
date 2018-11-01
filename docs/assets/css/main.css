@@ -4315,3 +4315,10 @@ input, select, textarea {
   a, #main a {
 	  cursor: pointer;
   }
+  #main > #faq {
+	  padding-bottom: 0;
+  }
+  #footer {
+	  padding: 1em 5em 1em 5em;
+	  margin: 0;
+  }
