@@ -4023,7 +4023,9 @@ input, select, textarea {
 	font-size: .9em;
 	margin-top: 15px;
   }
-  
+  .questions, .settings {
+	  padding-left: 0;
+  }
   .questions > li {
 	padding-bottom: 35px;
 	text-align: left;
@@ -4322,3 +4324,4 @@ input, select, textarea {
 	  padding: 1em 5em 1em 5em;
 	  margin: 0;
   }
+  
