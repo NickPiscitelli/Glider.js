@@ -213,7 +213,8 @@
       if (typeof slide === 'string') {
         var backwards = slide === 'prev';
 
-        slide  = _.slide
+        // dont use _.slide since its rounded
+        slide  = _.ele.scrollLeft / _.itemWidth
 
         if (backwards) slide -= _.opt.slidesToScroll;
         else  slide += _.opt.slidesToScroll;
@@ -222,7 +223,7 @@
       _.slide = slide;
       slide = _.itemWidth * slide
     }
-    
+
     _.scrollTo(
       slide,
       _.opt.duration * (Math.abs(_.ele.scrollLeft - slide)),

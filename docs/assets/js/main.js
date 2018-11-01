@@ -128,7 +128,7 @@ var browser=function(){"use strict";var e={name:null,version:null,os:null,osVers
 			speed: 1000
 		});
 
-	$('#nav a').off().on('click',function(e){
+	$('#nav a').add('.smooth-scroll').off().on('click',function(e){
 		e.preventDefault();
 		e.stopPropagation();
 		e.stopImmediatePropagation();

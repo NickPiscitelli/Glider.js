@@ -26,6 +26,26 @@
 		<link rel="stylesheet" href="assets/css/noscript.css" />
 	</noscript>
 	<script src="assets/js/glider.js"></script>
+	<script>
+	// center arrows on load
+	document.addEventListener('glider-loaded',centerArrows);
+	document.addEventListener('glider-refresh',centerArrows);
+	function centerArrows(e){
+		var
+			glider = e.target._glider,
+			arrows = glider.arrows,
+			height = glider.ele.clientHeight;
+
+		if (arrows){			
+			['prev','next'].forEach(function(v){
+				if (arrows[v]){
+					var top = (height - arrows[v].clientHeight) / 2;
+					arrows[v].style.top = top + 'px';
+				}	
+			});
+		}
+	}
+	</script>
 </head>
 
 <body class="is-preload">
@@ -37,8 +57,9 @@
 		<header id="header" class="alt">
 			<span class="logo"><img src="images/logo.svg" alt="" /></span>
 			<h1>Glider.js</h1>
-			<p>A blazingly fast, mobile-friendly, lightweight, dependency free, fully responsive, minimal "carousel" with
-				native scrolling and paging controls!
+			<p>
+				A blazingly fast, lightweight, responsive, mobile-friendly, dependency free,
+				native scrolling list with paging controls!
 			</p>
 			<p>
 				<a href="https://github.com/NickPiscitelli/Glider.js" class="button">View on Github</a>
@@ -70,14 +91,14 @@
 						</header>
 						<p>
 							Glider.js was born out of a frustration for carousels, especially on mobile devices. Inspired by the well-known Slick.js, Glider.js aims
-							to be a fast, lightweight, responsive, unopinionated, dependency-free "carousel". The term carousel is used
-							loosely, as Glider.js is not actually a carousel; it lacks the defining carousel feature, infinite looping. Glider.js does not aim
-							to replace the de-facto autoplaying image carousel (it can't since it lacks autoplay, but you could easily add it via event hooks), but to enhance the list browsing experience on touch devices while retaining
-							functionality with desktop browsers.
+							to be a fast, lightweight, responsive, unopinionated, dependency-free carousel alternative. Glider.js is not truly a carousel; it lacks
+							the defining carousel feature, infinite looping. Without support for looping, Glider.js retains the ability to use native scrolling creating
+							a natural feel on any touch enabled devices, while still providing the basic carousel aesthetic and functionality (great for desktop!)
 						</p>
-						<ul class="actions">
-							<li><a href="#faq" class="button">Learn More</a></li>
-						</ul>
+						<p>
+							<a href="#demos" class="smooth-scroll">Check out the demos below!</a>
+						</p>
+						
 						<header class="major">
 							<h2>Features</h2>
 						</header>
@@ -85,7 +106,7 @@
 							<li><i class="fas fa-check"></i>Insanely Small (1.7kb gzipped!)</li>
 							<li><i class="fas fa-check"></i>Ridiculously Fast (~15ms initilization)</li>
 							<li><i class="fas fa-check"></i>Vanilla JS - No Dependencies (look Mom, no jQuery!)</li>
-							<li><i class="fas fa-check"></i>Native Browser Scrolling (allows momentum)</li>
+							<li><i class="fas fa-check"></i>Native Browser Scroll (momentum scrolling!)</li>
 							<li><i class="fas fa-check"></i>Fully Responsive (breakpoint based settings)</li>
 							<li><i class="fas fa-check"></i>Customizable Arrow and Dot Navigation</li>
 							<li><i class="fas fa-check"></i>Flexbox Support (enabled by default)</li>
@@ -93,7 +114,9 @@
 							<li><i class="fas fa-check"></i>Custom Events</li>
 						</ul>
 
-
+						<ul class="actions">
+							<li><a href="#faq" class="button smooth-scroll">Learn More</a></li>
+						</ul>
 					</div>
 				</div>
 			</section>
@@ -253,16 +276,15 @@
 									{
 										breakpoint: 775,
 										settings: {
-											slidesToShow: 2,
-											slidesToScroll: 2
+											slidesToShow: 3,
+											slidesToScroll: 3
 										}
 									},
 									{
-										breakpoint: 320,
+										breakpoint: 575,
 										settings: {
-											slidesToShow: 1,
-											slidesToScroll: 1,
-											arrows: false
+											slidesToShow: 2,
+											slidesToScroll: 2
 										}
 									}
 								]
@@ -272,40 +294,96 @@
 					<pre class="line-numbers language-javascript">
 						<code class="line-numbers language-javascript">
 							new Glider(document.querySelector('.glider'), {
+								// Mobile-first defaults
 								slidesToShow: 1,
+								slidesToScroll: 1,
+
 								dots: '#dots',
 								arrows: {
 									prev: '.glider-prev',
 									next: '.glider-next'
 								},
+								// Breakpoints must be in descending order!
 								responsive: [
-									
-									
 									{
 										breakpoint: 1100,
 										settings: {
 											slidesToShow: 4,
-											slidesToScroll: 4,
-											dots: document.getElementById('resp-dots')
+											slidesToScroll: 4
 										}
 									},
 									{
 										breakpoint: 775,
 										settings: {
-											slidesToShow: 2,
-											slidesToScroll: 2,
-											dots: false
+											slidesToShow: 3,
+											slidesToScroll: 3
 										}
 									},
 									{
-										breakpoint: 320,
+										breakpoint: 575,
 										settings: {
-											slidesToShow: 1,
-											slidesToScroll: 1,
-											arrows: false
+											slidesToShow: 2,
+											slidesToScroll: 2
 										}
 									}
 								]
+							});
+						</code>
+					</pre>
+				</div>
+
+				<div class="demo">
+					<h2>Fractional Slides</h2>
+					<div class="glider-contain multiple">
+						<div class="gradient-border-bottom">
+							<div class="gradient-border">
+								<div class="glider" id="glider-cut">
+									<div><h1>1</h1></div>
+									<div><h1>2</h1></div>
+									<div><h1>3</h1></div>
+									<div><h1>4</h1></div>
+									<div><h1>5</h1></div>
+									<div><h1>6</h1></div>
+									<div><h1>7</h1></div>
+									<div><h1>8</h1></div>
+									<div><h1>9</h1></div>
+									<div><h1>10</h1></div>
+									<div><h1>11</h1></div>
+									<div><h1>12</h1></div>
+									<div><h1>13</h1></div>
+									<div><h1>14</h1></div>
+									<div><h1>15</h1></div>
+									<div><h1>16</h1></div>
+									<div><h1>17</h1></div>
+								</div>
+							</div>
+						</div>
+						<div id="frac-dots"></div>
+						<a class="glider-prev" id="cut-prev"><i class="fa fa-chevron-left"></i></i></a>
+						<a class="glider-next" id="cut-next"><i class="fa fa-chevron-right"></i></i></a>
+					</div>
+					<script>
+						var glider = new Glider(document.getElementById('glider-cut'), {
+							slidesToShow: 3.5,
+							slidesToScroll: 1.25,
+							dots: '#frac-dots',
+							arrows: {
+								prev: '#cut-prev',
+								next: '#cut-next'
+							}
+						});
+					</script>
+					
+					<pre class="line-numbers language-javascript">
+						<code class="line-numbers language-javascript">
+							new Glider(document.querySelector('.glider'), {
+								slidesToShow: 3.5,
+								slidesToScroll: 1.25,
+								dots: '.dots',
+								arrows: {
+									prev: '.glider-prev',
+									next: '.glider-next'
+								}
 							});
 						</code>
 					</pre>
@@ -557,16 +635,16 @@
 								next: '#glider-next-content'
 							},
 							responsive: [{
-								breakpoint: 575,
-								settings: {
-									slidesToShow: 2,
-									slidesToScroll: 2,
-								}
-							},{
 								breakpoint: 900,
 								settings: {
 									slidesToShow: 3,
 									slidesToScroll: 3,
+								}
+							},{
+								breakpoint: 575,
+								settings: {
+									slidesToShow: 2,
+									slidesToScroll: 2,
 								}
 							}]
 						});
@@ -588,16 +666,16 @@
 								},
 								dots: '#dots',
 								responsive: [{
-									breakpoint: 575,
-									settings: {
-										slidesToShow: 2,
-										slidesToScroll: 2,
-									}
-								},{
 									breakpoint: 900,
 									settings: {
 										slidesToShow: 3,
 										slidesToScroll: 3,
+									}
+								},{
+									breakpoint: 575,
+									settings: {
+										slidesToShow: 2,
+										slidesToScroll: 2,
 									}
 								}]
 							});
@@ -616,7 +694,7 @@
 				</p>
 				<pre class="line-numbers language-html">
 					<code class="line-numbers language-html">
-						&lt;div class="glider"&gt;
+						&lt;div class="any-class"&gt;
 							&lt;div&gt;&lt;/div&gt;
 							&lt;div&gt;&lt;/div&gt;
 							&lt;div&gt;&lt;/div&gt;
@@ -703,7 +781,7 @@
 						<span class="setting-name">slidesToScroll</span><br>
 						<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a><br>
 						<span class="type default">Default:</span> 1<br>
-						The number of slides to scroll when arrow navigation is used<br>
+						The number of slides to scroll when <b>arrow</b> navigation is used<br>
 					</li>
 					<li>
 						<span class="setting-name">arrows</span><br>
@@ -855,13 +933,13 @@
 						<code class="language-javascript">
 							var glider = new Glider(document.getElementById('glider'), {
 								slidesToShow: 1,
-								dots: '#add-dots',
+								dots: '#dots',
 							});
 
 							glider.setOption({
 								arrows: {
-									prev: '#glider-prev-add',
-									next: '#glider-next-add'
+									prev: '#glider-prev',
+									next: '#glider-next'
 								}
 							});
 
@@ -930,7 +1008,7 @@
 							What is Glider.js?
 						</p>
 						<p class="answer">
-							Glider.js is a fast, lightweight, dependency-free scrollable list with customizable paging controls.
+							Glider.js is a fast, lightweight, responsive, dependency-free scrollable list with customizable paging controls.
 						</p>
 					</li>
 					<li>
@@ -949,7 +1027,10 @@
 							Will these features ever be added to Glider.js?
 						</p>
 						<p class="answer">
-							Glider.js aims to be lightweight and fast. There are some planned upgrades to the list such as variable width and adaptive height, but they are not present in version 1.0. If there is a demand for other features that can be implemented with little overhead, Glider.js will be happy to include them on it's next release.
+							Glider.js aims to be lightweight and fast. There are some planned upgrades to the list such as adaptive height, but they are not present in version 1.0.
+							If there is a demand for other features that can be implemented with little overhead, Glider.js will be happy to include them on it's next release.
+
+							<span class="aside">* Infinite looping will never be supported as it's incompatible with native browser scrolling.</span>
 						</p>
 					</li>
 					<li>
@@ -968,18 +1049,9 @@
 							What browsers are supported?
 						</p>
 						<p class="answer">
-							Glider.js should run on all modern browsers. Support for older browser can be achieved by polyfilling
-							<code class="slim">document.classList</code> and <code class="slim">window.requestAnimationFrame</code>.
-						</p>
-					</li>
-					<li>
-						<p class="question">
-							How do I get the dots/arrows to show?
-						</p>
-						<p class="answer">
-							In order to remain unopinonated and save on space, Glider.js does not provide default elements
-							for the paging controls, the elements must exist and be passed to Glider.js
-							as arguments. Refer to the getting started guide for an example.
+							Glider.js should run on all modern browsers. Support for older browsers can be achieved by polyfilling
+							<code class="slim">document.classList</code>, <code class="slim">window.requestAnimationFrame</code>
+							and <code class="slim">CustomEvent</code>.
 						</p>
 					</li>
 					<li>
@@ -1006,6 +1078,38 @@
 							</aside>
 						</p>
 					</li>
+					<li>
+						<p class="question">
+							Um, I still have questions.
+						</p>
+						<p class="answer">
+							Feel free to drop me a line at mail &lt;at&gt; nickpiscitell.com!
+
+						
+						</p>
+					</li>
+					<li>
+						<p class="question">
+							Honestly, this is shit. I want to complain.
+						</p>
+						<p class="answer">
+							Always welcome of constructive criticism. Let me hear your comments below!
+							<div id="disqus_thread"></div>
+							<script>
+							var disqus_config = function () {
+								this.page.url = 'https://nickpiscitelli.github.io/Glider.js';  // Replace PAGE_URL with your page's canonical URL variable
+								this.page.identifier = 'Glider.js'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+							};
+							(function() { // DON'T EDIT BELOW THIS LINE
+							var d = document, s = d.createElement('script');
+							s.aync = true;
+							s.src = 'https://https-nickpiscitelli-github-io-glider-js.disqus.com/embed.js';
+							s.setAttribute('data-timestamp', +new Date());
+							(d.head || d.body).appendChild(s);
+							})();
+							</script>				
+						</p>
+					</li>
 					<!-- <li>
 						<p class="question">
 							Can I buy you a coffee? Maybe a beer?
@@ -1021,7 +1125,7 @@
 		</div>
 		<!-- Footer -->
 		<footer id="footer">
-			<p class="copyright">&copy; 2018 Nick Piscitelli. Template designed by: <a href="https://html5up.net">HTML5 UP</a>.
+			<p class="copyright">&copy; 2018 <a href="https://nickpiscitelli.com">Nick Piscitelli</a>. Template designed by: <a href="https://html5up.net">HTML5 UP</a>.
 			<br><br><a class="github-button" href="https://github.com/NickPiscitelli/Glider.js" data-icon="octicon-star" data-size="large" aria-label="Star NickPiscitelli/Glider.js on GitHub">Star Me on Github!</a></p>
 		</footer>
 
@@ -1072,6 +1176,7 @@
 
 	gtag('config', 'UA-20216161-5');
 	</script>
+	
 
 
 </body>
