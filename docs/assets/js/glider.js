@@ -214,7 +214,11 @@
         var backwards = slide === 'prev';
 
         // dont use _.slide since its rounded
-        slide  = _.ele.scrollLeft / _.itemWidth
+        if (_.opt.slidesToScroll % 1 !== 0){
+          slide  = _.ele.scrollLeft / _.itemWidth
+        } else {
+          slide = _.slide
+        }
 
         if (backwards) slide -= _.opt.slidesToScroll;
         else  slide += _.opt.slidesToScroll;
