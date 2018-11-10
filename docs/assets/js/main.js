@@ -105,7 +105,6 @@ var browser = function () { "use strict"; var e = { name: null, version: null, o
 
               $nav_a.removeClass('active');
               $this.addClass('active');
-              console.log( $this.offset().left)
               document.getElementById('nav').scrollLeft += $this.offset().left - 120;
 
             }

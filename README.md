@@ -49,13 +49,13 @@ new Glider(document.querySelector('.glider'), {
     prev: '.glider-prev',
     next: '.glider-next'
   },
-  
+
   // use any custom easing function
   // compatible with most easing plugins
   easing: function (x, t, b, c, d) {
     return c*(t/=d)*t + b;
   },
-  
+
   // event control
   scrollPropagate: false,
   eventPropagate: true,
@@ -110,7 +110,7 @@ document.querySelector(element_path)._glider.destroy();
 
 #### Browser support
 
-Glider.js should run on all modern browsers. Support for older browser can be achieved by polyfilling `document.classList`, `window.requestAnimationFrame` and `CustomEvent`
+Glider.js should run on all modern browsers. Support for older browser can be achieved by polyfilling `document.classList`, `window.requestAnimationFrame`, `Object.assign` and `CustomEvent`
 
 #### Dependencies
 

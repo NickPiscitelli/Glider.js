@@ -28,7 +28,8 @@
   <noscript>
     <link rel="stylesheet" href="assets/css/noscript.css" />
   </noscript>
-  <script src="assets/js/glider.js?v=bust"></script>
+  <script src="assets/js/glider-compat.min.js?v=bustered"></script>
+  <script src="assets/js/glider.js?v=bustered"></script>
   <script>
   // center arrows on load
   document.addEventListener('glider-loaded',centerArrows);
@@ -1121,8 +1122,10 @@
             </p>
             <p class="answer">
               Glider.js should run on all modern browsers. Support for older browsers can be achieved by polyfilling
-              <code class="slim">document.classList</code>, <code class="slim">window.requestAnimationFrame</code>
-              and <code class="slim">CustomEvent</code>.
+              <code class="slim">document.classList</code>, <code class="slim">window.requestAnimationFrame</code>,
+              <code class="slim">Object.assign</code> and <code class="slim">CustomEvent</code>.
+              <br><br>
+              Glider.js now provides a <code class="slime">glider-compat.min.js</code>. Include this file to provide support for older browsers.
             </p>
           </li>
           <li>
@@ -1206,7 +1209,7 @@
     };
   </script>
   <script src="assets/js/prism.js"></script>
-  <script src="assets/js/main.js?bust=1"></script>
+  <script src="assets/js/main.js?buster=1"></script>
 
   <script async defer src="https://buttons.github.io/buttons.js"></script>
 
