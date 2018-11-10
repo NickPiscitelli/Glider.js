@@ -40,7 +40,15 @@ var browser=function(){"use strict";var e={name:null,version:null,os:null,osVers
 		var ele = $('#'+$(this).attr('data-collapse'));
 		ele.toggleClass('in');
 		return false;
-	})
+	});
+
+	$('.glider-next,.glider-prev').on('click',function(){
+		ga && ga('send','event','Arrow Click', $(this).parents('.glider-contain').data('name'), $(this).hasClass('glider-prev') ? 'Previous' : 'Next')
+	});
+	$('.glider-dot').on('click',function(){
+		ga && ga('send','event','Dot Click', $(this).parents('.glider-contain').data('name'), $(this).data('index'))
+	});
+
 })($);
 
 function scrollIt(destination, duration = 350, easing = 'linear', callback) {
@@ -53,7 +61,7 @@ function scrollIt(destination, duration = 350, easing = 'linear', callback) {
 	const destinationOffset = typeof destination === 'number' ? destination : destination.offsetTop;
 	const destinationOffsetToScroll = Math.round(documentHeight - destinationOffset < windowHeight ? documentHeight - windowHeight : destinationOffset);
   
-	function scroll() {
+	function scroller() {
 	  const now = 'now' in window.performance ? performance.now() : new Date().getTime();
 	  const time = Math.min(1, ((now - startTime) / duration));
 	  const timeFunction = function(t){
@@ -66,8 +74,8 @@ function scrollIt(destination, duration = 350, easing = 'linear', callback) {
 		}
 		return;
 	  }
-	  requestAnimationFrame(scroll);
+	  requestAnimationFrame(scroller);
 	}
   
-	scroll();
+	scroller();
   }
