@@ -58,6 +58,9 @@
   cursor: default;
 }
 
+.glider-slide {
+  width: 150px;
+}
 .glider-hide {
   opacity: 0;
 }

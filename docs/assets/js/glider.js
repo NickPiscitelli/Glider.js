@@ -1,11 +1,11 @@
 /*
-    _____ __ _     __                _    
+    _____ __ _     __                _
    / ___// /(_)___/ /___  ____      (_)___
   / (_ // // // _  // -_)/ __/_    / /(_-<
   \___//_//_/ \_,_/ \__//_/  (_)__/ //___/
-                              |___/      
-                              
-  Version: 1.1
+                              |___/
+
+  Version: 1.3
   Author: Nick Piscitelli (pickykneee)
   Website: https://nickpiscitelli.com
   Documentation: http://nickpiscitelli.github.io/Glider.js
@@ -16,7 +16,7 @@
 
 (function() {
   'use strict';
-  
+
   var Glider = window.Glider = (function() {
 
     function Glider(element, settings) {
@@ -57,10 +57,10 @@
         while (_.ele.children.length !== 1){
           _.track.appendChild(_.ele.children[0])
         }
-        
+
         // calculate list dimensions
         _.init();
-        
+
         // set events
         _.ele.addEventListener('scroll', _.updateControls.bind(_))
         window.addEventListener('resize', _.init.bind(_, true));
@@ -81,11 +81,18 @@
       _.classList.add('glider-slide');
     });
 
-    _.containerWidth = _.ele.offsetWidth;
+    _.containerWidth = _.ele.clientWidth;
     _.opt = _._opt;
 
     var breakpointChanged = _.settingsBreakpoint();
     if (!paging) paging = breakpointChanged;
+
+    if (_.opt.slidesToShow === 'auto'){
+      _.opt.slidesToShow = Math.floor(_.containerWidth / _.opt.itemWidth)
+      if (_.opt.slidesToScroll === 'auto'){
+        _.opt.slidesToScroll = _.opt.slidesToShow;
+      }
+    }
 
     _.itemWidth = _.containerWidth / _.opt.slidesToShow;
 
@@ -112,7 +119,7 @@
 
   Glider.prototype.buildDots = function(){
     var _ = this;
-  
+
     if (!_.opt.dots){
       if (_.dots) _.dots.innerHTML = '';
       return;
@@ -133,7 +140,7 @@
       _.dots.appendChild(li);
     }
   }
- 
+
   Glider.prototype.bindArrows = function(){
     var _ = this;
     if (!_.opt.arrows)  return
@@ -156,18 +163,13 @@
       event.stopPropagation();
     }
 
-    var disableArrows = _.ele.offsetWidth >= _.trackWidth;
+    var disableArrows = _.containerWidth >= _.trackWidth;
 
     if (_.arrows.prev) _.arrows.prev.classList.toggle('disabled', _.ele.scrollLeft <= 0 || disableArrows)
-    if (_.arrows.next) _.arrows.next.classList.toggle('disabled', _.ele.scrollLeft + _.ele.offsetWidth >=  _.trackWidth || disableArrows)
+    if (_.arrows.next) _.arrows.next.classList.toggle('disabled', _.ele.scrollLeft + _.containerWidth >=  Math.floor(_.trackWidth) || disableArrows)
 
     _.slide = Math.round(_.ele.scrollLeft / _.itemWidth);
     _.page = Math.round(_.ele.scrollLeft / _.containerWidth);
-
-    if (_.ele.scrollLeft + _.containerWidth >= _.trackWidth){
-      _.page = _.dots ? _.dots.children.length - 1 : 0;
-      _.slide = _.slides.length - 1;
-    }
 
     [].forEach.call(_.slides,function(slide,index){
       var
@@ -203,7 +205,9 @@
       clearTimeout(_.scrollLock);
       _.scrollLock = setTimeout(function(){
         clearTimeout(_.scrollLock);
-        if ((_.ele.scrollLeft / _.itemWidth) % 1) _.scrollItem(_.round(_.ele.scrollLeft / _.itemWidth))
+        if ((_.ele.scrollLeft / _.itemWidth) % 1){
+          _.scrollItem(_.round(_.ele.scrollLeft / _.itemWidth))
+        }
       }, _.opt.scrollLockDelay || 250)
     }
   }
@@ -247,7 +251,7 @@
             dot ? 'dot' : 'slide'
         })
       });
-    
+
     return false;
   }
 
@@ -322,7 +326,7 @@
 
   Glider.prototype.destroy = function(){
     var _ = this;
-    [].forEach.call([_.track, _.ele, _.slide ],function(ele){
+    [].forEach.call([_.track, _.ele, _.slides ],function(ele){
       if(ele) {
         ele.style.width = 'auto';
         ele.style.height = 'auto';
