@@ -4324,3 +4324,9 @@ input, select, textarea {
     padding: 1em 5em 1em 5em;
     margin: 0;
   }
+
+  .glider-track,
+  .glider {
+    -webkit-scroll-snap-type: mandatory;
+    -webkit-scroll-snap-points-x: repeat(100%);
+  }
