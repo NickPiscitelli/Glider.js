@@ -43,10 +43,10 @@ var browser=function(){"use strict";var e={name:null,version:null,os:null,osVers
 	});
 
 	$('.glider-next,.glider-prev').on('click',function(){
-		ga && ga('send','event','Arrow Click', $(this).parents('.glider-contain').data('name'), $(this).hasClass('glider-prev') ? 'Previous' : 'Next')
+		typeof ga !== 'undefined' && ga('send','event','Arrow Click', $(this).parents('.glider-contain').data('name'), $(this).hasClass('glider-prev') ? 'Previous' : 'Next')
 	});
 	$('.glider-dot').on('click',function(){
-		ga && ga('send','event','Dot Click', $(this).parents('.glider-contain').data('name'), $(this).data('index'))
+		typeof ga !== 'undefined' && ga('send','event','Dot Click', $(this).parents('.glider-contain').data('name'), $(this).data('index'))
 	});
 
 })($);
