@@ -154,6 +154,7 @@
 
     if (event && !_.opt.scrollPropagate){
       event.stopPropagation();
+      clearTimeout(_.scrollLock);
     }
 
     var disableArrows = _.ele.offsetWidth >= _.trackWidth;
@@ -198,6 +199,11 @@
     if (_.dots) [].forEach.call(_.dots.children,function(dot,index){
       dot.classList.toggle('active', _.page === index)
     })
+    if (event && _.opt.scrollLock){
+      _.scrollLock = setInterval(function(){
+        _.scrollItem(_.slide)
+      }, _.opt.scrollLockDelay || 150)
+    }
   }
 
 
@@ -213,12 +219,7 @@
       if (typeof slide === 'string') {
         var backwards = slide === 'prev';
 
-        // dont use _.slide since its rounded
-        if (_.opt.slidesToScroll % 1 !== 0){
-          slide  = _.ele.scrollLeft / _.itemWidth
-        } else {
-          slide = _.slide
-        }
+        slide = _.slide;
 
         if (backwards) slide -= _.opt.slidesToScroll;
         else  slide += _.opt.slidesToScroll;
