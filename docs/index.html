@@ -348,18 +348,18 @@
 								</div>
 							</div>
 						</div>
-						<div id="dots"></div>
-						<a class="glider-prev" id="glider-prev"><i class="fa fa-chevron-left"></i></i></a>
-						<a class="glider-next" id="glider-next"><i class="fa fa-chevron-right"></i></i></a>
+						<div id="dots-lock"></div>
+						<a class="glider-prev" id="glider-lock-prev"><i class="fa fa-chevron-left"></i></i></a>
+						<a class="glider-next" id="glider-lock-next"><i class="fa fa-chevron-right"></i></i></a>
 					</div>
 					<script>
 						new Glider(document.getElementById('glider-lock'), {
 							slidesToShow: 1,
 							scrollLock: true,
-							dots: '#dots',
+							dots: '#dots-lock',
 							arrows: {
-								prev: '#glider-prev',
-								next: '#glider-next'
+								prev: '#glider-lock-prev',
+								next: '#glider-lock-next'
 							}
 						});
 					</script>
