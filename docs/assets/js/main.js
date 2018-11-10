@@ -7,175 +7,170 @@ var breakpoints = function () { "use strict"; function e(e) { t.init(e) } var t 
 /* browser.js v1.0 | @ajlkn | MIT licensed */
 var browser = function () { "use strict"; var e = { name: null, version: null, os: null, osVersion: null, touch: null, mobile: null, _canUse: null, canUse: function (n) { e._canUse || (e._canUse = document.createElement("div")); var o = e._canUse.style, r = n.charAt(0).toUpperCase() + n.slice(1); return n in o || "Moz" + r in o || "Webkit" + r in o || "O" + r in o || "ms" + r in o }, init: function () { var n, o, r, i, t = navigator.userAgent; for (n = "other", o = 0, r = [["firefox", /Firefox\/([0-9\.]+)/], ["bb", /BlackBerry.+Version\/([0-9\.]+)/], ["bb", /BB[0-9]+.+Version\/([0-9\.]+)/], ["opera", /OPR\/([0-9\.]+)/], ["opera", /Opera\/([0-9\.]+)/], ["edge", /Edge\/([0-9\.]+)/], ["safari", /Version\/([0-9\.]+).+Safari/], ["chrome", /Chrome\/([0-9\.]+)/], ["ie", /MSIE ([0-9]+)/], ["ie", /Trident\/.+rv:([0-9]+)/]], i = 0; i < r.length; i++)if (t.match(r[i][1])) { n = r[i][0], o = parseFloat(RegExp.$1); break } for (e.name = n, e.version = o, n = "other", o = 0, r = [["ios", /([0-9_]+) like Mac OS X/, function (e) { return e.replace("_", ".").replace("_", "") }], ["ios", /CPU like Mac OS X/, function (e) { return 0 }], ["wp", /Windows Phone ([0-9\.]+)/, null], ["android", /Android ([0-9\.]+)/, null], ["mac", /Macintosh.+Mac OS X ([0-9_]+)/, function (e) { return e.replace("_", ".").replace("_", "") }], ["windows", /Windows NT ([0-9\.]+)/, null], ["bb", /BlackBerry.+Version\/([0-9\.]+)/, null], ["bb", /BB[0-9]+.+Version\/([0-9\.]+)/, null], ["linux", /Linux/, null], ["bsd", /BSD/, null], ["unix", /X11/, null]], i = 0; i < r.length; i++)if (t.match(r[i][1])) { n = r[i][0], o = parseFloat(r[i][2] ? r[i][2](RegExp.$1) : RegExp.$1); break } e.os = n, e.osVersion = o, e.touch = "wp" == e.os ? navigator.msMaxTouchPoints > 0 : !!("ontouchstart" in window), e.mobile = "wp" == e.os || "android" == e.os || "ios" == e.os || "bb" == e.os } }; return e.init(), e }(); !function (e, n) { "function" == typeof define && define.amd ? define([], n) : "object" == typeof exports ? module.exports = n() : e.browser = n() }(this, function () { return browser });
 /*
-	Stellar by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+  Stellar by HTML5 UP
+  html5up.net | @ajlkn
+  Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
 
 (function ($) {
 
-	var $window = $(window),
-		$body = $('body'),
-		$main = $('#main');
+  var $window = $(window),
+    $body = $('body'),
+    $main = $('#main');
 
-	// Breakpoints.
-	breakpoints({
-		xlarge: ['1281px', '1680px'],
-		large: ['981px', '1280px'],
-		medium: ['737px', '980px'],
-		small: ['481px', '736px'],
-		xsmall: ['361px', '480px'],
-		xxsmall: [null, '360px']
-	});
+  // Breakpoints.
+  breakpoints({
+    xlarge: ['1281px', '1680px'],
+    large: ['981px', '1280px'],
+    medium: ['737px', '980px'],
+    small: ['481px', '736px'],
+    xsmall: ['361px', '480px'],
+    xxsmall: [null, '360px']
+  });
 
-	// Play initial animations on page load.
-	$window.on('load', function () {
-		window.setTimeout(function () {
-			$body.removeClass('is-preload');
-		}, 100);
-	});
+  // Play initial animations on page load.
+  $window.on('load', function () {
+    window.setTimeout(function () {
+      $body.removeClass('is-preload');
+    }, 100);
+  });
 
-	//$('#settings').scrollex({
-	//	enter: function(){
-	//		document.getElementById('nav').scrollLeft = 300
-	//	}
-	//})
-	// Nav.
-	var $nav = $('#nav');
+  // Nav.
+  var $nav = $('#nav');
 
-	if ($nav.length > 0) {
+  if ($nav.length > 0) {
 
-		// Shrink effect.
-		$main
-			.scrollex({
-				mode: 'top',
-				enter: function () {
-					$nav.addClass('alt');
-				},
-				leave: function () {
-					$nav.removeClass('alt');
-				},
-			});
+    // Shrink effect.
+    $main
+      .scrollex({
+        mode: 'top',
+        enter: function () {
+          $nav.addClass('alt');
+        },
+        leave: function () {
+          $nav.removeClass('alt');
+        },
+      });
 
-		// Links.
-		var $nav_a = $nav.find('a');
+    // Links.
+    var $nav_a = $nav.find('a');
 
-		$nav_a
-			.scrolly({
-				speed: 1000,
-				offset: function () { return $nav.height(); }
-			})
-			.on('click', function () {
+    $nav_a
+      .scrolly({
+        speed: 1000,
+        offset: function () { return $nav.height(); }
+      })
+      .on('click', function () {
 
-				var $this = $(this);
+        var $this = $(this);
 
-				// External link? Bail.
-				if ($this.attr('href').charAt(0) != '#') return;
+        // External link? Bail.
+        if ($this.attr('href').charAt(0) != '#') return;
 
-				// Deactivate all links.
-				$nav_a.removeClass('active active-locked');
+        // Deactivate all links.
+        $nav_a.removeClass('active active-locked');
 
-				// Activate link *and* lock it (so Scrollex doesn't try to activate other links as we're scrolling to this one's section).
-				$this.addClass('active active-locked');
-				
+        // Activate link *and* lock it (so Scrollex doesn't try to activate other links as we're scrolling to this one's section).
+        $this.addClass('active active-locked');
 
-			})
-			.each(function () {
 
-				var $this = $(this),
-					id = $this.attr('href'),
-					$section = $(id);
+      })
+      .each(function () {
 
-				// No section for this link? Bail.
-				if ($section.length < 1)
-					return;
+        var $this = $(this),
+          id = $this.attr('href'),
+          $section = $(id);
 
-				// Scrollex.
-				$section.scrollex({
-					mode: 'middle',
-					initialize: function () {
+        // No section for this link? Bail.
+        if ($section.length < 1)
+          return;
 
-						// Deactivate section.
-						if (browser.canUse('transition'))
-							$section.addClass('inactive');
+        // Scrollex.
+        $section.scrollex({
+          mode: 'middle',
+          initialize: function () {
 
-					},
-					enter: function () {
+            // Deactivate section.
+            if (browser.canUse('transition'))
+              $section.addClass('inactive');
 
-						// Activate section.
-						$section.removeClass('inactive');
+          },
+          enter: function () {
 
-						// No locked links? Deactivate all links and activate this section's one.
-						if ($nav_a.filter('.active-locked').length == 0) {
+            // Activate section.
+            $section.removeClass('inactive');
 
-							$nav_a.removeClass('active');
-							$this.addClass('active');
-							console.log( $this.offset().left)
-							document.getElementById('nav').scrollLeft += $this.offset().left - 120;
+            // No locked links? Deactivate all links and activate this section's one.
+            if ($nav_a.filter('.active-locked').length == 0) {
 
-						}
+              $nav_a.removeClass('active');
+              $this.addClass('active');
+              console.log( $this.offset().left)
+              document.getElementById('nav').scrollLeft += $this.offset().left - 120;
 
-						// Otherwise, if this section's link is the one that's locked, unlock it.
-						else if ($this.hasClass('active-locked'))
-							$this.removeClass('active-locked');
+            }
 
-					}
-				});
+            // Otherwise, if this section's link is the one that's locked, unlock it.
+            else if ($this.hasClass('active-locked'))
+              $this.removeClass('active-locked');
 
-			});
+          }
+        });
 
-	}
+      });
 
-	// Scrolly.
-	$('.scrolly').scrolly({
-		speed: 1000
-	});
+  }
 
-	$('#nav a').add('.smooth-scroll').off().on('click', function (e) {
-		e.preventDefault();
-		scrollIt($($(this).attr('href'))[0].offsetTop - 58)
-		return false;
-	});
-	$('.collapse-control').on('click', function (e) {
-		var ele = $('#' + $(this).attr('data-collapse'));
-		ele.toggleClass('in');
-		return false;
-	});
+  // Scrolly.
+  $('.scrolly').scrolly({
+    speed: 1000
+  });
 
-	$('.glider-next,.glider-prev').on('click', function () {
-		typeof ga !== 'undefined' && ga('send', 'event', 'Arrow Click', $(this).parents('.glider-contain').data('name'), $(this).hasClass('glider-prev') ? 'Previous' : 'Next')
-	});
-	$('.glider-dot').on('click', function () {
-		typeof ga !== 'undefined' && ga('send', 'event', 'Dot Click', $(this).parents('.glider-contain').data('name'), $(this).data('index'))
-	});
+  $('#nav a').add('.smooth-scroll').off().on('click', function (e) {
+    e.preventDefault();
+    scrollIt($($(this).attr('href'))[0].offsetTop - 58)
+    return false;
+  });
+  $('.collapse-control').on('click', function (e) {
+    var ele = $('#' + $(this).attr('data-collapse'));
+    ele.toggleClass('in');
+    return false;
+  });
+
+  $('.glider-next,.glider-prev').on('click', function () {
+    typeof ga !== 'undefined' && ga('send', 'event', 'Arrow Click', $(this).parents('.glider-contain').data('name'), $(this).hasClass('glider-prev') ? 'Previous' : 'Next')
+  });
+  $('.glider-dot').on('click', function () {
+    typeof ga !== 'undefined' && ga('send', 'event', 'Dot Click', $(this).parents('.glider-contain').data('name'), $(this).data('index'))
+  });
 
 })($);
 
 function scrollIt(destination, duration = 350, easing = 'linear', callback) {
 
-	const start = window.pageYOffset;
-	const startTime = 'now' in window.performance ? performance.now() : new Date().getTime();
+  const start = window.pageYOffset;
+  const startTime = 'now' in window.performance ? performance.now() : new Date().getTime();
 
-	const documentHeight = Math.max(document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight);
-	const windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-	const destinationOffset = typeof destination === 'number' ? destination : destination.offsetTop;
-	const destinationOffsetToScroll = Math.round(documentHeight - destinationOffset < windowHeight ? documentHeight - windowHeight : destinationOffset);
+  const documentHeight = Math.max(document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight);
+  const windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+  const destinationOffset = typeof destination === 'number' ? destination : destination.offsetTop;
+  const destinationOffsetToScroll = Math.round(documentHeight - destinationOffset < windowHeight ? documentHeight - windowHeight : destinationOffset);
 
-	function scroller() {
-		const now = 'now' in window.performance ? performance.now() : new Date().getTime();
-		const time = Math.min(1, ((now - startTime) / duration));
-		const timeFunction = function (t) {
-			return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-		}(time);
-		window.scroll(0, Math.ceil((timeFunction * (destinationOffsetToScroll - start)) + start));
-		if (window.pageYOffset === destinationOffsetToScroll) {
-			if (callback) {
-				callback();
-			}
-			return;
-		}
-		requestAnimationFrame(scroller);
-	}
+  function scroller() {
+    const now = 'now' in window.performance ? performance.now() : new Date().getTime();
+    const time = Math.min(1, ((now - startTime) / duration));
+    const timeFunction = function (t) {
+      return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+    }(time);
+    window.scroll(0, Math.ceil((timeFunction * (destinationOffsetToScroll - start)) + start));
+    if (window.pageYOffset === destinationOffsetToScroll) {
+      if (callback) {
+        callback();
+      }
+      return;
+    }
+    requestAnimationFrame(scroller);
+  }
 
-	scroller();
+  scroller();
 }

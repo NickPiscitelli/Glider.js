@@ -1,1232 +1,1232 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-	<!--
+  <!--
 
-	  _____ __ _     __                _    
-	 / ___// /(_)___/ /___  ____      (_)___
-	/ (_ // // // _  // -_)/ __/_    / /(_-<
-	\___//_//_/ \_,_/ \__//_/  (_)__/ //___/
-								|___/      
-								
-	Version: 1.1
-	Author: Nick Piscitelli (pickykneee)
-	Website: https://nickpiscitelli.com
-	License: MIT License
-	Release Date: October 25th, 2018
+    _____ __ _     __                _
+   / ___// /(_)___/ /___  ____      (_)___
+  / (_ // // // _  // -_)/ __/_    / /(_-<
+  \___//_//_/ \_,_/ \__//_/  (_)__/ //___/
+                               |___/
 
-	-->
-	<title>Glider.js - A fast, lightweight carousel alternative</title>
-	<meta charset="utf-8" />
-	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+  Version: 1.1
+  Author: Nick Piscitelli (pickykneee)
+  Website: https://nickpiscitelli.com
+  License: MIT License
+  Release Date: October 25th, 2018
+
+  -->
+  <title>Glider.js - A fast, lightweight carousel alternative</title>
+  <meta charset="utf-8" />
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
   <link rel="canonical" href="https://nickpiscitelli.github.io/Glider.js" />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
-	<link rel="stylesheet" href="assets/css/prism.css" />
-	<link rel="stylesheet" href="assets/css/main.css" />
-	<link rel="canonical" href="https://nickpiscitelli.github.io/Glider.js" />
-	<noscript>
-		<link rel="stylesheet" href="assets/css/noscript.css" />
-	</noscript>
-	<script src="assets/js/glider.js?v=bust"></script>
-	<script>
-	// center arrows on load
-	document.addEventListener('glider-loaded',centerArrows);
-	document.addEventListener('glider-refresh',centerArrows);
-	function centerArrows(e){
-		var
-			glider = e.target._glider,
-			arrows = glider.arrows,
-			height = glider.ele.clientHeight;
+  <link rel="stylesheet" href="assets/css/prism.css" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="canonical" href="https://nickpiscitelli.github.io/Glider.js" />
+  <noscript>
+    <link rel="stylesheet" href="assets/css/noscript.css" />
+  </noscript>
+  <script src="assets/js/glider.js?v=bust"></script>
+  <script>
+  // center arrows on load
+  document.addEventListener('glider-loaded',centerArrows);
+  document.addEventListener('glider-refresh',centerArrows);
+  function centerArrows(e){
+    var
+      glider = e.target._glider,
+      arrows = glider.arrows,
+      height = glider.ele.clientHeight;
 
-		if (arrows){			
-			['prev','next'].forEach(function(v){
-				if (arrows[v]){
-					var top = (height - arrows[v].clientHeight) / 2;
-					arrows[v].style.top = top + 'px';
-				}	
-			});
-		}
-	}
-	</script>
+    if (arrows){
+      ['prev','next'].forEach(function(v){
+        if (arrows[v]){
+          var top = (height - arrows[v].clientHeight) / 2;
+          arrows[v].style.top = top + 'px';
+        }
+      });
+    }
+  }
+  </script>
 </head>
 
 <body class="is-preload">
-	
-	<!-- Wrapper -->
-	<div id="wrapper">
 
-		<!-- Header -->
-		<header id="header" class="alt">
-			<span class="logo"><img src="images/logo.svg" alt="" /></span>
-			<h1>Glider.js</h1>
-			<p>
-				A blazingly fast, crazy small, fully responsive, mobile-friendly, dependency free,
-				native scrolling list with paging controls!
-			</p>
-			<p>
-				<a href="https://github.com/NickPiscitelli/Glider.js" class="button">View on Github</a>
-				&nbsp; 
-				<a href="https://github.com/NickPiscitelli/Glider.js/archive/master.zip" class="button">Download ZIP</a>
-			</p>
-		</header>
+  <!-- Wrapper -->
+  <div id="wrapper">
 
-		<!-- Nav -->
-		<nav id="nav">
-			<ul>
-				<li><a href="#intro" class="active">Introduction</a></li>
-				<li><a href="#demos">Demos</a></li>
-				<li><a href="#usage">Usage</a></li>
-				<li><a href="#settings">Settings</a></li>
-				<li><a href="#events">Events</a></li>
-				<li><a href="#methods">Methods</a></li>
-				<li><a href="#faq">FAQ</a></li>
-			</ul>
-		</nav>
-		<!-- Main -->
-		<div id="main">
-			<!-- Introduction -->
-			<section id="intro" class="main">
-				<div class="spotlight">
-					<div class="content">
-						<header class="major">
-							<h2>What is Glider.js?</h2>
-						</header>
-						<p>
-							Glider.js was born out of a frustration for carousels, especially on mobile devices. Inspired by the well-known Slick.js, Glider.js aims
-							to be a fast, lightweight, responsive, unopinionated, dependency-free carousel alternative. Glider.js is not truly a carousel; it lacks
-							the defining carousel feature, infinite looping. Without support for looping, Glider.js retains the ability to use native scrolling creating
-							a natural feel on any touch enabled devices, while still providing the basic carousel aesthetic and functionality (great for desktop!)
-						</p>
-						<p>
-							<a href="#demos" class="smooth-scroll">Check out the demos below!</a>
-						</p>
-						
-						<header class="major">
-							<h2>Features</h2>
-						</header>
-						<ul class="script-features">
-							<li><i class="fas fa-check"></i>Insanely Small (1.8kb gzipped!)</li>
-							<li><i class="fas fa-check"></i>Ridiculously Fast (~15ms initilization)</li>
-							<li><i class="fas fa-check"></i>Vanilla JS - No Dependencies (look Mom, no jQuery!)</li>
-							<li><i class="fas fa-check"></i>Native Browser Scroll (momentum scrolling!)</li>
-							<li><i class="fas fa-check"></i>Fully Responsive (breakpoint based settings)</li>
-							<li><i class="fas fa-check"></i>Customizable Arrow and Dot Navigation</li>
-							<li><i class="fas fa-check"></i>Flexbox Support (enabled by default)</li>
-							<li><i class="fas fa-check"></i>Easily Extendable</li>
-							<li><i class="fas fa-check"></i>Custom Events</li>
-						</ul>
+    <!-- Header -->
+    <header id="header" class="alt">
+      <span class="logo"><img src="images/logo.svg" alt="" /></span>
+      <h1>Glider.js</h1>
+      <p>
+        A blazingly fast, crazy small, fully responsive, mobile-friendly, dependency free,
+        native scrolling list with paging controls!
+      </p>
+      <p>
+        <a href="https://github.com/NickPiscitelli/Glider.js" class="button">View on Github</a>
+        &nbsp;
+        <a href="https://github.com/NickPiscitelli/Glider.js/archive/master.zip" class="button">Download ZIP</a>
+      </p>
+    </header>
 
-						<ul class="actions">
-							<li><a href="#faq" class="button smooth-scroll">Learn More</a></li>
-						</ul>
-					</div>
-				</div>
-			</section>
+    <!-- Nav -->
+    <nav id="nav">
+      <ul>
+        <li><a href="#intro" class="active">Introduction</a></li>
+        <li><a href="#demos">Demos</a></li>
+        <li><a href="#usage">Usage</a></li>
+        <li><a href="#settings">Settings</a></li>
+        <li><a href="#events">Events</a></li>
+        <li><a href="#methods">Methods</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </nav>
+    <!-- Main -->
+    <div id="main">
+      <!-- Introduction -->
+      <section id="intro" class="main">
+        <div class="spotlight">
+          <div class="content">
+            <header class="major">
+              <h2>What is Glider.js?</h2>
+            </header>
+            <p>
+              Glider.js was born out of a frustration for carousels, especially on mobile devices. Inspired by the well-known Slick.js, Glider.js aims
+              to be a fast, lightweight, responsive, unopinionated, dependency-free carousel alternative. Glider.js is not truly a carousel; it lacks
+              the defining carousel feature, infinite looping. Without support for looping, Glider.js retains the ability to use native scrolling creating
+              a natural feel on any touch enabled devices, while still providing the basic carousel aesthetic and functionality (great for desktop!)
+            </p>
+            <p>
+              <a href="#demos" class="smooth-scroll">Check out the demos below!</a>
+            </p>
 
-			<!-- First Section -->
-			<section id="demos" class="main special">
-				<header class="major">
-					<h2>Demos</h2>
-				</header>
-				<div class="demo first">
-					<h2>Single Item</h2>
-					<div data-name="Single Item" class="glider-contain">
-						<div class="gradient-border-bottom">
-							<div class="gradient-border">
-								<div class="glider" id="glider-single">
-									<div><h1>1</h1></div>
-									<div><h1>2</h1></div>
-									<div><h1>3</h1></div>
-									<div><h1>4</h1></div>
-									<div><h1>5</h1></div>
-									<div><h1>6</h1></div>
-									<div><h1>7</h1></div>
-									<div><h1>8</h1></div>
-									<div><h1>9</h1></div>
-									<div><h1>10</h1></div>
-								</div>
-							</div>
-						</div>
-						<div id="dots"></div>
-						<a class="glider-prev" id="glider-prev"><i class="fa fa-chevron-left"></i></i></a>
-						<a class="glider-next" id="glider-next"><i class="fa fa-chevron-right"></i></i></a>
-					</div>
-					<script>
-						new Glider(document.getElementById('glider-single'), {
-							slidesToShow: 1,
+            <header class="major">
+              <h2>Features</h2>
+            </header>
+            <ul class="script-features">
+              <li><i class="fas fa-check"></i>Insanely Small (1.8kb gzipped!)</li>
+              <li><i class="fas fa-check"></i>Ridiculously Fast (~15ms initilization)</li>
+              <li><i class="fas fa-check"></i>Vanilla JS - No Dependencies (look Mom, no jQuery!)</li>
+              <li><i class="fas fa-check"></i>Native Browser Scroll (momentum scrolling!)</li>
+              <li><i class="fas fa-check"></i>Fully Responsive (breakpoint based settings)</li>
+              <li><i class="fas fa-check"></i>Customizable Arrow and Dot Navigation</li>
+              <li><i class="fas fa-check"></i>Flexbox Support (enabled by default)</li>
+              <li><i class="fas fa-check"></i>Easily Extendable</li>
+              <li><i class="fas fa-check"></i>Custom Events</li>
+            </ul>
+
+            <ul class="actions">
+              <li><a href="#faq" class="button smooth-scroll">Learn More</a></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- First Section -->
+      <section id="demos" class="main special">
+        <header class="major">
+          <h2>Demos</h2>
+        </header>
+        <div class="demo first">
+          <h2>Single Item</h2>
+          <div data-name="Single Item" class="glider-contain">
+            <div class="gradient-border-bottom">
+              <div class="gradient-border">
+                <div class="glider" id="glider-single">
+                  <div><h1>1</h1></div>
+                  <div><h1>2</h1></div>
+                  <div><h1>3</h1></div>
+                  <div><h1>4</h1></div>
+                  <div><h1>5</h1></div>
+                  <div><h1>6</h1></div>
+                  <div><h1>7</h1></div>
+                  <div><h1>8</h1></div>
+                  <div><h1>9</h1></div>
+                  <div><h1>10</h1></div>
+                </div>
+              </div>
+            </div>
+            <div id="dots"></div>
+            <a class="glider-prev" id="glider-prev"><i class="fa fa-chevron-left"></i></i></a>
+            <a class="glider-next" id="glider-next"><i class="fa fa-chevron-right"></i></i></a>
+          </div>
+          <script>
+            new Glider(document.getElementById('glider-single'), {
+              slidesToShow: 1,
                             dots: '#dots',
-							arrows: {
-								prev: '#glider-prev',
-								next: '#glider-next'
-							},
-							easing: function (x, t, b, c, d) {
-								return c*(t/=d)*t + b;
-							}
-						});
-					</script>
-					
-					<pre class="line-numbers language-javascript">
-						<code class="line-numbers language-javascript">
-							new Glider(document.querySelector('.glider'), {
-								slidesToShow: 1,
-								dots: '#dots',
-								arrows: {
-									prev: '.glider-prev',
-									next: '.glider-next'
-								}
-							});
-						</code>
-					</pre>
-				</div>
-				
-				<div class="demo">
-					<h2>Multiple Item</h2>
-					<div data-name="Multiple Item" class="glider-contain multiple">
+              arrows: {
+                prev: '#glider-prev',
+                next: '#glider-next'
+              },
+              easing: function (x, t, b, c, d) {
+                return c*(t/=d)*t + b;
+              }
+            });
+          </script>
+
+          <pre class="line-numbers language-javascript">
+            <code class="line-numbers language-javascript">
+              new Glider(document.querySelector('.glider'), {
+                slidesToShow: 1,
+                dots: '#dots',
+                arrows: {
+                  prev: '.glider-prev',
+                  next: '.glider-next'
+                }
+              });
+            </code>
+          </pre>
+        </div>
+
+        <div class="demo">
+          <h2>Multiple Item</h2>
+          <div data-name="Multiple Item" class="glider-contain multiple">
                         <div class="gradient-border-bottom">
-							<div class="gradient-border">
-								<div class="glider" id="glider-double">
-									
-									<div><h1>1</h1></div>
-									<div><h1>2</h1></div>
-									<div><h1>3</h1></div>
-									<div><h1>4</h1></div>
-									<div><h1>5</h1></div>
-									<div><h1>6</h1></div>
-									<div><h1>7</h1></div>
-									<div><h1>8</h1></div>
-									<div><h1>9</h1></div>
-									<div><h1>10</h1></div>
-									<div><h1>11</h1></div>
-									<div><h1>12</h1></div>
-									<div><h1>13</h1></div>
-									<div><h1>14</h1></div>
-									<div><h1>15</h1></div>
-									<div><h1>16</h1></div>
-									<div><h1>17</h1></div>
-									<div><h1>18</h1></div>
-									
-								</div>
-							</div>
+              <div class="gradient-border">
+                <div class="glider" id="glider-double">
+
+                  <div><h1>1</h1></div>
+                  <div><h1>2</h1></div>
+                  <div><h1>3</h1></div>
+                  <div><h1>4</h1></div>
+                  <div><h1>5</h1></div>
+                  <div><h1>6</h1></div>
+                  <div><h1>7</h1></div>
+                  <div><h1>8</h1></div>
+                  <div><h1>9</h1></div>
+                  <div><h1>10</h1></div>
+                  <div><h1>11</h1></div>
+                  <div><h1>12</h1></div>
+                  <div><h1>13</h1></div>
+                  <div><h1>14</h1></div>
+                  <div><h1>15</h1></div>
+                  <div><h1>16</h1></div>
+                  <div><h1>17</h1></div>
+                  <div><h1>18</h1></div>
+
+                </div>
+              </div>
                         </div>
-						<div id="dots2"></div>
-						<a class="glider-prev" id="glider-prev-2"><i class="fa fa-chevron-left"></i></i></a>
-						<a class="glider-next" id="glider-next-2"><i class="fa fa-chevron-right"></i></i></a>
-					</div>
-					<script>
-						window.addEventListener('load', function () {
-							window.glides = new Glider(document.getElementById('glider-double'), {
-								slidesToShow: 6,
-								slidesToScroll: 6,
-								dots: '#dots2',
-								arrows: {
-									prev: '#glider-prev-2',
-									next: '#glider-next-2'
-								}
-							})
-						});
-					</script>
-					<pre class="line-numbers language-javascript">
-						<code class="line-numbers language-javascript">
-							new Glider(document.querySelector('.glider'), {
-								slidesToShow: 6,
-								slidesToScroll: 6,
-								dots: '.dots',
-								arrows: {
-									prev: '.glider-prev',
-									next: '.glider-next'
-								}
-							});
-						</code>
-					</pre>
-				</div>
-				<div class="demo">
-					<h2>Responsive Settings</h2>
-					<div data-name="Responsive Settings" class="glider-contain multiple">
-						<div class="gradient-border-bottom">
-							<div class="gradient-border">
-								<div class="glider" id="glider-resp">
-									<div><h1>1</h1></div>
-									<div><h1>2</h1></div>
-									<div><h1>3</h1></div>
-									<div><h1>4</h1></div>
-									<div><h1>5</h1></div>
-									<div><h1>6</h1></div>
-									<div><h1>7</h1></div>
-									<div><h1>8</h1></div>
-									<div><h1>9</h1></div>
-									<div><h1>10</h1></div>
-								</div>
-							</div>
-						</div>
-						<div id="resp-dots"></div>
-						<a class="glider-prev" id="glider-prev-resp"><i class="fa fa-chevron-left"></i></i></a>
-						<a class="glider-next" id="glider-next-resp"><i class="fa fa-chevron-right"></i></i></a>
-					</div>
-					<script>
-						new Glider(document.getElementById('glider-resp'), {
-								slidesToShow: 1,
-								dots: '#resp-dots',
-								arrows: {
-									prev: '#glider-prev-resp',
-									next: '#glider-next-resp'
-								},
-								responsive: [
-									{
-										breakpoint: 1100,
-										settings: {
-											slidesToShow: 4,
-											slidesToScroll: 4
-										}
-									},
-									{
-										breakpoint: 775,
-										settings: {
-											slidesToShow: 3,
-											slidesToScroll: 3
-										}
-									},
-									{
-										breakpoint: 575,
-										settings: {
-											slidesToShow: 2,
-											slidesToScroll: 2
-										}
-									}
-								]
-							});
-					</script>
-					
-					<pre class="line-numbers language-javascript">
-						<code class="line-numbers language-javascript">
-							new Glider(document.querySelector('.glider'), {
-								// Mobile-first defaults
-								slidesToShow: 1,
-								slidesToScroll: 1,
+            <div id="dots2"></div>
+            <a class="glider-prev" id="glider-prev-2"><i class="fa fa-chevron-left"></i></i></a>
+            <a class="glider-next" id="glider-next-2"><i class="fa fa-chevron-right"></i></i></a>
+          </div>
+          <script>
+            window.addEventListener('load', function () {
+              window.glides = new Glider(document.getElementById('glider-double'), {
+                slidesToShow: 6,
+                slidesToScroll: 6,
+                dots: '#dots2',
+                arrows: {
+                  prev: '#glider-prev-2',
+                  next: '#glider-next-2'
+                }
+              })
+            });
+          </script>
+          <pre class="line-numbers language-javascript">
+            <code class="line-numbers language-javascript">
+              new Glider(document.querySelector('.glider'), {
+                slidesToShow: 6,
+                slidesToScroll: 6,
+                dots: '.dots',
+                arrows: {
+                  prev: '.glider-prev',
+                  next: '.glider-next'
+                }
+              });
+            </code>
+          </pre>
+        </div>
+        <div class="demo">
+          <h2>Responsive Settings</h2>
+          <div data-name="Responsive Settings" class="glider-contain multiple">
+            <div class="gradient-border-bottom">
+              <div class="gradient-border">
+                <div class="glider" id="glider-resp">
+                  <div><h1>1</h1></div>
+                  <div><h1>2</h1></div>
+                  <div><h1>3</h1></div>
+                  <div><h1>4</h1></div>
+                  <div><h1>5</h1></div>
+                  <div><h1>6</h1></div>
+                  <div><h1>7</h1></div>
+                  <div><h1>8</h1></div>
+                  <div><h1>9</h1></div>
+                  <div><h1>10</h1></div>
+                </div>
+              </div>
+            </div>
+            <div id="resp-dots"></div>
+            <a class="glider-prev" id="glider-prev-resp"><i class="fa fa-chevron-left"></i></i></a>
+            <a class="glider-next" id="glider-next-resp"><i class="fa fa-chevron-right"></i></i></a>
+          </div>
+          <script>
+            new Glider(document.getElementById('glider-resp'), {
+                slidesToShow: 1,
+                dots: '#resp-dots',
+                arrows: {
+                  prev: '#glider-prev-resp',
+                  next: '#glider-next-resp'
+                },
+                responsive: [
+                  {
+                    breakpoint: 1100,
+                    settings: {
+                      slidesToShow: 4,
+                      slidesToScroll: 4
+                    }
+                  },
+                  {
+                    breakpoint: 775,
+                    settings: {
+                      slidesToShow: 3,
+                      slidesToScroll: 3
+                    }
+                  },
+                  {
+                    breakpoint: 575,
+                    settings: {
+                      slidesToShow: 2,
+                      slidesToScroll: 2
+                    }
+                  }
+                ]
+              });
+          </script>
 
-								dots: '#dots',
-								arrows: {
-									prev: '.glider-prev',
-									next: '.glider-next'
-								},
-								// Breakpoints must be in descending order!
-								responsive: [
-									{
-										breakpoint: 1100,
-										settings: {
-											slidesToShow: 4,
-											slidesToScroll: 4
-										}
-									},
-									{
-										breakpoint: 775,
-										settings: {
-											slidesToShow: 3,
-											slidesToScroll: 3
-										}
-									},
-									{
-										breakpoint: 575,
-										settings: {
-											slidesToShow: 2,
-											slidesToScroll: 2
-										}
-									}
-								]
-							});
-						</code>
-					</pre>
-				</div>
-				
-				<div class="demo">
-					<h2>Scroll Locking</h2>
-					<div data-name="Scroll Locking" class="glider-contain">
-						<div class="gradient-border-bottom">
-							<div class="gradient-border">
-								<div class="glider" id="glider-lock">
-									<div><h1>1</h1></div>
-									<div><h1>2</h1></div>
-									<div><h1>3</h1></div>
-									<div><h1>4</h1></div>
-									<div><h1>5</h1></div>
-									<div><h1>6</h1></div>
-									<div><h1>7</h1></div>
-									<div><h1>8</h1></div>
-									<div><h1>9</h1></div>
-									<div><h1>10</h1></div>
-									<div><h1>11</h1></div>
-									<div><h1>12</h1></div>
-									<div><h1>13</h1></div>
-									<div><h1>14</h1></div>
-									<div><h1>15</h1></div>
-									<div><h1>16</h1></div>
-									<div><h1>17</h1></div>
-									<div><h1>18</h1></div>
-									<div><h1>19</h1></div>
-									<div><h1>20</h1></div>
-								</div>
-							</div>
-						</div>
-						<div id="dots-lock"></div>
-						<a class="glider-prev" id="glider-lock-prev"><i class="fa fa-chevron-left"></i></i></a>
-						<a class="glider-next" id="glider-lock-next"><i class="fa fa-chevron-right"></i></i></a>
-					</div>
-					<script>
-						new Glider(document.getElementById('glider-lock'), {
-							slidesToShow: 1,
-							scrollLock: true,
-							dots: '#dots-lock',
-							arrows: {
-								prev: '#glider-lock-prev',
-								next: '#glider-lock-next'
-							}
-						});
-					</script>
-					
-					<pre class="line-numbers language-javascript">
-						<code class="line-numbers language-javascript">
-							new Glider(document.querySelector('.glider'), {
-								slidesToShow: 1,
-								scrollLock: true,
-								dots: '#dots',
-								arrows: {
-									prev: '.glider-prev',
-									next: '.glider-next'
-								}
-							});
-						</code>
-					</pre>
-				</div>
-				
-				<div class="demo">
-					<h2>Cut-Off Slides</h2>
-					<div data-name="Fractional Slides" class="glider-contain multiple">
-						<div class="gradient-border-bottom">
-							<div class="gradient-border">
-								<div class="glider" id="glider-cut">
-									<div><h1>1</h1></div>
-									<div><h1>2</h1></div>
-									<div><h1>3</h1></div>
-									<div><h1>4</h1></div>
-									<div><h1>5</h1></div>
-									<div><h1>6</h1></div>
-									<div><h1>7</h1></div>
-									<div><h1>8</h1></div>
-									<div><h1>9</h1></div>
-									<div><h1>10</h1></div>
-									<div><h1>11</h1></div>
-									<div><h1>12</h1></div>
-									<div><h1>13</h1></div>
-									<div><h1>14</h1></div>
-									<div><h1>15</h1></div>
-									<div><h1>16</h1></div>
-									<div><h1>17</h1></div>
-								</div>
-							</div>
-						</div>
-						<div id="frac-dots"></div>
-						<a class="glider-prev" id="cut-prev"><i class="fa fa-chevron-left"></i></i></a>
-						<a class="glider-next" id="cut-next"><i class="fa fa-chevron-right"></i></i></a>
-					</div>
-					<script>
-						var glider = new Glider(document.getElementById('glider-cut'), {
-							slidesToShow: 3.5,
-							slidesToScroll: 1,
-							dots: '#frac-dots',
-							arrows: {
-								prev: '#cut-prev',
-								next: '#cut-next'
-							}
-						});
-					</script>
-					
-					<pre class="line-numbers language-javascript">
-						<code class="line-numbers language-javascript">
-							new Glider(document.querySelector('.glider'), {
-								slidesToShow: 3.5,
-								dots: '.dots',
-								arrows: {
-									prev: '.glider-prev',
-									next: '.glider-next'
-								}
-							});
-						</code>
-					</pre>
-				</div>
-			
-				<div class="demo">
-					<div id="add"><h1></h1></div>
-					<h2>Add/Remove Items</h2>
-					<div data-name="Add/Remove Items" class="glider-contain multiple">
-						<div class="gradient-border-bottom">
-							<div class="gradient-border">
-								<div class="glider" id="glider-add">
-									<div><h1>1</h1></div>
-									<div><h1>2</h1></div>
-									<div><h1>3</h1></div>
-									<div><h1>4</h1></div>
-									<div><h1>5</h1></div>
-									<div><h1>6</h1></div>
-									<div><h1>7</h1></div>
-									<div><h1>8</h1></div>
-									<div><h1>9</h1></div>
-								</div>
-							</div>
-						</div>
-						<div id="add-dots"></div>
-						<a class="glider-prev" id="glider-prev-add"><i class="fa fa-chevron-left"></i></i></a>
-						<a class="glider-next" id="glider-next-add"><i class="fa fa-chevron-right"></i></i></a>
-					</div>
-					<p class="buttons">
-						<a class="button" id="addSlide">Add</a>
-						<a class="button" id="removeSlide">Remove</a>
-					</p>
-					<script>
-						var glider = new Glider(document.getElementById('glider-add'), {
-							slidesToShow: 3,
-							duration: .6,
-							slidesToScroll: 3,
-							dots: '#add-dots',
-							arrows: {
-								prev: '#glider-prev-add',
-								next: '#glider-next-add'
-							}
-						});
-						document.getElementById('addSlide').addEventListener('click',function(){
-							var ele = document.getElementById('add').cloneNode(true);
-							ele.id = '';
-							ele.querySelector('h1').textContent = glider.slides.length + 1;
-							glider.addItem(ele);
-							try{
-								ga('send','event','Add/Remove Item', 'Add')
-							} catch(ex){}
-						});
-						document.getElementById('removeSlide').addEventListener('click',function(){
-							glider.removeItem(glider.slides.length - 1);
-							try{
-								ga('send','event','Add/Remove Item', 'Remove')
-							} catch(ex){}
-						});
-					</script>
-					
-					<pre class="line-numbers language-javascript">
-						<code class="line-numbers language-javascript">
-							new Glider(document.querySelector('.glider'), {
-								slidesToShow: 3,
-								dots: '#dots',
-								arrows: {
-									prev: '.glider-prev',
-									next: '.glider-next'
-								}
-							});
-						</code>
-					</pre>
-				</div>
-				<!--
-				<div class="demo">
-					<div id="add"><h1></h1></div>
-					<h2>Demo with Content</h2>
-					<div class="glider-contain content">
-						<div class="glider" id="glider-content">
-							<div>
-								<div class="gradient-border-bottom">
-									<div class="gradient-border">
-										<div class="article">
-											<img src="http://placehold.it/150/C9E1F5/FFFFFF?text=$_">
-											<h4 class="cool-border">Awesome JS</h4>
-											<p>Wow! Can you believe that Glider.js is only 1.7kb gzipped?! That's pretty small!</p>
-											<a class="read-more">Read More</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div>
-								<div class="gradient-border-bottom">
-									<div class="gradient-border">
-										<div class="article">
-											<img src="http://placehold.it/150/C9E1F5/FFFFFF?text=>_">
-											<h4 class="cool-border short">JS Weekly</h4>
-											<p>New library Glider.js has absolutely no dependenices! jQuery?  What's that?</p>
-											<a class="read-more">Read More</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div>
-								<div class="gradient-border-bottom">
-									<div class="gradient-border">
-										<div class="article">
-											<img src="http://placehold.it/150/C9E1F5/FFFFFF?text=0x">
-											<h4 class="cool-border long">Readers MD5 Digest</h4>
-											<p>Glider.js - Wow. Just wow. A must have for any product upsell or content list!</p>
-											<a class="read-more">Read More</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div>
-								<div class="gradient-border-bottom">
-									<div class="gradient-border">
-										<div class="article">
-											<img src="http://placehold.it/150/C9E1F5/FFFFFF?text=$_">
-											<h4 class="cool-border">Awesome JS</h4>
-											<p>Did you really think they would be different than the previous?</p>
-											<a class="read-more">Read More</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div>
-								<div class="gradient-border-bottom">
-									<div class="gradient-border">
-										<div class="article">
-											<img src="http://placehold.it/150/C9E1F5/FFFFFF?text=>_">
-											<h4 class="cool-border short">JS Weekly</h4>
-											<p>I'm a programmer, not a writer. Don't expect so much.</p>
-											<a class="read-more">Read More</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div>
-								<div class="gradient-border-bottom">
-									<div class="gradient-border">
-										<div class="article">
-											<img src="http://placehold.it/150/C9E1F5/FFFFFF?text=0x">
-											<h4 class="cool-border long">Readers SHA1 Digest</h4>
-											<p>Well, at least there was an issue upgrade.</p>
-											<a class="read-more">Read More</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div>
-								<div class="gradient-border-bottom">
-									<div class="gradient-border">
-										<div class="article">
-											<img src="http://placehold.it/150/C9E1F5/FFFFFF?text=$_">
-											<h4 class="cool-border">Awesome JS</h4>
-											<p>Ok, now you're getting greedy.</p>
-											<a class="read-more">Read More</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div>
-								<div class="gradient-border-bottom">
-									<div class="gradient-border">
-										<div class="article">
-											<img src="http://placehold.it/150/C9E1F5/FFFFFF?text=>_">
-											<h4 class="cool-border short">JS Weekly</h4>
-											<p>How much content do you think I can produce?</p>
-											<a class="read-more">Read More</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div>
-								<div class="gradient-border-bottom">
-									<div class="gradient-border">
-										<div class="article">
-											<img src="http://placehold.it/150/C9E1F5/FFFFFF?text=0x">
-											<h4 class="cool-border long">Readers SHA256 Digest</h4>
-											<p>I should have disabled the dots for optimal suspense.</p>
-											<a class="read-more">Read More</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div>
-								<div class="gradient-border-bottom">
-									<div class="gradient-border">
-										<div class="article">
-											<img src="http://placehold.it/150/C9E1F5/FFFFFF?text=$_">
-											<h4 class="cool-border">Awesome JS</h4>
-											<p>You would have just ended up looking at the arrows anyway.</p>
-											<a class="read-more">Read More</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div>
-								<div class="gradient-border-bottom">
-									<div class="gradient-border">
-										<div class="article">
-											<img src="http://placehold.it/150/C9E1F5/FFFFFF?text=>_">
-											<h4 class="cool-border short">JS Weekly</h4>
-											<p>At least you know it's almost over soon.</p>
-											<a class="read-more">Read More</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div>
-								<div class="gradient-border-bottom">
-									<div class="gradient-border">
-										<div class="article">
-											<img src="http://placehold.it/150/C9E1F5/FFFFFF?text=0x">
-											<h4 class="cool-border long">Readers SHA512 Digest</h4>
-											<p>
-												2b38627595da6be<br>
-												Nice hash.
-											</p>
-											<a class="read-more">Read More</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div>
-								<div class="gradient-border-bottom">
-									<div class="gradient-border">
-										<div class="article">
-											<img src="http://placehold.it/150/C9E1F5/FFFFFF?text=$_">
-											<h4 class="cool-border">Awesome JS</h4>
-											<p>I hope you expected more.</p>
-											<a class="read-more">Read More</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div id="dots-content"></div>
-						<a class="glider-prev" id="glider-prev-content"><i class="fa fa-chevron-left"></i></i></a>
-						<a class="glider-next" id="glider-next-content"><i class="fa fa-chevron-right"></i></i></a>
-					</div>
-					<script>
-						new Glider(document.getElementById('glider-content'), {
-							slidesToShow: 1,
-							slidesToScroll: 1,
-							duration: .75,
-							easing: function (x, t, b, c, d) {
-								return c*(t/=d)*t + b;
-							},
-							dots: '#dots-content',
-							arrows: {
-								prev: '#glider-prev-content',
-								next: '#glider-next-content'
-							},
-							responsive: [{
-								breakpoint: 900,
-								settings: {
-									slidesToShow: 3,
-									slidesToScroll: 3,
-								}
-							},{
-								breakpoint: 575,
-								settings: {
-									slidesToShow: 2,
-									slidesToScroll: 2,
-								}
-							}]
-						});
-					</script>
-					
-					<pre class="line-numbers language-javascript">
-						<code class="line-numbers language-javascript">
-							new Glider(document.querySelector('.glider'), {
-								slidesToShow: 1,
-								slidesToScroll: 1,
-								duration: .75,
-								// easeInQuad
-								easing: function (x, t, b, c, d) {
-									return c*(t/=d)*t + b;
-								},
-								arrows: {
-									prev: '.glider-prev',
-									next: '.glider-next'
-								},
-								dots: '#dots',
-								responsive: [{
-									breakpoint: 900,
-									settings: {
-										slidesToShow: 3,
-										slidesToScroll: 3,
-									}
-								},{
-									breakpoint: 575,
-									settings: {
-										slidesToShow: 2,
-										slidesToScroll: 2,
-									}
-								}]
-							});
-						</code>
-					</pre>
-				</div>
-			</section>
-			-->
-			<!-- Second Section -->
-			<section id="usage" class="main code special">
-				<header class="major">
-					<h2>Getting Started</h2>
-				</header>
-				<p>
-					The following minimal HTML structure is required:
-				</p>
-				<pre class="line-numbers language-html">
-					<code class="line-numbers language-html">
-						&lt;div class="any-class"&gt;
-							&lt;div&gt;&lt;/div&gt;
-							&lt;div&gt;&lt;/div&gt;
-							&lt;div&gt;&lt;/div&gt;
-							&lt;div&gt;&lt;/div&gt;
-						&lt;/div&gt;
-					</code>
-				</pre>
+          <pre class="line-numbers language-javascript">
+            <code class="line-numbers language-javascript">
+              new Glider(document.querySelector('.glider'), {
+                // Mobile-first defaults
+                slidesToShow: 1,
+                slidesToScroll: 1,
 
-				<p>
-					A more comprehensive example with all paging controls would 
-					look something like this:
-				</p>
-				<pre class="line-numbers language-html">
-					<code class="line-numbers language-html">
-						&lt;div class="glider-contain"&gt;
-							&lt;div class="glider"&gt;
-								&lt;div&gt;your content here&lt;/div&gt;
-								&lt;div&gt;your content here&lt;/div&gt;
-								&lt;div&gt;your content here&lt;/div&gt;
-								&lt;div&gt;your content here&lt;/div&gt;
-							&lt;/div&gt;
-							&lt;div class="dots"&gt;&lt;/div&gt;
-							&lt;a class="glider-prev"&gt;&laquo;&lt;/a&gt;
-							&lt;a class="glider-next"&gt;&raquo;&lt;/a&gt;
-						&lt;/div&gt;
-					</code>
-				</pre>
-				
-				<p>
-					Include Glider.js in your document before the &lt;/body&gt; tag:
-				</p>
-				<pre class="line-numbers language-html">
-					<code class="line-numbers language-html">
-						&lt;script src="glider.js"&gt;&lt;/script&gt;
-					</code>
-				</pre>
+                dots: '#dots',
+                arrows: {
+                  prev: '.glider-prev',
+                  next: '.glider-next'
+                },
+                // Breakpoints must be in descending order!
+                responsive: [
+                  {
+                    breakpoint: 1100,
+                    settings: {
+                      slidesToShow: 4,
+                      slidesToScroll: 4
+                    }
+                  },
+                  {
+                    breakpoint: 775,
+                    settings: {
+                      slidesToShow: 3,
+                      slidesToScroll: 3
+                    }
+                  },
+                  {
+                    breakpoint: 575,
+                    settings: {
+                      slidesToShow: 2,
+                      slidesToScroll: 2
+                    }
+                  }
+                ]
+              });
+            </code>
+          </pre>
+        </div>
 
-				<p>
-					Include the required CSS (614 bytes gzipped) in your &lt;head&gt; tag
-				</p>
-				<pre class="line-numbers language-html">
-					<code class="line-numbers language-html"> 
-						&lt;link rel="stylesheet" type="text/css" href="glider.css"&gt;
-					</code>
-				</pre>
+        <div class="demo">
+          <h2>Scroll Locking</h2>
+          <div data-name="Scroll Locking" class="glider-contain">
+            <div class="gradient-border-bottom">
+              <div class="gradient-border">
+                <div class="glider" id="glider-lock">
+                  <div><h1>1</h1></div>
+                  <div><h1>2</h1></div>
+                  <div><h1>3</h1></div>
+                  <div><h1>4</h1></div>
+                  <div><h1>5</h1></div>
+                  <div><h1>6</h1></div>
+                  <div><h1>7</h1></div>
+                  <div><h1>8</h1></div>
+                  <div><h1>9</h1></div>
+                  <div><h1>10</h1></div>
+                  <div><h1>11</h1></div>
+                  <div><h1>12</h1></div>
+                  <div><h1>13</h1></div>
+                  <div><h1>14</h1></div>
+                  <div><h1>15</h1></div>
+                  <div><h1>16</h1></div>
+                  <div><h1>17</h1></div>
+                  <div><h1>18</h1></div>
+                  <div><h1>19</h1></div>
+                  <div><h1>20</h1></div>
+                </div>
+              </div>
+            </div>
+            <div id="dots-lock"></div>
+            <a class="glider-prev" id="glider-lock-prev"><i class="fa fa-chevron-left"></i></i></a>
+            <a class="glider-next" id="glider-lock-next"><i class="fa fa-chevron-right"></i></i></a>
+          </div>
+          <script>
+            new Glider(document.getElementById('glider-lock'), {
+              slidesToShow: 1,
+              scrollLock: true,
+              dots: '#dots-lock',
+              arrows: {
+                prev: '#glider-lock-prev',
+                next: '#glider-lock-next'
+              }
+            });
+          </script>
 
-				<p>
-					Initialize Glider.js inline or via your script files
-				</p>
-				<pre class="line-numbers language-javascript">
-					<code class="line-numbers language-javascript">
-						window.addEventListener('load', function(){
-							document.querySelector('.glider').Glider({
-								setting-name: setting-value
-							})
-						})
-					</code>
-				</pre>
+          <pre class="line-numbers language-javascript">
+            <code class="line-numbers language-javascript">
+              new Glider(document.querySelector('.glider'), {
+                slidesToShow: 1,
+                scrollLock: true,
+                dots: '#dots',
+                arrows: {
+                  prev: '.glider-prev',
+                  next: '.glider-next'
+                }
+              });
+            </code>
+          </pre>
+        </div>
 
-				<p>
-					That's it! You're done!
-				</p>
-				<p>
-					Voila!<br>
-					Viva la Vida!<br>
-					Veni Vidi Vici!<br>
-				</p>
-				
-			</section>
+        <div class="demo">
+          <h2>Cut-Off Slides</h2>
+          <div data-name="Fractional Slides" class="glider-contain multiple">
+            <div class="gradient-border-bottom">
+              <div class="gradient-border">
+                <div class="glider" id="glider-cut">
+                  <div><h1>1</h1></div>
+                  <div><h1>2</h1></div>
+                  <div><h1>3</h1></div>
+                  <div><h1>4</h1></div>
+                  <div><h1>5</h1></div>
+                  <div><h1>6</h1></div>
+                  <div><h1>7</h1></div>
+                  <div><h1>8</h1></div>
+                  <div><h1>9</h1></div>
+                  <div><h1>10</h1></div>
+                  <div><h1>11</h1></div>
+                  <div><h1>12</h1></div>
+                  <div><h1>13</h1></div>
+                  <div><h1>14</h1></div>
+                  <div><h1>15</h1></div>
+                  <div><h1>16</h1></div>
+                  <div><h1>17</h1></div>
+                </div>
+              </div>
+            </div>
+            <div id="frac-dots"></div>
+            <a class="glider-prev" id="cut-prev"><i class="fa fa-chevron-left"></i></i></a>
+            <a class="glider-next" id="cut-next"><i class="fa fa-chevron-right"></i></i></a>
+          </div>
+          <script>
+            var glider = new Glider(document.getElementById('glider-cut'), {
+              slidesToShow: 3.5,
+              slidesToScroll: 1,
+              dots: '#frac-dots',
+              arrows: {
+                prev: '#cut-prev',
+                next: '#cut-next'
+              }
+            });
+          </script>
 
-			<!-- Get Started -->
-			<section id="settings" class="main special">
-				<header class="major">
-					<h2>Settings</h2>
-				</header>
-				<ul class="settings uneven">
-					<li>
-						<span class="setting-name">slidesToShow</span><br>
-						<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a><br>
-						<span class="type default">Default:</span> 1<br>
-						The number of slides to show in container<br>
-					</li>
-					<li>
-						<span class="setting-name">slidesToScroll</span><br>
-						<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a><br>
-						<span class="type default">Default:</span> 1<br>
-						The number of slides to scroll when <b>arrow</b> navigation is used<br>
-					</li>
-					<li>
-						<span class="setting-name">arrows</span><br>
-						<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a><br>
-						<span class="type default">Default:</span> undefined<br>
-						An object containing the prev/next arrows<br>
-						<span class="indent">
-							<span class="type">Keys:</span> prev | next<br>
-							<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">Element</a> | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a> (HTML Selector)<br>
-						</span>
-					</li>
-					<li>
-						<span class="setting-name">responsive</span><br>
-						<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">array</a> of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">objects</a> [{}]<br>
-						<span class="type default">Default:</span> undefined<br>
-						An object containing custom settings per provided breakpoint. See demo for details.
-						<span class="aside">NOTE: All responsive calculation are provided "mobile-first". Be conscious of your breakpoint order!</span>
-					</li>
-					<li>
-						<span class="setting-name">easing</span><br>
-						<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a><br>
-						<span class="type default">Default:</span> Ease-In Out<br>
-						A custom easing function may be provided. All functions from the standard <a href="http://gsgd.co.uk/sandbox/jquery/easing/jquery.easing.1.3.js">jQuery easing library</a>
-						are supported.
-					</li>
-					<li>
-						<span class="setting-name">scrollLock</span><br>
-						<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a><br>
-						<span class="type default">Default:</span> false<br>
-						If true, Glider.js will scroll to the nearest slide after any scroll interactions.
-					</li>
-					<li>
-						<span class="setting-name">duration</span><br>
-						<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a><br>
-						<span class="type default">Default:</span> 0.5<br>
-						An aggravator used to control animation speed. <br>Higher is slower!<br>
-					</li>
-					
-					<li>
-						<span class="setting-name">scrollPropagate</span><br>
-						<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a><br>
-						<span class="type default">Default:</span> false<br>
-						Whether or not to release the scroll events from the container
-					</li>
-					<li>
-						<span class="setting-name">propagateEvent</span><br>
-						<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a><br>
-						<span class="type default">Default:</span> true<br>
-						Whether or not Glider.js events should bubble (useful for binding events to all carousels)
-					</li>
-					
-					
-				</ul>
-			</section>
-			<section id="events" class="main special">
-				<header class="major">
-					<h2>Events</h2>
-					<p>
-						A lit of custom events provided by Glider.js. Due to the unobtrusive nature of Glider.js, all standard events (scroll, click, etc) can be bound to their elements as normal.
-					</p>
-					
-				</header>
-				<ul class="settings">
-					<li>
-						<span class="setting-name">glider-loaded</span><br>
-						Called after Glider.js is first initialized<br>
-					</li>
-					<li>
-						<span class="setting-name">glider-refresh</span><br>
-						Called whenever Glider.js refreshes it's elements or settings<br>
-					</li>
-					<li>
-						<span class="setting-name">glider-animated</span><br>
-						Called whenever a Glider.js paging animation is complete
-					</li>
-					<li>
-						<span class="setting-name">glider-add</span><br>
-						Called whenever an item is added to Glider.js
-					</li>
-					<li>
-						<span class="setting-name">glider-remove</span><br>
-						Called whenever a Glider.js animation is complete
-					</li>
-					<li>
-						<span class="setting-name">glider-destroy</span><br>
-						Called whenever a Glider.js is destroyed
-					</li>
-					<li>
-						<span class="setting-name">glider-slide-visible</span><br>
-						Called whenever a slide a shown. Passed an object containing the slide index
-					</li>
-					<li>
-						<span class="setting-name">glider-slide-hidden</span><br>
-						Called whenever a slide a hidden. Passed an object containing the slide index
-					</li>
-				</ul>
-				<p class="little-margin"><b>Event Example - Lazy Loading Images</b></p>
-					<p>
-						A reference to the Glider.js object is available via this <code class="slim">this._glider</code>. Any custom 
-						event data is passed via the event, located at <code class="slim">event.detail</code>
-					</p>
-					
-					<pre class="language-javascript">
-						<code class="language-javascript">
-							// example event hook implementing basic lazy loading images
-							// appropriate image CSS (opacity/transform) must be set to work
-							document.querySelector('.glider').addEventListener('glider-slide-visible', function(event){
-								var imgs_to_anticipate = 3;
-								for (var i = 0; i &lt;= imgs_to_anticipate; ++i){
-									var index = Math.min(event.detail.slide + i, this._glider.slides.length - 1),
-										glider = this._glider;
-									loadImages.call(glider.slides[index],function(){
-										glider.refresh(true);
-									})
-								}
-							});
+          <pre class="line-numbers language-javascript">
+            <code class="line-numbers language-javascript">
+              new Glider(document.querySelector('.glider'), {
+                slidesToShow: 3.5,
+                dots: '.dots',
+                arrows: {
+                  prev: '.glider-prev',
+                  next: '.glider-next'
+                }
+              });
+            </code>
+          </pre>
+        </div>
 
-							function loadImages(callback){
-								[].forEach.call(this.querySelectorAll('img'),function(img){
-									var _img = new Image,  _src = img.getAttribute('data-src');
-									_img.onload = function(){
-										img.src = _src;
-										img.classList.add('loaded');
-										callback &amp;&amp; callback(img);
-									}
-									if(img.src !== _src)	_img.src = _src;
-								});
-							}
-						</code>
-					</pre>
-					<p>
-						<a data-collapse="css-collapse" class="collapse-control" href="#">Click to show lazy loading CSS</a>
-					</p>
-					<div id="css-collapse" class="collapse">
-						<pre class="langugae-css">
-							<code class="language-css">
-									// example css
-									.glider-slide img {
-										opacity: 0;
-										transform: opacity .1s ease;
-									}
-									.glider-slide img.loaded {
-										opacity: 1;
-									}
-							</code>
-						</pre>
-					</div>
-			</section>
-			<section id="methods" class="main special">
-				<header class="major">
-					<h2>Methods</h2>
-					<p>Methods are called directly on the Glider object returned from initilization.</p>
-					<p class="little-margin"><b>Examples:</b></p>
-					<pre class="language-javascript">
-						<code class="language-javascript">
-							var glider = new Glider(document.getElementById('glider'), {
-								slidesToShow: 1,
-								dots: '#dots',
-							});
+        <div class="demo">
+          <div id="add"><h1></h1></div>
+          <h2>Add/Remove Items</h2>
+          <div data-name="Add/Remove Items" class="glider-contain multiple">
+            <div class="gradient-border-bottom">
+              <div class="gradient-border">
+                <div class="glider" id="glider-add">
+                  <div><h1>1</h1></div>
+                  <div><h1>2</h1></div>
+                  <div><h1>3</h1></div>
+                  <div><h1>4</h1></div>
+                  <div><h1>5</h1></div>
+                  <div><h1>6</h1></div>
+                  <div><h1>7</h1></div>
+                  <div><h1>8</h1></div>
+                  <div><h1>9</h1></div>
+                </div>
+              </div>
+            </div>
+            <div id="add-dots"></div>
+            <a class="glider-prev" id="glider-prev-add"><i class="fa fa-chevron-left"></i></i></a>
+            <a class="glider-next" id="glider-next-add"><i class="fa fa-chevron-right"></i></i></a>
+          </div>
+          <p class="buttons">
+            <a class="button" id="addSlide">Add</a>
+            <a class="button" id="removeSlide">Remove</a>
+          </p>
+          <script>
+            var glider = new Glider(document.getElementById('glider-add'), {
+              slidesToShow: 3,
+              duration: .6,
+              slidesToScroll: 3,
+              dots: '#add-dots',
+              arrows: {
+                prev: '#glider-prev-add',
+                next: '#glider-next-add'
+              }
+            });
+            document.getElementById('addSlide').addEventListener('click',function(){
+              var ele = document.getElementById('add').cloneNode(true);
+              ele.id = '';
+              ele.querySelector('h1').textContent = glider.slides.length + 1;
+              glider.addItem(ele);
+              try{
+                ga('send','event','Add/Remove Item', 'Add')
+              } catch(ex){}
+            });
+            document.getElementById('removeSlide').addEventListener('click',function(){
+              glider.removeItem(glider.slides.length - 1);
+              try{
+                ga('send','event','Add/Remove Item', 'Remove')
+              } catch(ex){}
+            });
+          </script>
 
-							glider.setOption({
-								arrows: {
-									prev: '#glider-prev',
-									next: '#glider-next'
-								}
-							});
+          <pre class="line-numbers language-javascript">
+            <code class="line-numbers language-javascript">
+              new Glider(document.querySelector('.glider'), {
+                slidesToShow: 3,
+                dots: '#dots',
+                arrows: {
+                  prev: '.glider-prev',
+                  next: '.glider-next'
+                }
+              });
+            </code>
+          </pre>
+        </div>
+        <!--
+        <div class="demo">
+          <div id="add"><h1></h1></div>
+          <h2>Demo with Content</h2>
+          <div class="glider-contain content">
+            <div class="glider" id="glider-content">
+              <div>
+                <div class="gradient-border-bottom">
+                  <div class="gradient-border">
+                    <div class="article">
+                      <img src="http://placehold.it/150/C9E1F5/FFFFFF?text=$_">
+                      <h4 class="cool-border">Awesome JS</h4>
+                      <p>Wow! Can you believe that Glider.js is only 1.7kb gzipped?! That's pretty small!</p>
+                      <a class="read-more">Read More</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="gradient-border-bottom">
+                  <div class="gradient-border">
+                    <div class="article">
+                      <img src="http://placehold.it/150/C9E1F5/FFFFFF?text=>_">
+                      <h4 class="cool-border short">JS Weekly</h4>
+                      <p>New library Glider.js has absolutely no dependenices! jQuery?  What's that?</p>
+                      <a class="read-more">Read More</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="gradient-border-bottom">
+                  <div class="gradient-border">
+                    <div class="article">
+                      <img src="http://placehold.it/150/C9E1F5/FFFFFF?text=0x">
+                      <h4 class="cool-border long">Readers MD5 Digest</h4>
+                      <p>Glider.js - Wow. Just wow. A must have for any product upsell or content list!</p>
+                      <a class="read-more">Read More</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="gradient-border-bottom">
+                  <div class="gradient-border">
+                    <div class="article">
+                      <img src="http://placehold.it/150/C9E1F5/FFFFFF?text=$_">
+                      <h4 class="cool-border">Awesome JS</h4>
+                      <p>Did you really think they would be different than the previous?</p>
+                      <a class="read-more">Read More</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="gradient-border-bottom">
+                  <div class="gradient-border">
+                    <div class="article">
+                      <img src="http://placehold.it/150/C9E1F5/FFFFFF?text=>_">
+                      <h4 class="cool-border short">JS Weekly</h4>
+                      <p>I'm a programmer, not a writer. Don't expect so much.</p>
+                      <a class="read-more">Read More</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="gradient-border-bottom">
+                  <div class="gradient-border">
+                    <div class="article">
+                      <img src="http://placehold.it/150/C9E1F5/FFFFFF?text=0x">
+                      <h4 class="cool-border long">Readers SHA1 Digest</h4>
+                      <p>Well, at least there was an issue upgrade.</p>
+                      <a class="read-more">Read More</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="gradient-border-bottom">
+                  <div class="gradient-border">
+                    <div class="article">
+                      <img src="http://placehold.it/150/C9E1F5/FFFFFF?text=$_">
+                      <h4 class="cool-border">Awesome JS</h4>
+                      <p>Ok, now you're getting greedy.</p>
+                      <a class="read-more">Read More</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="gradient-border-bottom">
+                  <div class="gradient-border">
+                    <div class="article">
+                      <img src="http://placehold.it/150/C9E1F5/FFFFFF?text=>_">
+                      <h4 class="cool-border short">JS Weekly</h4>
+                      <p>How much content do you think I can produce?</p>
+                      <a class="read-more">Read More</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="gradient-border-bottom">
+                  <div class="gradient-border">
+                    <div class="article">
+                      <img src="http://placehold.it/150/C9E1F5/FFFFFF?text=0x">
+                      <h4 class="cool-border long">Readers SHA256 Digest</h4>
+                      <p>I should have disabled the dots for optimal suspense.</p>
+                      <a class="read-more">Read More</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="gradient-border-bottom">
+                  <div class="gradient-border">
+                    <div class="article">
+                      <img src="http://placehold.it/150/C9E1F5/FFFFFF?text=$_">
+                      <h4 class="cool-border">Awesome JS</h4>
+                      <p>You would have just ended up looking at the arrows anyway.</p>
+                      <a class="read-more">Read More</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="gradient-border-bottom">
+                  <div class="gradient-border">
+                    <div class="article">
+                      <img src="http://placehold.it/150/C9E1F5/FFFFFF?text=>_">
+                      <h4 class="cool-border short">JS Weekly</h4>
+                      <p>At least you know it's almost over soon.</p>
+                      <a class="read-more">Read More</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="gradient-border-bottom">
+                  <div class="gradient-border">
+                    <div class="article">
+                      <img src="http://placehold.it/150/C9E1F5/FFFFFF?text=0x">
+                      <h4 class="cool-border long">Readers SHA512 Digest</h4>
+                      <p>
+                        2b38627595da6be<br>
+                        Nice hash.
+                      </p>
+                      <a class="read-more">Read More</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="gradient-border-bottom">
+                  <div class="gradient-border">
+                    <div class="article">
+                      <img src="http://placehold.it/150/C9E1F5/FFFFFF?text=$_">
+                      <h4 class="cool-border">Awesome JS</h4>
+                      <p>I hope you expected more.</p>
+                      <a class="read-more">Read More</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="dots-content"></div>
+            <a class="glider-prev" id="glider-prev-content"><i class="fa fa-chevron-left"></i></i></a>
+            <a class="glider-next" id="glider-next-content"><i class="fa fa-chevron-right"></i></i></a>
+          </div>
+          <script>
+            new Glider(document.getElementById('glider-content'), {
+              slidesToShow: 1,
+              slidesToScroll: 1,
+              duration: .75,
+              easing: function (x, t, b, c, d) {
+                return c*(t/=d)*t + b;
+              },
+              dots: '#dots-content',
+              arrows: {
+                prev: '#glider-prev-content',
+                next: '#glider-next-content'
+              },
+              responsive: [{
+                breakpoint: 900,
+                settings: {
+                  slidesToShow: 3,
+                  slidesToScroll: 3,
+                }
+              },{
+                breakpoint: 575,
+                settings: {
+                  slidesToShow: 2,
+                  slidesToScroll: 2,
+                }
+              }]
+            });
+          </script>
 
-							// a refresh may need to be called depending 
-							// upon the options passed to setOptions
-							glider.refresh(true);
+          <pre class="line-numbers language-javascript">
+            <code class="line-numbers language-javascript">
+              new Glider(document.querySelector('.glider'), {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                duration: .75,
+                // easeInQuad
+                easing: function (x, t, b, c, d) {
+                  return c*(t/=d)*t + b;
+                },
+                arrows: {
+                  prev: '.glider-prev',
+                  next: '.glider-next'
+                },
+                dots: '#dots',
+                responsive: [{
+                  breakpoint: 900,
+                  settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 3,
+                  }
+                },{
+                  breakpoint: 575,
+                  settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2,
+                  }
+                }]
+              });
+            </code>
+          </pre>
+        </div>
+      </section>
+      -->
+      <!-- Second Section -->
+      <section id="usage" class="main code special">
+        <header class="major">
+          <h2>Getting Started</h2>
+        </header>
+        <p>
+          The following minimal HTML structure is required:
+        </p>
+        <pre class="line-numbers language-html">
+          <code class="line-numbers language-html">
+            &lt;div class="any-class"&gt;
+              &lt;div&gt;&lt;/div&gt;
+              &lt;div&gt;&lt;/div&gt;
+              &lt;div&gt;&lt;/div&gt;
+              &lt;div&gt;&lt;/div&gt;
+            &lt;/div&gt;
+          </code>
+        </pre>
 
-							// adding or removing items automatically calls refresh()
-							glider.removeItem(4);
+        <p>
+          A more comprehensive example with all paging controls would
+          look something like this:
+        </p>
+        <pre class="line-numbers language-html">
+          <code class="line-numbers language-html">
+            &lt;div class="glider-contain"&gt;
+              &lt;div class="glider"&gt;
+                &lt;div&gt;your content here&lt;/div&gt;
+                &lt;div&gt;your content here&lt;/div&gt;
+                &lt;div&gt;your content here&lt;/div&gt;
+                &lt;div&gt;your content here&lt;/div&gt;
+              &lt;/div&gt;
+              &lt;div class="dots"&gt;&lt;/div&gt;
+              &lt;a class="glider-prev"&gt;&laquo;&lt;/a&gt;
+              &lt;a class="glider-next"&gt;&raquo;&lt;/a&gt;
+            &lt;/div&gt;
+          </code>
+        </pre>
 
-							// death to smoochy!
-							glider.destroy();
-						</code>
-					</pre>
-				</header>
-				<ul class="settings uneven">
-					<li>
-						<span class="setting-name">addItem</span><br>
-						<span class="type">Arguments:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">Element</a><br>
-						Add an item to the list<br>
-					</li>
-					<li>
-						<span class="setting-name">removeItem</span><br>
-						<span class="type">Arguments:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a> (slide position)<br>
-						Remove an item from the list<br>
-						<span class="aside">NOTE: Slide position starts at 0, not 1!</span>
-					</li>
-					<li>
-						<span class="setting-name">scrollItem</span><br>
-						<span class="type">Arguments:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a> | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a><br>
-						Scroll to any slide or page. If second argument is explicitly true, then the first argument will refer to the page to scroll to, as opposed to the slide.<br>
-					</li>
-					<li>
-						<span class="setting-name">scrollTo</span><br>
-						<span class="type">Arguments:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a> <br>
-						Scroll directly to supplied scroll position<br>
-					</li>
-					<li>
-						<span class="setting-name">refresh</span><br>
-						<span class="type">Arguments:</span> rebuildPaging <br>
-						Force a refresh of Glider.js. If rebuildPaging is true, paging controls will force a rebuild as well. This 
-						arument must be true if any options affecting paging controls (dots/arrows) are modified. 
-					</li>
-					<li>
-						<span class="setting-name">updateControls</span><br>
-						<span class="type">Arguments:</span> None <br>
-						Force a refresh of Glider.js navigation controls
-					</li>
-					<li>
-						<span class="setting-name">destroy</span><br>
-						Destroy Glider.js. 
-						<span class="aside">NOTE: This is destructive and removes all elements
-						aside from the list. Useful for reverting to grid state.</span>
-					</li>
-				</ul>
-			</section>
-		
+        <p>
+          Include Glider.js in your document before the &lt;/body&gt; tag:
+        </p>
+        <pre class="line-numbers language-html">
+          <code class="line-numbers language-html">
+            &lt;script src="glider.js"&gt;&lt;/script&gt;
+          </code>
+        </pre>
 
-		<section id="faq" class="main code special">
-				<header class="major">
-					<h2>FAQ</h2>
-				</header>
-				<ul class="questions">
-					<li>
-						<p class="question">
-							What is Glider.js?
-						</p>
-						<p class="answer">
-							Glider.js is a fast, lightweight, responsive, dependency-free scrollable list with customizable paging controls.
-						</p>
-					</li>
-					<li>
-						<p class="question">
-							What isn't Glider.js?
-						</p>
-						<p class="answer">
-							Glider.js is not a drop-in replacement for carousels. It lacks a lot of
-							functionality provided by Slick.js or other featured carousels. An non-exhaustive list
-							would consist of things like infinite looping, autoplay, variable width, vertical support,
-							custom transitions, etc.
-						</p>
-					</li>
-					<li>
-						<p class="question">
-							Will these features ever be added to Glider.js?
-						</p>
-						<p class="answer">
-							Glider.js aims to be lightweight and fast. There are some planned upgrades to the list such as adaptive height, but they are not present in version 1.0.
-							If there is a demand for other features that can be implemented with little overhead, Glider.js will be happy to include them on it's next release.
+        <p>
+          Include the required CSS (614 bytes gzipped) in your &lt;head&gt; tag
+        </p>
+        <pre class="line-numbers language-html">
+          <code class="line-numbers language-html"> 
+            &lt;link rel="stylesheet" type="text/css" href="glider.css"&gt;
+          </code>
+        </pre>
 
-							<span class="aside">* Infinite looping will never be supported as it's incompatible with native browser scrolling.</span>
-						</p>
-					</li>
-					<li>
-						<p class="question">
-							Why should I use Glider.js? What is it good for?
-						</p>
-						<p class="answer">
-							Glider.js works best with large lists of uniform items, such as product upsells.
+        <p>
+          Initialize Glider.js inline or via your script files
+        </p>
+        <pre class="line-numbers language-javascript">
+          <code class="line-numbers language-javascript">
+            window.addEventListener('load', function(){
+              document.querySelector('.glider').Glider({
+                setting-name: setting-value
+              })
+            })
+          </code>
+        </pre>
 
-							If you are using a carousel as a UI tool to list elements, you should consider replacing
-							it with Glider.js. Your mobile users will thank you! (or anyone with a touch device really)
-						</p>
-					</li>
-					<li>
-						<p class="question">
-							What browsers are supported?
-						</p>
-						<p class="answer">
-							Glider.js should run on all modern browsers. Support for older browsers can be achieved by polyfilling
-							<code class="slim">document.classList</code>, <code class="slim">window.requestAnimationFrame</code>
-							and <code class="slim">CustomEvent</code>.
-						</p>
-					</li>
-					<li>
-						<p class="question">
-							How do I get the dots/arrows to show?
-						</p>
-						<p class="answer">
-							In order to remain unopinonated and save on space, Glider.js does not provide default elements
-							for the paging controls, the elements must exist and be passed to Glider.js
-							as arguments. Refer to the getting started guide for an example.
-						</p>
-					</li>
-					<li>
-						<p class="question">
-							How is Glider.js different from other carousels?
-						</p>
-						<p class="answer">
-							Aside from the fact that Glider.js is "not a carousel", it's main benefits are it's size, speed and native scrolling design. Due to this,
-							touch devices benefit from momentum based scrolling while still allowing other default scrolling methods (touch, touchpads, hoz. mousewheel, arrow keys, scrollbars, etc), all within in a tiny
-							footprint and buttery-smooth performance!
+        <p>
+          That's it! You're done!
+        </p>
+        <p>
+          Voila!<br>
+          Viva la Vida!<br>
+          Veni Vidi Vici!<br>
+        </p>
 
-							<span class="aside">
-								NOTE: By default, scrollbars are hidden with CSS for desktops. Remove the code to allow scrollbar functionality.
-							</aside>
-						</p>
-					</li>
-					<li>
-						<p class="question">
-							Um, I still have questions.
-						</p>
-						<p class="answer">
-							Feel free to drop me a line at mail &lt;at&gt; nickpiscitell.com!
+      </section>
 
-						
-						</p>
-					</li>
-					
-				</ul>
-				
-			</section>
-		</div>
-		<!-- Footer -->
-		<footer id="footer">
-			<p class="copyright">&copy; 2018 <a href="https://nickpiscitelli.com">Nick Piscitelli</a>. Template designed by: <a href="https://html5up.net">HTML5 UP</a>.
-			<br> <br> Featured in <a href="https://javascriptweekly.com/issues/411">Javascript Weekly!</a> <span style="font-size: 10px;">(thanks!)</span>
-				<br><br><a class="github-button" href="https://github.com/NickPiscitelli/Glider.js" data-icon="octicon-star" data-size="large" aria-label="Star NickPiscitelli/Glider.js on GitHub">Star Me on Github!</a>
+      <!-- Get Started -->
+      <section id="settings" class="main special">
+        <header class="major">
+          <h2>Settings</h2>
+        </header>
+        <ul class="settings uneven">
+          <li>
+            <span class="setting-name">slidesToShow</span><br>
+            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a><br>
+            <span class="type default">Default:</span> 1<br>
+            The number of slides to show in container<br>
+          </li>
+          <li>
+            <span class="setting-name">slidesToScroll</span><br>
+            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a><br>
+            <span class="type default">Default:</span> 1<br>
+            The number of slides to scroll when <b>arrow</b> navigation is used<br>
+          </li>
+          <li>
+            <span class="setting-name">arrows</span><br>
+            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a><br>
+            <span class="type default">Default:</span> undefined<br>
+            An object containing the prev/next arrows<br>
+            <span class="indent">
+              <span class="type">Keys:</span> prev | next<br>
+              <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">Element</a> | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a> (HTML Selector)<br>
+            </span>
+          </li>
+          <li>
+            <span class="setting-name">responsive</span><br>
+            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">array</a> of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">objects</a> [{}]<br>
+            <span class="type default">Default:</span> undefined<br>
+            An object containing custom settings per provided breakpoint. See demo for details.
+            <span class="aside">NOTE: All responsive calculation are provided "mobile-first". Be conscious of your breakpoint order!</span>
+          </li>
+          <li>
+            <span class="setting-name">easing</span><br>
+            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a><br>
+            <span class="type default">Default:</span> Ease-In Out<br>
+            A custom easing function may be provided. All functions from the standard <a href="http://gsgd.co.uk/sandbox/jquery/easing/jquery.easing.1.3.js">jQuery easing library</a>
+            are supported.
+          </li>
+          <li>
+            <span class="setting-name">scrollLock</span><br>
+            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a><br>
+            <span class="type default">Default:</span> false<br>
+            If true, Glider.js will scroll to the nearest slide after any scroll interactions.
+          </li>
+          <li>
+            <span class="setting-name">duration</span><br>
+            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a><br>
+            <span class="type default">Default:</span> 0.5<br>
+            An aggravator used to control animation speed. <br>Higher is slower!<br>
+          </li>
 
-			
-				
-			</p>
-		</footer>
+          <li>
+            <span class="setting-name">scrollPropagate</span><br>
+            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a><br>
+            <span class="type default">Default:</span> false<br>
+            Whether or not to release the scroll events from the container
+          </li>
+          <li>
+            <span class="setting-name">propagateEvent</span><br>
+            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a><br>
+            <span class="type default">Default:</span> true<br>
+            Whether or not Glider.js events should bubble (useful for binding events to all carousels)
+          </li>
 
-	</div>
 
-	<!-- Kick-ass template designed by: -->
-	<!--
-		Stellar by HTML5 UP
-		html5up.net | @ajlkn
-		Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
-	-->
+        </ul>
+      </section>
+      <section id="events" class="main special">
+        <header class="major">
+          <h2>Events</h2>
+          <p>
+            A lit of custom events provided by Glider.js. Due to the unobtrusive nature of Glider.js, all standard events (scroll, click, etc) can be bound to their elements as normal.
+          </p>
 
-	<!-- Scripts -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/cash/3.0.0-beta.0/cash.min.js"></script>
+        </header>
+        <ul class="settings">
+          <li>
+            <span class="setting-name">glider-loaded</span><br>
+            Called after Glider.js is first initialized<br>
+          </li>
+          <li>
+            <span class="setting-name">glider-refresh</span><br>
+            Called whenever Glider.js refreshes it's elements or settings<br>
+          </li>
+          <li>
+            <span class="setting-name">glider-animated</span><br>
+            Called whenever a Glider.js paging animation is complete
+          </li>
+          <li>
+            <span class="setting-name">glider-add</span><br>
+            Called whenever an item is added to Glider.js
+          </li>
+          <li>
+            <span class="setting-name">glider-remove</span><br>
+            Called whenever a Glider.js animation is complete
+          </li>
+          <li>
+            <span class="setting-name">glider-destroy</span><br>
+            Called whenever a Glider.js is destroyed
+          </li>
+          <li>
+            <span class="setting-name">glider-slide-visible</span><br>
+            Called whenever a slide a shown. Passed an object containing the slide index
+          </li>
+          <li>
+            <span class="setting-name">glider-slide-hidden</span><br>
+            Called whenever a slide a hidden. Passed an object containing the slide index
+          </li>
+        </ul>
+        <p class="little-margin"><b>Event Example - Lazy Loading Images</b></p>
+          <p>
+            A reference to the Glider.js object is available via this <code class="slim">this._glider</code>. Any custom
+            event data is passed via the event, located at <code class="slim">event.detail</code>
+          </p>
 
-	<!-- Some people just can't let go -->
-	<script>
-		var jQuery = $;
-		$.fn.extend({
-			scrollTop: function(){
-				if (this[0] === window){
-					return window.pageYOffset || document.body.scrollTop
-				}
-				return this[0].scrollTop;
-			}
-		});
-		$.map = function(mapObject, cb){
-			var keys = Object.keys(mapObject);
-			for (var i = 0; i < keys.length; ++i){
-				cb(mapObject[keys[i]], keys[i])
-			}
-		};
-	</script>
-	<script src="assets/js/prism.js"></script>
-	<script src="assets/js/main.js?bust=1"></script>
+          <pre class="language-javascript">
+            <code class="language-javascript">
+              // example event hook implementing basic lazy loading images
+              // appropriate image CSS (opacity/transform) must be set to work
+              document.querySelector('.glider').addEventListener('glider-slide-visible', function(event){
+                var imgs_to_anticipate = 3;
+                for (var i = 0; i &lt;= imgs_to_anticipate; ++i){
+                  var index = Math.min(event.detail.slide + i, this._glider.slides.length - 1),
+                    glider = this._glider;
+                  loadImages.call(glider.slides[index],function(){
+                    glider.refresh(true);
+                  })
+                }
+              });
 
-	<script async defer src="https://buttons.github.io/buttons.js"></script>
-	
-	<!-- I see you. -->
-	<script>
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-	
-	ga('create', 'UA-20216161-5', 'auto');
-	ga('send', 'pageview');
-	</script>
-	
+              function loadImages(callback){
+                [].forEach.call(this.querySelectorAll('img'),function(img){
+                  var _img = new Image,  _src = img.getAttribute('data-src');
+                  _img.onload = function(){
+                    img.src = _src;
+                    img.classList.add('loaded');
+                    callback &amp;&amp; callback(img);
+                  }
+                  if(img.src !== _src)	_img.src = _src;
+                });
+              }
+            </code>
+          </pre>
+          <p>
+            <a data-collapse="css-collapse" class="collapse-control" href="#">Click to show lazy loading CSS</a>
+          </p>
+          <div id="css-collapse" class="collapse">
+            <pre class="langugae-css">
+              <code class="language-css">
+                  // example css
+                  .glider-slide img {
+                    opacity: 0;
+                    transform: opacity .1s ease;
+                  }
+                  .glider-slide img.loaded {
+                    opacity: 1;
+                  }
+              </code>
+            </pre>
+          </div>
+      </section>
+      <section id="methods" class="main special">
+        <header class="major">
+          <h2>Methods</h2>
+          <p>Methods are called directly on the Glider object returned from initilization.</p>
+          <p class="little-margin"><b>Examples:</b></p>
+          <pre class="language-javascript">
+            <code class="language-javascript">
+              var glider = new Glider(document.getElementById('glider'), {
+                slidesToShow: 1,
+                dots: '#dots',
+              });
+
+              glider.setOption({
+                arrows: {
+                  prev: '#glider-prev',
+                  next: '#glider-next'
+                }
+              });
+
+              // a refresh may need to be called depending
+              // upon the options passed to setOptions
+              glider.refresh(true);
+
+              // adding or removing items automatically calls refresh()
+              glider.removeItem(4);
+
+              // death to smoochy!
+              glider.destroy();
+            </code>
+          </pre>
+        </header>
+        <ul class="settings uneven">
+          <li>
+            <span class="setting-name">addItem</span><br>
+            <span class="type">Arguments:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">Element</a><br>
+            Add an item to the list<br>
+          </li>
+          <li>
+            <span class="setting-name">removeItem</span><br>
+            <span class="type">Arguments:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a> (slide position)<br>
+            Remove an item from the list<br>
+            <span class="aside">NOTE: Slide position starts at 0, not 1!</span>
+          </li>
+          <li>
+            <span class="setting-name">scrollItem</span><br>
+            <span class="type">Arguments:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a> | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a><br>
+            Scroll to any slide or page. If second argument is explicitly true, then the first argument will refer to the page to scroll to, as opposed to the slide.<br>
+          </li>
+          <li>
+            <span class="setting-name">scrollTo</span><br>
+            <span class="type">Arguments:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a> <br>
+            Scroll directly to supplied scroll position<br>
+          </li>
+          <li>
+            <span class="setting-name">refresh</span><br>
+            <span class="type">Arguments:</span> rebuildPaging <br>
+            Force a refresh of Glider.js. If rebuildPaging is true, paging controls will force a rebuild as well. This
+            arument must be true if any options affecting paging controls (dots/arrows) are modified.
+          </li>
+          <li>
+            <span class="setting-name">updateControls</span><br>
+            <span class="type">Arguments:</span> None <br>
+            Force a refresh of Glider.js navigation controls
+          </li>
+          <li>
+            <span class="setting-name">destroy</span><br>
+            Destroy Glider.js.
+            <span class="aside">NOTE: This is destructive and removes all elements
+            aside from the list. Useful for reverting to grid state.</span>
+          </li>
+        </ul>
+      </section>
+
+
+    <section id="faq" class="main code special">
+        <header class="major">
+          <h2>FAQ</h2>
+        </header>
+        <ul class="questions">
+          <li>
+            <p class="question">
+              What is Glider.js?
+            </p>
+            <p class="answer">
+              Glider.js is a fast, lightweight, responsive, dependency-free scrollable list with customizable paging controls.
+            </p>
+          </li>
+          <li>
+            <p class="question">
+              What isn't Glider.js?
+            </p>
+            <p class="answer">
+              Glider.js is not a drop-in replacement for carousels. It lacks a lot of
+              functionality provided by Slick.js or other featured carousels. An non-exhaustive list
+              would consist of things like infinite looping, autoplay, variable width, vertical support,
+              custom transitions, etc.
+            </p>
+          </li>
+          <li>
+            <p class="question">
+              Will these features ever be added to Glider.js?
+            </p>
+            <p class="answer">
+              Glider.js aims to be lightweight and fast. There are some planned upgrades to the list such as adaptive height, but they are not present in version 1.0.
+              If there is a demand for other features that can be implemented with little overhead, Glider.js will be happy to include them on it's next release.
+
+              <span class="aside">* Infinite looping will never be supported as it's incompatible with native browser scrolling.</span>
+            </p>
+          </li>
+          <li>
+            <p class="question">
+              Why should I use Glider.js? What is it good for?
+            </p>
+            <p class="answer">
+              Glider.js works best with large lists of uniform items, such as product upsells.
+
+              If you are using a carousel as a UI tool to list elements, you should consider replacing
+              it with Glider.js. Your mobile users will thank you! (or anyone with a touch device really)
+            </p>
+          </li>
+          <li>
+            <p class="question">
+              What browsers are supported?
+            </p>
+            <p class="answer">
+              Glider.js should run on all modern browsers. Support for older browsers can be achieved by polyfilling
+              <code class="slim">document.classList</code>, <code class="slim">window.requestAnimationFrame</code>
+              and <code class="slim">CustomEvent</code>.
+            </p>
+          </li>
+          <li>
+            <p class="question">
+              How do I get the dots/arrows to show?
+            </p>
+            <p class="answer">
+              In order to remain unopinonated and save on space, Glider.js does not provide default elements
+              for the paging controls, the elements must exist and be passed to Glider.js
+              as arguments. Refer to the getting started guide for an example.
+            </p>
+          </li>
+          <li>
+            <p class="question">
+              How is Glider.js different from other carousels?
+            </p>
+            <p class="answer">
+              Aside from the fact that Glider.js is "not a carousel", it's main benefits are it's size, speed and native scrolling design. Due to this,
+              touch devices benefit from momentum based scrolling while still allowing other default scrolling methods (touch, touchpads, hoz. mousewheel, arrow keys, scrollbars, etc), all within in a tiny
+              footprint and buttery-smooth performance!
+
+              <span class="aside">
+                NOTE: By default, scrollbars are hidden with CSS for desktops. Remove the code to allow scrollbar functionality.
+              </aside>
+            </p>
+          </li>
+          <li>
+            <p class="question">
+              Um, I still have questions.
+            </p>
+            <p class="answer">
+              Feel free to drop me a line at mail &lt;at&gt; nickpiscitell.com!
+
+
+            </p>
+          </li>
+
+        </ul>
+
+      </section>
+    </div>
+    <!-- Footer -->
+    <footer id="footer">
+      <p class="copyright">&copy; 2018 <a href="https://nickpiscitelli.com">Nick Piscitelli</a>. Template designed by: <a href="https://html5up.net">HTML5 UP</a>.
+      <br> <br> Featured in <a href="https://javascriptweekly.com/issues/411">Javascript Weekly!</a> <span style="font-size: 10px;">(thanks!)</span>
+        <br><br><a class="github-button" href="https://github.com/NickPiscitelli/Glider.js" data-icon="octicon-star" data-size="large" aria-label="Star NickPiscitelli/Glider.js on GitHub">Star Me on Github!</a>
+
+
+
+      </p>
+    </footer>
+
+  </div>
+
+  <!-- Kick-ass template designed by: -->
+  <!--
+    Stellar by HTML5 UP
+    html5up.net | @ajlkn
+    Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+  -->
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cash/3.0.0-beta.0/cash.min.js"></script>
+
+  <!-- Some people just can't let go -->
+  <script>
+    var jQuery = $;
+    $.fn.extend({
+      scrollTop: function(){
+        if (this[0] === window){
+          return window.pageYOffset || document.body.scrollTop
+        }
+        return this[0].scrollTop;
+      }
+    });
+    $.map = function(mapObject, cb){
+      var keys = Object.keys(mapObject);
+      for (var i = 0; i < keys.length; ++i){
+        cb(mapObject[keys[i]], keys[i])
+      }
+    };
+  </script>
+  <script src="assets/js/prism.js"></script>
+  <script src="assets/js/main.js?bust=1"></script>
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  <!-- I see you. -->
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-20216161-5', 'auto');
+  ga('send', 'pageview');
+  </script>
+
 
 
 </body>
