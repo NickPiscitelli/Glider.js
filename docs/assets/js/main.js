@@ -130,7 +130,7 @@ var browser=function(){"use strict";var e={name:null,version:null,os:null,osVers
 
 	$('#nav a').add('.smooth-scroll').off().on('click',function(e){
 		e.preventDefault();
-		scrollIt($($(this).attr('href'))[0].offsetTop)
+		scrollIt($($(this).attr('href'))[0].offsetTop - 58)
 		return false;
 	});
 	$('.collapse-control').on('click',function(e){
