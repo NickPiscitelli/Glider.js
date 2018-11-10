@@ -11,7 +11,14 @@ var browser = function () { "use strict"; var e = { name: null, version: null, o
   html5up.net | @ajlkn
   Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
-
+var iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+if (iOS){
+  document.body.classList.add('ios')
+}
+var isAndroid = !!navigator.platform && /android/i.test(navigator.platform);
+if(isAndroid) {
+  document.body.classList.add('android')
+}
 (function ($) {
 
   var $window = $(window),

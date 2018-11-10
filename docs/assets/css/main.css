@@ -4089,29 +4089,21 @@ input, select, textarea {
   }
   .gradient-border {
   position: relative;
-  border: 1px solid #ddd;
   box-shadow: 0 0 3px 0 rgba(247, 186, 233, 0.5);
-  border: 3px solid;
+  border-top: 3px solid;
   border-image:   linear-gradient(to right,
   #8cc9f0,
   #efa8b0,
   #a89cc8) 5;
-  border-right: 0;
-  border-left: 0;
-  border-bottom: 0;
   }
   .gradient-border-bottom {
   position: relative;
-  border: 1px solid #ddd;
   box-shadow: 0 0 3px 0 rgba(247, 186, 233, 0.5);
-  border: 3px solid;
+  border-bottom: 3px solid;
   border-image:   linear-gradient(to left,
   #efa8b0,
   #8cc9f0,
   #a89cc8) 5;
-  border-top: 0;
-  border-left: 0;
-  border-right: 0;
   }
   .gradient-border:before {
   position: absolute;
@@ -4139,6 +4131,16 @@ input, select, textarea {
   #efa8b0) 5;
   z-index: 2;
   }
+  @media(max-width: 36em){
+    .ios .gradient-border:after,
+    .android .gradient-border:after {
+      border-right: 1px solid;
+    }
+    .ios .gradient-border:before ,
+    .android .gradient-border:before {
+      border-left: 1px solid;
+    }
+  }
   .glider-dots {
   margin-top: 15px;
   }
@@ -4148,12 +4150,7 @@ input, select, textarea {
   .glider-slide {
   background: #fff;
   }
-  .multiple .gradient-border,
-  .multiple .gradient-border:before,
-  .multiple .gradient-border:after,
-  .multiple .gradient-border-bottom {
-  border-width: 2px;
-  }
+
   #nav ul li a,
   #nav ul li a:after {
   background-color: transparent;
