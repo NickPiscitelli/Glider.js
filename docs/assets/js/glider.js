@@ -154,7 +154,6 @@
 
     if (event && !_.opt.scrollPropagate){
       event.stopPropagation();
-      clearTimeout(_.scrollLock);
     }
 
     var disableArrows = _.ele.offsetWidth >= _.trackWidth;
@@ -199,10 +198,13 @@
     if (_.dots) [].forEach.call(_.dots.children,function(dot,index){
       dot.classList.toggle('active', _.page === index)
     })
+
     if (event && _.opt.scrollLock){
-      _.scrollLock = setInterval(function(){
-        _.scrollItem(_.slide)
-      }, _.opt.scrollLockDelay || 150)
+      clearTimeout(_.scrollLock);
+      _.scrollLock = setTimeout(function(){
+        clearTimeout(_.scrollLock);
+        if ((_.ele.scrollLeft / _.itemWidth) % 1) _.scrollItem(_.round(_.ele.scrollLeft / _.itemWidth))
+      }, _.opt.scrollLockDelay || 250)
     }
   }
 
@@ -219,7 +221,12 @@
       if (typeof slide === 'string') {
         var backwards = slide === 'prev';
 
-        slide = _.slide;
+        // use precise location if fractional slides are on
+        if (_.opt.slidesToScroll % 1 || _.opt.slidesToShow % 1){
+          slide = _.round(_.ele.scrollLeft / _.itemWidth)
+        } else {
+          slide = _.slide;
+        }
 
         if (backwards) slide -= _.opt.slidesToScroll;
         else  slide += _.opt.slidesToScroll;
@@ -293,6 +300,12 @@
     _.track.appendChild(ele);
     _.init(true, true);
     _.event('add')
+  }
+
+  Glider.prototype.round = function(double){
+    var step = (this.opt.slidesToScroll % 1) || 1;
+    var inv = 1.0 / step;
+    return Math.round(double * inv) / inv;
   }
 
   Glider.prototype.refresh = function(paging){

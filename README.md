@@ -1,6 +1,6 @@
 # Glider.js
 
-A fast, light-weight, responsive free-flowing list with paging controls.
+A fast, light-weight, dependency free, responsive, native scrolling list with paging controls. (1.8kb gzipped!)
 
 Demos and full documentation available on Github Pages: https://nickpiscitelli.github.io/Glider.js/
 
@@ -59,6 +59,9 @@ new Glider(document.querySelector('.glider'), {
   // event control
   scrollPropagate: false,
   eventPropagate: true,
+
+  // Force centering slide after scroll event
+  scrollLock: false,
 
   // Glider.js breakpoints are mobile-first
   // be conscious of your ordering
