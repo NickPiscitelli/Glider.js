@@ -130,10 +130,8 @@ var browser=function(){"use strict";var e={name:null,version:null,os:null,osVers
 
 	$('#nav a').add('.smooth-scroll').off().on('click',function(e){
 		e.preventDefault();
-		e.stopPropagation();
-		e.stopImmediatePropagation();
-
 		scrollIt($($(this).attr('href'))[0].offsetTop)
+		return false;
 	});
 	$('.collapse-control').on('click',function(e){
 		var ele = $('#'+$(this).attr('data-collapse'));
