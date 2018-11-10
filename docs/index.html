@@ -162,7 +162,7 @@
 					
 					<pre class="line-numbers language-javascript">
 						<code class="line-numbers language-javascript">
-							new Glider(document.getElementById('glider'), {
+							new Glider(document.querySelector('.glider'), {
 								slidesToShow: 1,
 								dots: '#dots',
 								arrows: {
@@ -332,6 +332,53 @@
 					</pre>
 				</div>
 				
+				<div class="demo first">
+					<h2>Scroll Locking</h2>
+					<div data-name="Scroll Locking" class="glider-contain">
+						<div class="gradient-border-bottom">
+							<div class="gradient-border">
+								<div class="glider" id="glider-lock">
+									<div><h1>1</h1></div>
+									<div><h1>2</h1></div>
+									<div><h1>3</h1></div>
+									<div><h1>4</h1></div>
+									<div><h1>5</h1></div>
+									<div><h1>6</h1></div>
+									<div><h1>7</h1></div>
+								</div>
+							</div>
+						</div>
+						<div id="dots"></div>
+						<a class="glider-prev" id="glider-prev"><i class="fa fa-chevron-left"></i></i></a>
+						<a class="glider-next" id="glider-next"><i class="fa fa-chevron-right"></i></i></a>
+					</div>
+					<script>
+						new Glider(document.getElementById('glider-lock'), {
+							slidesToShow: 1,
+							scrollLock: true,
+							dots: '#dots',
+							arrows: {
+								prev: '#glider-prev',
+								next: '#glider-next'
+							}
+						});
+					</script>
+					
+					<pre class="line-numbers language-javascript">
+						<code class="line-numbers language-javascript">
+							new Glider(document.querySelector('.glider'), {
+								slidesToShow: 1,
+								scrollLock: true,
+								dots: '#dots',
+								arrows: {
+									prev: '.glider-prev',
+									next: '.glider-next'
+								}
+							});
+						</code>
+					</pre>
+				</div>
+				<!-- 
 				<div class="demo">
 					<h2>Fractional Slides</h2>
 					<div data-name="Fractional Slides" class="glider-contain multiple">
@@ -386,7 +433,7 @@
 						</code>
 					</pre>
 				</div>
-			
+			-->
 				<div class="demo">
 					<div id="add"><h1></h1></div>
 					<h2>Add/Remove Items</h2>
@@ -768,7 +815,7 @@
 				<header class="major">
 					<h2>Settings</h2>
 				</header>
-				<ul class="settings">
+				<ul class="settings uneven">
 					<li>
 						<span class="setting-name">slidesToShow</span><br>
 						<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a><br>
@@ -804,6 +851,12 @@
 						<span class="type default">Default:</span> Ease-In Out<br>
 						A custom easing function may be provided. All functions from the standard <a href="http://gsgd.co.uk/sandbox/jquery/easing/jquery.easing.1.3.js">jQuery easing library</a>
 						are supported.
+					</li>
+					<li>
+						<span class="setting-name">scrollLock</span><br>
+						<span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a><br>
+						<span class="type default">Default:</span> false<br>
+						If true, Glider.js will scroll to the nearest slide after any scroll interactions.
 					</li>
 					<li>
 						<span class="setting-name">duration</span><br>
