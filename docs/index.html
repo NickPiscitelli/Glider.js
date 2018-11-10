@@ -494,11 +494,17 @@
 						document.getElementById('addSlide').addEventListener('click',function(){
 							var ele = document.getElementById('add').cloneNode(true);
 							ele.id = '';
-							ele.querySelector('h1').textContent = glider.slides.length + 1
+							ele.querySelector('h1').textContent = glider.slides.length + 1;
 							glider.addItem(ele);
+							try{
+								ga('send','event','Add/Remove Item', 'Add')
+							} catch(ex){}
 						});
 						document.getElementById('removeSlide').addEventListener('click',function(){
 							glider.removeItem(glider.slides.length - 1);
+							try{
+								ga('send','event','Add/Remove Item', 'Remove')
+							} catch(ex){}
 						});
 					</script>
 					
@@ -1166,7 +1172,12 @@
 		<!-- Footer -->
 		<footer id="footer">
 			<p class="copyright">&copy; 2018 <a href="https://nickpiscitelli.com">Nick Piscitelli</a>. Template designed by: <a href="https://html5up.net">HTML5 UP</a>.
-			<br><br><a class="github-button" href="https://github.com/NickPiscitelli/Glider.js" data-icon="octicon-star" data-size="large" aria-label="Star NickPiscitelli/Glider.js on GitHub">Star Me on Github!</a></p>
+			<br> <br> Featured in <a href="https://javascriptweekly.com/issues/411">Javascript Weekly!</a> <span style="font-size: 10px;">(thanks!)</span>
+				<br><br><a class="github-button" href="https://github.com/NickPiscitelli/Glider.js" data-icon="octicon-star" data-size="large" aria-label="Star NickPiscitelli/Glider.js on GitHub">Star Me on Github!</a>
+
+			
+				
+			</p>
 		</footer>
 
 	</div>
