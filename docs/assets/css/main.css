@@ -4447,7 +4447,7 @@ user-select: none; /* Standard */
       top: 19px;
     }
   }
-  @media(max-width: 1270px){
+  @media(max-width: 1281px){
     .octo {
       top: 9px;
       right: 16px;

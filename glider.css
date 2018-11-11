@@ -48,7 +48,7 @@
   opacity: 0;
   height: 0;
 }
-.glider-prev, .glider-next {
+.glider .glider-prev, .glider .glider-next {
   user-select: none;
   position: absolute;
   z-index: 2;

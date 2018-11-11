@@ -79,9 +79,9 @@
           });
           _.ele.addEventListener('mousemove', _.handleMouse.bind(_));
         }
-
+        _.resize = _.init.bind(_, true);
         _.ele.addEventListener('scroll', _.updateControls.bind(_))
-        window.addEventListener('resize', _.init.bind(_, true));
+        window.addEventListener('resize', _.resize);
     }
 
     return Glider;
@@ -365,21 +365,19 @@
     this.opt = Object.assign({}, _.opt, opt)
   }
 
-  gliderPrototype.remove = function(ele){
-    ele && ele.parentElement.removeChild(ele)
-  }
-
   gliderPrototype.destroy = function(){
-    var _ = this;
-    [].forEach.call([_.track, _.ele, _.slides ],function(ele){
-      if(ele) {
-        ele.style.width = 'auto';
-        ele.style.height = 'auto';
-      }
-    });
-    _.remove(_.arrows.prev)
-    _.remove(_.arrows.next)
-    _.remove(_.dots)
+    var _ = this, replace = _.ele.cloneNode(true), clear = function(ele){
+      ele.removeAttribute('style');
+      ele.classList.forEach(function(className){
+        /^glider/.test(className) && ele.classList.remove(className)
+      });
+    }
+    // remove track
+    replace.children[0].outerHTML = replace.children[0].innerHTML
+    clear(replace);
+    [].forEach.call(replace.getElementsByTagName('*'),clear);
+    _.ele.parentNode.replaceChild(replace, _.ele);
+    window.removeEventListener('resize', _.resize);
     _.event('destroy')
   }
 
