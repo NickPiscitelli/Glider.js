@@ -306,7 +306,7 @@
           <span class="aside">* Custom CSS Required</span>
         </div>
         <div class="demo">
-          <h2>Fully Responsive Settings</h2>
+          <h2>Responsive Settings / Scroll Lock Support</h2>
           <div data-name="Responsive Settings" class="glider-contain multiple">
             <div class="gradient-border-bottom">
               <div class="gradient-border">
@@ -333,6 +333,7 @@
                 // Mobile-first defaults
                 slidesToShow: 1,
                 slidesToScroll: 1,
+                scrollLock: true,
                 dots: '#resp-dots',
                 arrows: {
                   prev: '#glider-prev-resp',
@@ -380,69 +381,9 @@
             </code>
           </pre>
         </div>
-        <!-- <div class="demo">
-          <h2>Scroll Locking</h2>
-          <div data-name="Scroll Locking" class="glider-contain">
-            <div class="gradient-border-bottom">
-              <div class="gradient-border">
-                <div class="glider" id="glider-lock">
-                  <div><h1>1</h1></div>
-                  <div><h1>2</h1></div>
-                  <div><h1>3</h1></div>
-                  <div><h1>4</h1></div>
-                  <div><h1>5</h1></div>
-                  <div><h1>6</h1></div>
-                  <div><h1>7</h1></div>
-                  <div><h1>8</h1></div>
-                  <div><h1>9</h1></div>
-                  <div><h1>10</h1></div>
-                  <div><h1>11</h1></div>
-                  <div><h1>12</h1></div>
-                  <div><h1>13</h1></div>
-                  <div><h1>14</h1></div>
-                  <div><h1>15</h1></div>
-                  <div><h1>16</h1></div>
-                  <div><h1>17</h1></div>
-                  <div><h1>18</h1></div>
-                  <div><h1>19</h1></div>
-                  <div><h1>20</h1></div>
-                </div>
-              </div>
-            </div>
-            <div id="dots-lock"></div>
-            <a class="glider-prev" id="glider-lock-prev"><i class="fa fa-chevron-left"></i></i></a>
-            <a class="glider-next" id="glider-lock-next"><i class="fa fa-chevron-right"></i></i></a>
-          </div>
-          <script>
-            new Glider(document.getElementById('glider-lock'), {
-              slidesToShow: 1,
-              scrollLock: true,
-              draggable: true,
-              dots: '#dots-lock',
-              arrows: {
-                prev: '#glider-lock-prev',
-                next: '#glider-lock-next'
-              }
-            });
-          </script>
-
-          <pre class="line-numbers language-javascript">
-            <code class="line-numbers language-javascript">
-              new Glider(document.querySelector('.glider'), {
-                slidesToShow: 1,
-                scrollLock: true,
-                dots: '#dots',
-                arrows: {
-                  prev: '.glider-prev',
-                  next: '.glider-next'
-                }
-              });
-            </code>
-          </pre>
-        </div> -->
 
         <div class="demo">
-          <h2>Fractional Slides / Scroll Lock Support</h2>
+          <h2>Fractional Slides</h2>
           <div data-name="Fractional Slides" class="glider-contain multiple">
             <div class="gradient-border-bottom">
               <div class="gradient-border">
@@ -481,7 +422,6 @@
             var glider = new Glider(document.getElementById('glider-cut'), {
               slidesToScroll: 1.337,
               slidesToShow: 5.555,
-              scrollLock: true,
               dots: '#frac-dots',
               arrows: {
                 prev: '#cut-prev',
@@ -495,7 +435,6 @@
               new Glider(document.querySelector('.glider'), {
                 slidesToScroll: 1.337,
                 slidesToShow: 5.555,
-                scrollLock: true,
                 dots: '.dots',
                 arrows: {
                   prev: '.glider-prev',
