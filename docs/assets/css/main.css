@@ -4322,7 +4322,7 @@ input, select, textarea {
     margin: 0;
   }
   #header a.button {
-    background: #fff;
+    background: rgba(255,255,255,.89);
     color: #333 !important;
     font-weight: bold;
     text-shadow: 0px 1px rgba(200,200,200,.25);
