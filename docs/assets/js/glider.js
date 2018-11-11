@@ -65,7 +65,7 @@
         _.init();
 
         // set events
-        _.ele.classList.toggle('draggable', _.opt.draggable)
+        _.ele.classList.toggle('draggable', _.opt.draggable === true)
         if (_.opt.draggable){
           _.mouseup = function(){
             _.mouseDown = undefined;
