@@ -5,13 +5,13 @@
   \___//_//_/ \_,_/ \__//_/  (_)__/ //___/
                               |___/
 
-  Version: 1.3
+  Version: 1.4
   Author: Nick Piscitelli (pickykneee)
   Website: https://nickpiscitelli.com
   Documentation: http://nickpiscitelli.github.io/Glider.js
   License: MIT License
   Release Date: October 25th, 2018
-
+  Last Update: November 10th, 2018
 */
 
 (function() {
@@ -82,6 +82,7 @@
     });
 
     _.containerWidth = _.ele.clientWidth;
+
     _.opt = _._opt;
 
     var breakpointChanged = _.settingsBreakpoint();
@@ -170,6 +171,10 @@
 
     _.slide = Math.round(_.ele.scrollLeft / _.itemWidth);
     _.page = Math.round(_.ele.scrollLeft / _.containerWidth);
+    if (_.ele.scrollLeft + _.containerWidth >= _.trackWidth){
+      _.page = _.dots ? _.dots.children.length - 1 : 0;
+      _.slide = _.slides.length - 1;
+    }
 
     [].forEach.call(_.slides,function(slide,index){
       var
