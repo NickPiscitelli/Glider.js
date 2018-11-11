@@ -88,10 +88,10 @@
     if (!paging) paging = breakpointChanged;
 
     if (_.opt.slidesToShow === 'auto'){
-      _.opt.slidesToShow = Math.floor(_.containerWidth / _.opt.itemWidth)
-      if (_.opt.slidesToScroll === 'auto'){
-        _.opt.slidesToScroll = _.opt.slidesToShow;
-      }
+      _.opt.slidesToShow = Math.floor(_.containerWidth / _.opt.itemWidth);
+    }
+    if (_.opt.slidesToScroll === 'auto'){
+      _.opt.slidesToScroll = _.opt.slidesToShow;
     }
 
     _.itemWidth = _.containerWidth / _.opt.slidesToShow;
