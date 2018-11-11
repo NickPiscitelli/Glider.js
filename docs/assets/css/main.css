@@ -3940,6 +3940,9 @@ input, select, textarea {
   max-width: 600px;
   margin: 0 auto 25px auto;
   }
+  #main pre.wide {
+    max-width: 750px;
+    }
   header.major h2:after {
   margin-top: .2em;
   }
