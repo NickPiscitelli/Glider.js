@@ -3940,6 +3940,9 @@ input, select, textarea {
   max-width: 600px;
   margin: 0 auto 25px auto;
   }
+  #main pre.wide {
+    max-width: 750px;
+    }
   header.major h2:after {
   margin-top: .2em;
   }
@@ -3953,10 +3956,6 @@ input, select, textarea {
   .glider-slide h1 {
   margin: 0;
   }
-  .glider-slide {
-  transition: background .2s ease-in-out;
-  }
-
   #addSlide,#removeSlide{
   -moz-user-select: none;
   -webkit-user-select: none;
@@ -4304,7 +4303,9 @@ user-select: none; /* Standard */
     cursor: -webkit-grabbing;
     cursor: grabbing;
   }
-  .glider,.glider-track {
+  .glider,.glider-track, .glider-slide {
+    -webkit-backface-visibility:  hidden;
+    backface-visibility: hidden;
     -webkit-transform:  translateZ(0);
     transform: translateZ(0);
   }
@@ -4391,4 +4392,64 @@ user-select: none; /* Standard */
     width: 100%;
     height: 100%;
     flex: 1;
+  }
+  #header a.button {
+    background: rgba(255,255,255,.89);
+    color: #333 !important;
+    font-weight: bold;
+    text-shadow: 0px 1px rgba(200,200,200,.25);
+    box-shadow: 0 0 1px rgba(200,200,200,.25);
+    /*
+    border: 4px solid;
+    border-image: linear-gradient(to right, #8cc9f0, #efa8b0, #a89cc8) 5;
+    border-radius: 0;
+    */
+  }
+
+  #header a.github {
+    position: relative;
+    text-indent: -35px;
+  }
+  .octo {
+    position: absolute;
+    right: 25px;
+    width: 45px;
+    top: 12px
+  }
+  .dl-icon {
+    color:  #8cc9f0 !important;
+    position: relative;
+    top: -1px;
+    left: 4px;
+  }
+  @media(max-width: 1270px){
+    .octo {
+      top: 9px;
+      right: 16px;
+      width: 43px;
+    }
+  }
+  @media(max-width: 738px){
+    #header a.button {
+
+      width: 46%;
+    }
+    #header a.github {
+      text-indent: -20px;
+    }
+    .mobileHide {
+      display: none;
+    }
+    .octo {
+      width: 35px;
+      top: 7px;
+      right: 35px;
+    }
+  }
+  @media(max-width: 450px){
+    .octo {
+      width: 35px;
+      top: 7px;
+      right: 17px;
+    }
   }

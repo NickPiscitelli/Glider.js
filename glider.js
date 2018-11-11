@@ -11,7 +11,7 @@
   Documentation: http://nickpiscitelli.github.io/Glider.js
   License: MIT License
   Release Date: October 25th, 2018
-
+  Last Update: November 10th, 2018
 */
 
 (function() {
@@ -109,16 +109,17 @@
     });
 
     _.containerWidth = _.ele.clientWidth;
+
     _.opt = _._opt;
 
     var breakpointChanged = _.settingsBreakpoint();
     if (!paging) paging = breakpointChanged;
 
     if (_.opt.slidesToShow === 'auto'){
-      _.opt.slidesToShow = Math.floor(_.containerWidth / _.opt.itemWidth)
-      if (_.opt.slidesToScroll === 'auto'){
-        _.opt.slidesToScroll = _.opt.slidesToShow;
-      }
+      _.opt.slidesToShow = Math.floor(_.containerWidth / _.opt.itemWidth);
+    }
+    if (_.opt.slidesToScroll === 'auto'){
+      _.opt.slidesToScroll = _.opt.slidesToShow;
     }
 
     _.itemWidth = _.containerWidth / _.opt.slidesToShow;
@@ -197,6 +198,10 @@
 
     _.slide = Math.round(_.ele.scrollLeft / _.itemWidth);
     _.page = Math.round(_.ele.scrollLeft / _.containerWidth);
+    if (_.ele.scrollLeft + _.containerWidth >= _.trackWidth){
+      _.page = _.dots ? _.dots.children.length - 1 : 0;
+      _.slide = _.slides.length - 1;
+    }
 
     var middle =  _.slide + Math.floor(Math.floor(_.opt.slidesToShow) / 2),
       extraMiddle = Math.floor(_.opt.slidesToShow) % 2 ? 0 : middle + 1;

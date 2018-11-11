@@ -11,8 +11,10 @@
   overflow: -moz-scrollbars-none;
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: none;
+  transform: translateZ(0);
 }
 .glider-track {
+  transform: translateZ(0);
   width: 100%;
   margin: 0;
   padding: 0;

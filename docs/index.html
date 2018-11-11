@@ -66,9 +66,14 @@
         native scrolling list with paging controls!
       </p>
       <p>
-        <a href="https://github.com/NickPiscitelli/Glider.js" class="button">View on Github</a>
+        <a href="https://github.com/NickPiscitelli/Glider.js" class="button github">
+          <img class="octo" src="images/octo.png" > <span class="mobileHide">View</span> Github
+        </a>
         &nbsp;
-        <a onclick="ga('send','event','Download Button');" href="https://github.com/NickPiscitelli/Glider.js/archive/master.zip" class="button">Download ZIP</a>
+        <a onclick="ga('send','event','Download Button');" href="https://github.com/NickPiscitelli/Glider.js/archive/master.zip" class="button">
+          Download <span class="mobileHide">Now</span>
+        <i class="zip fas fa-download dl-icon"></i>
+        </a>
       </p>
     </header>
 
@@ -474,9 +479,8 @@
           </div>
           <script>
             var glider = new Glider(document.getElementById('glider-cut'), {
-              slidesToShow: 3.5,
-              slidesToScroll: 1,
-              scrollLock: true,
+              slidesToScroll: 1.337,
+              slidesToShow: 5.555,
               dots: '#frac-dots',
               arrows: {
                 prev: '#cut-prev',
@@ -488,7 +492,8 @@
           <pre class="line-numbers language-javascript">
             <code class="line-numbers language-javascript">
               new Glider(document.querySelector('.glider'), {
-                slidesToShow: 3.5,
+                slidesToScroll: 1.337,
+                slidesToShow: 5.555,
                 scrollLock: true,
                 dots: '.dots',
                 arrows: {
@@ -850,7 +855,7 @@
         </pre>
 
         <p>
-          Include the required CSS (614 bytes gzipped) in your &lt;head&gt; tag
+          Include the required CSS in your &lt;head&gt; tag
         </p>
         <pre class="line-numbers language-html">
           <code class="line-numbers language-html"> 
@@ -874,11 +879,6 @@
         <p>
           That's it! You're done!
         </p>
-        <p>
-          Voila!<br>
-          Viva la Vida!<br>
-          Veni Vidi Vici!<br>
-        </p>
 
       </section>
 
@@ -899,9 +899,11 @@
           </li>
           <li>
             <span class="setting-name">slidesToScroll</span><br>
-            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a><br>
+            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a> | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a><br>
             <span class="type default">Default:</span> 1<br>
             The number of slides to scroll when <b>arrow</b> navigation is used<br>
+
+            If this value is set to <code class="slim slimmer">auto</code>, it will match the value of <code class="slim slimmer">slidesToScroll</code>.
           </li>
           <li>
             <span class="setting-name">itemWidth</span><br>
@@ -1029,7 +1031,7 @@
             event data is passed via the event, located at <code class="slim">event.detail</code>
           </p>
 
-          <pre class="language-javascript">
+          <pre class="wide language-javascript">
             <code class="language-javascript">
               // example event hook implementing basic lazy loading images
               // appropriate image CSS (opacity/transform) must be set to work
@@ -1237,7 +1239,7 @@
               Um, I still have questions.
             </p>
             <p class="answer">
-              Feel free to drop me a line at mail &lt;at&gt; nickpiscitell.com!
+              Feel free to drop me a line at mail &lt;at&gt; <a href="https://nickpiscitelli.com">nickpiscitell.com!</a>
 
 
             </p>
@@ -1251,7 +1253,7 @@
     <footer id="footer">
       <p class="copyright">&copy; 2018 <a href="https://nickpiscitelli.com">Nick Piscitelli</a>. Template designed by: <a href="https://html5up.net">HTML5 UP</a>.
       <br> <br> Featured in <a href="https://javascriptweekly.com/issues/411">Javascript Weekly!</a> <span style="font-size: 10px;">(thanks!)</span>
-        <br><br><a class="github-button" href="https://github.com/NickPiscitelli/Glider.js" data-icon="octicon-star" data-size="large" aria-label="Star NickPiscitelli/Glider.js on GitHub">Star Me on Github!</a>
+        <br><br><a id="ghb" class="github-button" href="https://github.com/NickPiscitelli/Glider.js" data-icon="octicon-star" data-size="large" aria-label="Star NickPiscitelli/Glider.js on GitHub">Star Me on Github!</a>
 
 
 
