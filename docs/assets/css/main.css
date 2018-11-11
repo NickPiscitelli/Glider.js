@@ -3956,10 +3956,6 @@ input, select, textarea {
   .glider-slide h1 {
   margin: 0;
   }
-  .glider-slide {
-  transition: background .2s ease-in-out;
-  }
-
   #addSlide,#removeSlide{
   -moz-user-select: none;
   -webkit-user-select: none;
@@ -4290,7 +4286,9 @@ input, select, textarea {
   #main .buttons .button {
     color: #222 !important;
   }
-  .glider,.glider-track {
+  .glider,.glider-track, .glider-slide {
+    -webkit-backface-visibility:  hidden;
+    backface-visibility: hidden;
     -webkit-transform:  translateZ(0);
     transform: translateZ(0);
 
@@ -4336,6 +4334,7 @@ input, select, textarea {
     border-radius: 0;
     */
   }
+
   #header a.github {
     position: relative;
     text-indent: -35px;
@@ -4351,4 +4350,35 @@ input, select, textarea {
     position: relative;
     top: -1px;
     left: 4px;
+  }
+  @media(max-width: 1270px){
+    .octo {
+      top: 9px;
+      right: 16px;
+      width: 43px;
+    }
+  }
+  @media(max-width: 738px){
+    #header a.button {
+
+      width: 46%;
+    }
+    #header a.github {
+      text-indent: -20px;
+    }
+    .mobileHide {
+      display: none;
+    }
+    .octo {
+      width: 35px;
+      top: 7px;
+      right: 35px;
+    }
+  }
+  @media(max-width: 450px){
+    .octo {
+      width: 35px;
+      top: 7px;
+      right: 17px;
+    }
   }
