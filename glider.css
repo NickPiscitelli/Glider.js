@@ -11,8 +11,6 @@
   overflow: -moz-scrollbars-none;
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: none;
-  cursor: hand;
-  cursor: -webkit-drag;
 }
 .glider-track {
   width: 100%;
@@ -22,14 +20,20 @@
   z-index: 1;
 }
 .glider.draggable {
+  user-select: none;
   cursor: -webkit-grab;
   cursor: grab;
+}
+.glider.draggable .glider-slide img {
+  user-select: none;
+  pointer-events: none;
 }
 .glider.drag {
   cursor: -webkit-grabbing;
   cursor: grabbing;
 }
 .glider-slide {
+  user-select: none;
   justify-content: center;
   align-content: center;
   background:#f5f5f5;
@@ -68,9 +72,8 @@
   color: #666;
   cursor: default;
 }
-
 .glider-slide {
-  width: 150px;
+  min-width: 150px;
 }
 .glider-hide {
   opacity: 0;
