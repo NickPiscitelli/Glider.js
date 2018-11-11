@@ -4285,14 +4285,24 @@ user-select: none; /* Standard */
   .cool-border.long:after{
     width: 8em;
   }
+  h2 .aside {
+    margin-top: 0;
+    font-size: .7em;
+    color: #ccc;
+  }
   .demo h2 {
     font-weight: bold;
   }
   #main .buttons .button {
     color: #222 !important;
   }
+  .glider.draggable {
+    cursor: -webkit-grab;
+    cursor: grab;
+  }
   .glider.drag {
     cursor: -webkit-grabbing;
+    cursor: grabbing;
   }
   .glider,.glider-track {
     -webkit-transform:  translateZ(0);

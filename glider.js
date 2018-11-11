@@ -26,6 +26,7 @@
         if (element._glider)  return element._glider;
 
         _.ele = element
+        _.ele.classList.add('glider');
 
         // expose glider object to its DOM element
         _.ele._glider = _
@@ -64,6 +65,7 @@
         _.init();
 
         // set events
+        _.ele.classList.toggle('draggable', _.opt.draggable)
         if (_.opt.draggable){
           _.mouseup = function(){
             _.mouseDown = undefined;
@@ -86,15 +88,16 @@
 
   }());
 
-  Glider.prototype.handleMouse = function(e){
+  var gliderPrototype = Glider.prototype;
+  gliderPrototype.handleMouse = function(e){
     var _ = this
     if (_.mouseDown){
-      _.ele.scrollLeft += (_.mouseDown -  e.clientX) * (_.opt.dragAggravator || 3.3);
+      _.ele.scrollLeft += (_.mouseDown -  e.clientX) * (_.opt.dragVelocity || 3.3);
       _.mouseDown = e.clientX
     }
   }
 
-  Glider.prototype.init = function(refresh, paging) {
+  gliderPrototype.init = function(refresh, paging) {
 
     var _ = this,
       width = 0, height = 0;
@@ -141,7 +144,7 @@
     _.event(refresh ? 'refresh ' : 'loaded')
   };
 
-  Glider.prototype.buildDots = function(){
+  gliderPrototype.buildDots = function(){
     var _ = this;
 
     if (!_.opt.dots){
@@ -165,7 +168,7 @@
     }
   }
 
-  Glider.prototype.bindArrows = function(){
+  gliderPrototype.bindArrows = function(){
     var _ = this;
     if (!_.opt.arrows)  return
     ['prev','next'].forEach(function(direction){
@@ -180,7 +183,7 @@
     });
   }
 
-  Glider.prototype.updateControls = function(event){
+  gliderPrototype.updateControls = function(event){
     var _ = this
 
     if (event && !_.opt.scrollPropagate){
@@ -248,7 +251,7 @@
   }
 
 
-  Glider.prototype.scrollItem = function(slide, dot, e){
+  gliderPrototype.scrollItem = function(slide, dot, e){
     if(e)   e.preventDefault();
 
     var _ = this, originalSlide = slide;
@@ -290,7 +293,7 @@
     return false;
   }
 
-  Glider.prototype.settingsBreakpoint = function(){
+  gliderPrototype.settingsBreakpoint = function(){
     var _ = this, resp = _._opt.responsive;
     if (resp){
       for (var i = 0; i < resp.length;++i){
@@ -304,7 +307,7 @@
     return false;
   }
 
-  Glider.prototype.scrollTo = function(scrollTarget, scrollDuration, callback) {
+  gliderPrototype.scrollTo = function(scrollTarget, scrollDuration, callback) {
     var
       _ = this,
       start = new Date().getTime(),
@@ -323,7 +326,7 @@
     window.requestAnimationFrame(animate);
   }
 
-  Glider.prototype.removeItem = function(index){
+  gliderPrototype.removeItem = function(index){
     var _ = this
 
     if (_.slides.length){
@@ -333,7 +336,7 @@
     }
   }
 
-  Glider.prototype.addItem = function(ele){
+  gliderPrototype.addItem = function(ele){
     var _ = this
 
     _.track.appendChild(ele);
@@ -341,25 +344,25 @@
     _.event('add')
   }
 
-  Glider.prototype.round = function(double){
+  gliderPrototype.round = function(double){
     var step = (this.opt.slidesToScroll % 1) || 1;
     var inv = 1.0 / step;
     return Math.round(double * inv) / inv;
   }
 
-  Glider.prototype.refresh = function(paging){
+  gliderPrototype.refresh = function(paging){
     this.init(true, paging)
   }
 
-  Glider.prototype.setOption = function(opt){
+  gliderPrototype.setOption = function(opt){
     this.opt = Object.assign({}, _.opt, opt)
   }
 
-  Glider.prototype.remove = function(ele){
+  gliderPrototype.remove = function(ele){
     ele && ele.parentElement.removeChild(ele)
   }
 
-  Glider.prototype.destroy = function(){
+  gliderPrototype.destroy = function(){
     var _ = this;
     [].forEach.call([_.track, _.ele, _.slides ],function(ele){
       if(ele) {
@@ -373,7 +376,7 @@
     _.event('destroy')
   }
 
-  Glider.prototype.event = function(name, arg){
+  gliderPrototype.event = function(name, arg){
     var _ = this, e = new CustomEvent('glider-'+name, {
       bubbles: !_.opt.eventPropagate,
       detail: arg

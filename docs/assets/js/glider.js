@@ -26,6 +26,7 @@
         if (element._glider)  return element._glider;
 
         _.ele = element
+        _.ele.classList.add('glider');
 
         // expose glider object to its DOM element
         _.ele._glider = _
@@ -64,6 +65,7 @@
         _.init();
 
         // set events
+        _.ele.classList.toggle('draggable', _.opt.draggable)
         if (_.opt.draggable){
           _.mouseup = function(){
             _.mouseDown = undefined;
