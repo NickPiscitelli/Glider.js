@@ -4149,6 +4149,10 @@ input, select, textarea {
   }
   .glider-slide {
   background: #fff;
+  -webkit-user-select: none; /* Safari */
+-moz-user-select: none; /* Firefox */
+-ms-user-select: none; /* IE10+/Edge */
+user-select: none; /* Standard */
   }
 
   #nav ul li a,
@@ -4286,6 +4290,12 @@ input, select, textarea {
   }
   #main .buttons .button {
     color: #222 !important;
+  }
+  .glider {
+    cursor: -webkit-grab;
+  }
+  .glider.drag {
+    cursor: -webkit-grabbing;
   }
   .glider,.glider-track {
     -webkit-transform:  translateZ(0);

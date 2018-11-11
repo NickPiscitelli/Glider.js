@@ -62,6 +62,20 @@
         _.init();
 
         // set events
+        if (!_.opt.disableDragging){
+          _.mouseup = function(){
+            _.mouseDown = undefined;
+            _.ele.classList.remove('drag');
+          }
+          _.ele.addEventListener('mouseup', _.mouseup);
+          _.ele.addEventListener('mouseleave', _.mouseup);
+          _.ele.addEventListener('mousedown',function(e){
+            _.mouseDown = e.clientX;
+            _.ele.classList.add('drag');
+          });
+          _.ele.addEventListener('mousemove', _.handleMouse.bind(_));
+        }
+
         _.ele.addEventListener('scroll', _.updateControls.bind(_))
         window.addEventListener('resize', _.init.bind(_, true));
     }
@@ -69,6 +83,14 @@
     return Glider;
 
   }());
+
+  Glider.prototype.handleMouse = function(e){
+    var _ = this
+    if (_.mouseDown){
+      _.ele.scrollLeft += (_.mouseDown -  e.clientX) * (_.opt.dragAggravator || 3.3);
+      _.mouseDown = e.clientX
+    }
+  }
 
   Glider.prototype.init = function(refresh, paging) {
 

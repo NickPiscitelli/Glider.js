@@ -11,6 +11,8 @@
   overflow: -moz-scrollbars-none;
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: none;
+  cursor: hand;
+  cursor: -webkit-drag;
 }
 .glider-track {
   width: 100%;
