@@ -31,19 +31,16 @@
         // expose glider object to its DOM element
         _.ele._glider = _
 
-        // set required defaults
-        _.default = {
-            slidesToScroll: 1,
-            slidesToShow: 1,
-            duration: .5,
-            // easeInQuad
-            easing: function (x, t, b, c, d) {
-              return c*(t/=d)*t + b;
-            }
-        };
-
-        // merge user setting
-        _.opt = Object.assign({}, _.default, settings);
+        // merge user setting with defaults
+        _.opt = Object.assign({}, {
+          slidesToScroll: 1,
+          slidesToShow: 1,
+          duration: .5,
+          // easeInQuad
+          easing: function (x, t, b, c, d) {
+            return c*(t/=d)*t + b;
+          }
+      }, settings);
 
         // set defaults
         _.aIndex = _.page = _.slide = 0;
@@ -101,8 +98,6 @@
     });
 
     _.containerWidth = _.ele.clientWidth;
-
-    _.opt = _._opt;
 
     var breakpointChanged = _.settingsBreakpoint();
     if (!paging) paging = breakpointChanged;
