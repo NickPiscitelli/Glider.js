@@ -65,7 +65,7 @@
         _.init();
 
         // set events
-        _.ele.classList.toggle('draggable', _.opt.draggable)
+        _.ele.classList.toggle('draggable', _.opt.draggable === true)
         if (_.opt.draggable){
           _.mouseup = function(){
             _.mouseDown = undefined;
@@ -89,14 +89,6 @@
   }());
 
   var gliderPrototype = Glider.prototype;
-  gliderPrototype.handleMouse = function(e){
-    var _ = this
-    if (_.mouseDown){
-      _.ele.scrollLeft += (_.mouseDown -  e.clientX) * (_.opt.dragVelocity || 3.3);
-      _.mouseDown = e.clientX
-    }
-  }
-
   gliderPrototype.init = function(refresh, paging) {
 
     var _ = this,
@@ -198,15 +190,16 @@
 
     _.slide = Math.round(_.ele.scrollLeft / _.itemWidth);
     _.page = Math.round(_.ele.scrollLeft / _.containerWidth);
-    if (_.ele.scrollLeft + _.containerWidth >= _.trackWidth){
-      _.page = _.dots ? _.dots.children.length - 1 : 0;
-      _.slide = _.slides.length - 1;
-    }
 
     var middle =  _.slide + Math.floor(Math.floor(_.opt.slidesToShow) / 2),
       extraMiddle = Math.floor(_.opt.slidesToShow) % 2 ? 0 : middle + 1;
     if ( Math.floor(_.opt.slidesToShow) == 1){
       extraMiddle = 0;
+    }
+
+    if (_.ele.scrollLeft + _.containerWidth >= Math.floor(_.trackWidth)){
+      _.page = _.dots ? _.dots.children.length - 1 : 0;
+      _.slide = _.slides.length - _.opt.slidesToShow;
     }
 
     [].forEach.call(_.slides,function(slide,index){
@@ -255,7 +248,6 @@
     }
   }
 
-
   gliderPrototype.scrollItem = function(slide, dot, e){
     if(e)   e.preventDefault();
 
@@ -277,6 +269,7 @@
 
         if (backwards) slide -= _.opt.slidesToScroll;
         else  slide += _.opt.slidesToScroll;
+
       }
       slide = Math.max(Math.min(slide, _.slides.length), 0)
       _.slide = slide;
@@ -349,6 +342,15 @@
     _.event('add')
   }
 
+  gliderPrototype.handleMouse = function(e){
+    var _ = this
+    if (_.mouseDown){
+      _.ele.scrollLeft += (_.mouseDown -  e.clientX) * (_.opt.dragVelocity || 3.3);
+      _.mouseDown = e.clientX
+    }
+  }
+
+  // used to round to the nearest 0.XX fraction
   gliderPrototype.round = function(double){
     var step = (this.opt.slidesToScroll % 1) || 1;
     var inv = 1.0 / step;

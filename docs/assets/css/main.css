@@ -4379,15 +4379,22 @@ user-select: none; /* Standard */
     width: 100%;
     overflow-x: hidden;
   }
+  .glider-persp  {
+    height: 236px;
+  }
   @media(max-width: 36em){
     .glider-persp .glider-slide {
-      margin: 10px;
+      margin: 3px;
       min-height: 100px;
     }
+    .glider-persp {
+      height: 180px;
+    }
   }
-  .glider-persp  {
-    height: 250px;
+  #main .demo.persp > h2 {
+    margin-bottom: 0;
   }
+
   .glider-persp .glider-track {
     position: relative;
     top: 36px;
@@ -4431,6 +4438,14 @@ user-select: none; /* Standard */
     position: relative;
     top: -1px;
     left: 4px;
+  }
+  @media(min-width: 1678px){
+    .octo {
+      position: absolute;
+      right: 31px;
+      width: 45px;
+      top: 19px;
+    }
   }
   @media(max-width: 1270px){
     .octo {
