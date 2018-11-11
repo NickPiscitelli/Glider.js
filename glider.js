@@ -5,7 +5,7 @@
   \___//_//_/ \_,_/ \__//_/  (_)__/ //___/
                               |___/
 
-  Version: 1.3
+  Version: 1.5
   Author: Nick Piscitelli (pickykneee)
   Website: https://nickpiscitelli.com
   Documentation: http://nickpiscitelli.github.io/Glider.js
@@ -22,6 +22,8 @@
     function Glider(element, settings) {
 
         var _ = this;
+
+        if (element._glider)  return element._glider;
 
         _.ele = element
 
@@ -62,6 +64,20 @@
         _.init();
 
         // set events
+        if (_.opt.draggable){
+          _.mouseup = function(){
+            _.mouseDown = undefined;
+            _.ele.classList.remove('drag');
+          }
+          _.ele.addEventListener('mouseup', _.mouseup);
+          _.ele.addEventListener('mouseleave', _.mouseup);
+          _.ele.addEventListener('mousedown',function(e){
+            _.mouseDown = e.clientX;
+            _.ele.classList.add('drag');
+          });
+          _.ele.addEventListener('mousemove', _.handleMouse.bind(_));
+        }
+
         _.ele.addEventListener('scroll', _.updateControls.bind(_))
         window.addEventListener('resize', _.init.bind(_, true));
     }
@@ -69,6 +85,14 @@
     return Glider;
 
   }());
+
+  Glider.prototype.handleMouse = function(e){
+    var _ = this
+    if (_.mouseDown){
+      _.ele.scrollLeft += (_.mouseDown -  e.clientX) * (_.opt.dragAggravator || 3.3);
+      _.mouseDown = e.clientX
+    }
+  }
 
   Glider.prototype.init = function(refresh, paging) {
 
@@ -171,30 +195,41 @@
     _.slide = Math.round(_.ele.scrollLeft / _.itemWidth);
     _.page = Math.round(_.ele.scrollLeft / _.containerWidth);
 
+    var middle =  _.slide + Math.floor(Math.floor(_.opt.slidesToShow) / 2),
+      extraMiddle = Math.floor(_.opt.slidesToShow) % 2 ? 0 : middle + 1;
+    if ( Math.floor(_.opt.slidesToShow) == 1){
+      extraMiddle = 0;
+    }
+
     [].forEach.call(_.slides,function(slide,index){
       var
         slideClasses = slide.classList,
-        isVisible = slideClasses.contains('visible'),
+        wasVisible = slideClasses.contains('visible'),
         start = _.ele.scrollLeft,
         end = _.ele.scrollLeft + _.containerWidth,
         itemStart = _.itemWidth * index,
         itemEnd = itemStart + _.itemWidth;
 
+      slideClasses.forEach(function(className){
+        /^left|right/.test(className) && slideClasses.remove(className)
+      });
       slideClasses.toggle('active', _.slide === index)
-      if (itemStart >= start && itemEnd <= end){
-        if (!isVisible){
-          _.event('slide-visible', {
-            slide: index
-          })
-          slideClasses.add('visible')
-        }
+      if (middle == index || (extraMiddle && (extraMiddle == index))){
+        slideClasses.add('center');
       } else {
-        if (isVisible){
-          _.event('slide-visible', {
-            slide: index
-          })
-          slideClasses.remove('visible')
-        }
+        slideClasses.remove('center');
+        slideClasses.add([
+          index < middle ? 'left' : 'right',
+          Math.abs(index - (index < middle ? middle : (extraMiddle || middle)))
+        ].join('-'))
+      }
+
+      var isVisible = itemStart >= start && itemEnd <= end;
+      slideClasses.toggle('visible', isVisible);
+      if (isVisible != wasVisible){
+        _.event('slide-' +(isVisible ? 'visible' : 'hidden'), {
+          slide: index
+        })
       }
     })
     if (_.dots) [].forEach.call(_.dots.children,function(dot,index){

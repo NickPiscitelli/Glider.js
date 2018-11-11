@@ -150,6 +150,7 @@ if(isAndroid) {
     typeof ga !== 'undefined' && ga('send', 'event', 'Dot Click', $(this).parents('.glider-contain').data('name'), $(this).data('index'))
   });
 
+
 })($);
 
 function scrollIt(destination, duration = 350, easing = 'linear', callback) {

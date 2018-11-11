@@ -5,7 +5,7 @@
   \___//_//_/ \_,_/ \__//_/  (_)__/ //___/
                               |___/
 
-  Version: 1.3
+  Version: 1.5
   Author: Nick Piscitelli (pickykneee)
   Website: https://nickpiscitelli.com
   Documentation: http://nickpiscitelli.github.io/Glider.js
@@ -22,6 +22,8 @@
     function Glider(element, settings) {
 
         var _ = this;
+
+        if (element._glider)  return element._glider;
 
         _.ele = element
 
@@ -62,7 +64,7 @@
         _.init();
 
         // set events
-        if (!_.opt.disableDragging){
+        if (_.opt.draggable){
           _.mouseup = function(){
             _.mouseDown = undefined;
             _.ele.classList.remove('drag');
@@ -84,15 +86,16 @@
 
   }());
 
-  Glider.prototype.handleMouse = function(e){
+  var gliderPrototype = Glider.prototype;
+  gliderPrototype.handleMouse = function(e){
     var _ = this
     if (_.mouseDown){
-      _.ele.scrollLeft += (_.mouseDown -  e.clientX) * (_.opt.dragAggravator || 3.3);
+      _.ele.scrollLeft += (_.mouseDown -  e.clientX) * (_.opt.dragVelocity || 3.3);
       _.mouseDown = e.clientX
     }
   }
 
-  Glider.prototype.init = function(refresh, paging) {
+  gliderPrototype.init = function(refresh, paging) {
 
     var _ = this,
       width = 0, height = 0;
@@ -139,7 +142,7 @@
     _.event(refresh ? 'refresh ' : 'loaded')
   };
 
-  Glider.prototype.buildDots = function(){
+  gliderPrototype.buildDots = function(){
     var _ = this;
 
     if (!_.opt.dots){
@@ -163,7 +166,7 @@
     }
   }
 
-  Glider.prototype.bindArrows = function(){
+  gliderPrototype.bindArrows = function(){
     var _ = this;
     if (!_.opt.arrows)  return
     ['prev','next'].forEach(function(direction){
@@ -178,7 +181,7 @@
     });
   }
 
-  Glider.prototype.updateControls = function(event){
+  gliderPrototype.updateControls = function(event){
     var _ = this
 
     if (event && !_.opt.scrollPropagate){
@@ -193,30 +196,41 @@
     _.slide = Math.round(_.ele.scrollLeft / _.itemWidth);
     _.page = Math.round(_.ele.scrollLeft / _.containerWidth);
 
+    var middle =  _.slide + Math.floor(Math.floor(_.opt.slidesToShow) / 2),
+      extraMiddle = Math.floor(_.opt.slidesToShow) % 2 ? 0 : middle + 1;
+    if ( Math.floor(_.opt.slidesToShow) == 1){
+      extraMiddle = 0;
+    }
+
     [].forEach.call(_.slides,function(slide,index){
       var
         slideClasses = slide.classList,
-        isVisible = slideClasses.contains('visible'),
+        wasVisible = slideClasses.contains('visible'),
         start = _.ele.scrollLeft,
         end = _.ele.scrollLeft + _.containerWidth,
         itemStart = _.itemWidth * index,
         itemEnd = itemStart + _.itemWidth;
 
+      slideClasses.forEach(function(className){
+        /^left|right/.test(className) && slideClasses.remove(className)
+      });
       slideClasses.toggle('active', _.slide === index)
-      if (itemStart >= start && itemEnd <= end){
-        if (!isVisible){
-          _.event('slide-visible', {
-            slide: index
-          })
-          slideClasses.add('visible')
-        }
+      if (middle == index || (extraMiddle && (extraMiddle == index))){
+        slideClasses.add('center');
       } else {
-        if (isVisible){
-          _.event('slide-visible', {
-            slide: index
-          })
-          slideClasses.remove('visible')
-        }
+        slideClasses.remove('center');
+        slideClasses.add([
+          index < middle ? 'left' : 'right',
+          Math.abs(index - (index < middle ? middle : (extraMiddle || middle)))
+        ].join('-'))
+      }
+
+      var isVisible = itemStart >= start && itemEnd <= end;
+      slideClasses.toggle('visible', isVisible);
+      if (isVisible != wasVisible){
+        _.event('slide-' +(isVisible ? 'visible' : 'hidden'), {
+          slide: index
+        })
       }
     })
     if (_.dots) [].forEach.call(_.dots.children,function(dot,index){
@@ -235,7 +249,7 @@
   }
 
 
-  Glider.prototype.scrollItem = function(slide, dot, e){
+  gliderPrototype.scrollItem = function(slide, dot, e){
     if(e)   e.preventDefault();
 
     var _ = this, originalSlide = slide;
@@ -277,7 +291,7 @@
     return false;
   }
 
-  Glider.prototype.settingsBreakpoint = function(){
+  gliderPrototype.settingsBreakpoint = function(){
     var _ = this, resp = _._opt.responsive;
     if (resp){
       for (var i = 0; i < resp.length;++i){
@@ -291,7 +305,7 @@
     return false;
   }
 
-  Glider.prototype.scrollTo = function(scrollTarget, scrollDuration, callback) {
+  gliderPrototype.scrollTo = function(scrollTarget, scrollDuration, callback) {
     var
       _ = this,
       start = new Date().getTime(),
@@ -310,7 +324,7 @@
     window.requestAnimationFrame(animate);
   }
 
-  Glider.prototype.removeItem = function(index){
+  gliderPrototype.removeItem = function(index){
     var _ = this
 
     if (_.slides.length){
@@ -320,7 +334,7 @@
     }
   }
 
-  Glider.prototype.addItem = function(ele){
+  gliderPrototype.addItem = function(ele){
     var _ = this
 
     _.track.appendChild(ele);
@@ -328,25 +342,25 @@
     _.event('add')
   }
 
-  Glider.prototype.round = function(double){
+  gliderPrototype.round = function(double){
     var step = (this.opt.slidesToScroll % 1) || 1;
     var inv = 1.0 / step;
     return Math.round(double * inv) / inv;
   }
 
-  Glider.prototype.refresh = function(paging){
+  gliderPrototype.refresh = function(paging){
     this.init(true, paging)
   }
 
-  Glider.prototype.setOption = function(opt){
+  gliderPrototype.setOption = function(opt){
     this.opt = Object.assign({}, _.opt, opt)
   }
 
-  Glider.prototype.remove = function(ele){
+  gliderPrototype.remove = function(ele){
     ele && ele.parentElement.removeChild(ele)
   }
 
-  Glider.prototype.destroy = function(){
+  gliderPrototype.destroy = function(){
     var _ = this;
     [].forEach.call([_.track, _.ele, _.slides ],function(ele){
       if(ele) {
@@ -360,7 +374,7 @@
     _.event('destroy')
   }
 
-  Glider.prototype.event = function(name, arg){
+  gliderPrototype.event = function(name, arg){
     var _ = this, e = new CustomEvent('glider-'+name, {
       bubbles: !_.opt.eventPropagate,
       detail: arg
