@@ -198,10 +198,6 @@
 
     _.slide = Math.round(_.ele.scrollLeft / _.itemWidth);
     _.page = Math.round(_.ele.scrollLeft / _.containerWidth);
-    if (_.ele.scrollLeft + _.containerWidth >= _.trackWidth){
-      _.page = _.dots ? _.dots.children.length - 1 : 0;
-      _.slide = _.slides.length - 1;
-    }
 
     var middle =  _.slide + Math.floor(Math.floor(_.opt.slidesToShow) / 2),
       extraMiddle = Math.floor(_.opt.slidesToShow) % 2 ? 0 : middle + 1;
@@ -209,6 +205,12 @@
       extraMiddle = 0;
     }
 
+    if (_.ele.scrollLeft + _.containerWidth >= _.trackWidth){
+      _.page = _.dots ? _.dots.children.length - 1 : 0;
+      _.slide = _.slides.length - 1;
+    }
+
+    if (/persp/.test(_.ele.id))  console.log(middle);
     [].forEach.call(_.slides,function(slide,index){
       var
         slideClasses = slide.classList,

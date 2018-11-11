@@ -4375,6 +4375,16 @@ user-select: none; /* Standard */
   .glider-persp .glider-slide {
     margin: 10px;
   }
+  html,body{
+    width: 100%;
+    overflow-x: hidden;
+  }
+  @media(max-width: 36em){
+    .glider-persp .glider-slide {
+      margin: 10px;
+      min-height: 100px;
+    }
+  }
   .glider-persp  {
     height: 250px;
   }

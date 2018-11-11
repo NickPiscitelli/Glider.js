@@ -19,7 +19,7 @@
   <title>Glider.js - A fast, lightweight carousel alternative</title>
   <meta charset="utf-8" />
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' />
   <link rel="canonical" href="https://nickpiscitelli.github.io/Glider.js" />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
   <link rel="stylesheet" href="assets/css/prism.css" />
@@ -291,8 +291,8 @@
           <pre class="line-numbers language-javascript">
             <code class="line-numbers language-javascript">
               new Glider(document.querySelector('.glider'), {
-                slidesToShow: 6,
-                slidesToScroll: 6,
+                slidesToShow: 5,
+                slidesToScroll: 1,
                 draggable: true,
                 scrollLock: true,
                 dots: '.dots',
