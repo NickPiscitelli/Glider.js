@@ -2,8 +2,6 @@
 
 A fast, light-weight, dependency free, responsive, native scrolling list with paging controls. (2.1kb gzipped!)
 
-* Please refer to the website for the most up to date documentation for the time being.
-
 Demos and full documentation available on Github Pages: https://nickpiscitelli.github.io/Glider.js/
 
 ##### Quick Start
@@ -43,14 +41,20 @@ Glider.js Initialization w/ full options:
 
 ```javascript
 new Glider(document.querySelector('.glider'), {
-  slidesToShow: 1,
-  slidesToScroll: 1,
+  slidesToShow: 'auto',
+  slidesToScroll: 'auto',
+  itemWidth: 150,
   duration: .5,
   dots: '.glider-dots',
   arrows: {
     prev: '.glider-prev',
     next: '.glider-next'
   },
+  
+  // allow mouse dragging
+  draggable: false,
+  // how much to scroll with each mouse delta
+  dragVelocity: 3.3,
 
   // use any custom easing function
   // compatible with most easing plugins
@@ -64,19 +68,22 @@ new Glider(document.querySelector('.glider'), {
 
   // Force centering slide after scroll event
   scrollLock: false,
+  // how long to wait after scroll event before locking
+  // if too low, it might interrupt normal scrolling
+  scrollLockDelay: 150,
 
   // Glider.js breakpoints are mobile-first
   // be conscious of your ordering
   responsive: [
     {
-      breakpoint: 575,
+      breakpoint: 900,
       settings: {
         slidesToShow: 2,
         slidesToScroll: 2
       }
     },
     {
-      breakpoint: 900,
+      breakpoint: 575,
       settings: {
         slidesToShow: 3,
         slidesToScroll: 3
@@ -89,17 +96,22 @@ new Glider(document.querySelector('.glider'), {
 Change options:
 
 ```javascript
-document.querySelector(element_path)._glider.setOption({
+Glider(document.querySelector(element_path)).setOption({
   name: value,
   ...
 });
+
+// optionally call refresh
+Glider(document.querySelector(element_path)).refresh();
 ```
 
 Bind event:
 
 ```javascript
 document.querySelector(element_path).addEventListener('glider-slide-visible', function(event){
-  // `this` is bound to the glider object
+  // `this` is bound to the glider element
+  // custom data located at `event.detail`
+  // access to Glider object via `Glider(this)`
   ...
 });
 ```
@@ -107,12 +119,14 @@ document.querySelector(element_path).addEventListener('glider-slide-visible', fu
 Destroy with:
 
 ```javascript
-document.querySelector(element_path)._glider.destroy();
+Glider(document.querySelector(element_path)).destroy();
 ```
 
 #### Browser support
 
 Glider.js should run on all modern browsers. Support for older browser can be achieved by polyfilling `document.classList`, `window.requestAnimationFrame`, `Object.assign` and `CustomEvent`
+
+Include `glider-compat.min.js` to include the aforemention polyfills
 
 #### Dependencies
 
