@@ -126,7 +126,7 @@ Glider(document.querySelector(element_path)).destroy();
 
 Glider.js should run on all modern browsers. Support for older browser can be achieved by polyfilling `document.classList`, `window.requestAnimationFrame`, `Object.assign` and `CustomEvent`
 
-Include `glider-compat.min.js` to include the aforemention polyfills
+Include `glider-compat.min.js` to load the aforementioned polyfills
 
 #### Dependencies
 
