@@ -28,7 +28,15 @@
             arrows: {
                 prev: '.glider-prev',
                 next: '.glider-next'
-            }
+            },
+            responsive: [
+                {
+                    breakpoint: 700,
+                    settings: {
+                        draggable: false
+                    }
+                }
+            ]
         });
         function loadImages(callback){
             [].forEach.call(this.querySelectorAll('img'),function(img){

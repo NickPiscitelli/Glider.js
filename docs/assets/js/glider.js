@@ -5,7 +5,7 @@
   \___//_//_/ \_,_/ \__//_/  (_)__/ //___/
                               |___/
 
-  Version: 1.5.1
+  Version: 1.5.2
   Author: Nick Piscitelli (pickykneee)
   Website: https://nickpiscitelli.com
   Documentation: http://nickpiscitelli.github.io/Glider.js
@@ -20,9 +20,7 @@
 }(function() {
   'use strict';
 
-  var Glider = window.Glider = (function() {
-
-    function Glider(element, settings) {
+  var Glider = window.Glider = function (element, settings) {
 
       var _ = this;
 
@@ -65,28 +63,14 @@
       _.init();
 
       // set events
-      _.ele.classList.toggle('draggable', _.opt.draggable === true)
-      if (_.opt.draggable){
-        _.mouseup = function(){
-          _.mouseDown = undefined;
-          _.ele.classList.remove('drag');
-        }
-        _.ele.addEventListener('mouseup', _.mouseup);
-        _.ele.addEventListener('mouseleave', _.mouseup);
-        _.ele.addEventListener('mousedown',function(e){
-          _.mouseDown = e.clientX;
-          _.ele.classList.add('drag');
-        });
-        _.ele.addEventListener('mousemove', _.handleMouse.bind(_));
-      }
       _.resize = _.init.bind(_, true);
-      _.ele.addEventListener('scroll', _.updateControls.bind(_))
-      window.addEventListener('resize', _.resize);
-    }
-
-    return Glider;
-
-  }());
+      _.event(_.ele, 'add', {
+        scroll: _.updateControls.bind(_)
+      });
+      _.event(window, 'add', {
+        resize: _.resize
+      })
+    };
 
   var gliderPrototype = Glider.prototype;
   gliderPrototype.init = function(refresh, paging) {
@@ -130,10 +114,34 @@
       _.bindArrows();
       _.buildDots();
       _.updateControls();
+      _.bindDrag();
     }
 
     _.emit(refresh ? 'refresh ' : 'loaded')
   };
+
+  gliderPrototype.bindDrag = function(){
+    var _ = this;
+    _.mouse = _.mouse || _.handleMouse.bind(_);
+
+    var mouseup = function(){
+        _.mouseDown = undefined;
+        _.ele.classList.remove('drag');
+      },
+      events = {
+        mouseup:  mouseup,
+        mouseleave:  mouseup,
+        mousedown: function(e){
+          _.mouseDown = e.clientX;
+          _.ele.classList.add('drag');
+        },
+        mousemove: _.mouse
+      };
+
+    _.ele.classList.toggle('draggable', _.opt.draggable === true)
+    _.event(_.ele, 'remove', events);
+    if (_.opt.draggable)  _.event(_.ele, 'add', events);
+  }
 
   gliderPrototype.buildDots = function(){
     var _ = this;
@@ -154,7 +162,9 @@
       var li = document.createElement(_.opt.dotTag || 'i');
       li.setAttribute('data-index', i);
       li.className = 'glider-dot '+(i ? '' : 'active');
-      li.addEventListener('click',_.scrollItem.bind(_, i, true))
+      _.event(li, 'add', {
+        click: _.scrollItem.bind(_, i, true)
+      })
       _.dots.appendChild(li);
     }
   }
@@ -167,8 +177,12 @@
       if (arrow){
         if (typeof arrow === 'string')  arrow = document.querySelector(arrow);
         arrow._func = arrow._func || _.scrollItem.bind(_, direction)
-        arrow.removeEventListener('click', arrow._func)
-        arrow.addEventListener('click', arrow._func)
+        _.event(arrow, 'remove', {
+          click: arrow._func
+        });
+        _.event(arrow, 'add', {
+          click: arrow._func
+        });
         _.arrows[direction] = arrow;
       }
     });
@@ -300,6 +314,8 @@
         }
       }
     }
+    // set back to defaults in case they were overriden
+    _.opt = Object.assign({}, _._opt);
     return false;
   }
 
@@ -375,7 +391,9 @@
     clear(replace);
     [].forEach.call(replace.getElementsByTagName('*'),clear);
     _.ele.parentNode.replaceChild(replace, _.ele);
-    window.removeEventListener('resize', _.resize);
+    _.event(window, 'remove', {
+      resize: _.resize
+    });
     _.emit('destroy')
   }
 
@@ -385,5 +403,12 @@
       detail: arg
     });
     _.ele.dispatchEvent(e);
+  }
+
+  gliderPrototype.event = function(ele, type, args){
+    var eventHandler = ele[type+'EventListener'].bind(ele);
+    Object.keys(args).forEach(function(k){
+      eventHandler(k, args[k]);
+    });
   }
 }));

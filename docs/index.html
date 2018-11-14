@@ -400,9 +400,9 @@
           </div>
           <script>
             var glider = new Glider(document.getElementById('glider-cut'), {
-              slidesToScroll: 1.337,
-              slidesToShow: 5.555,
-              dots: '#frac-dots',
+              slidesToScroll: 1,
+              slidesToShow: 5.5,
+              draggable: true,
               arrows: {
                 prev: '#cut-prev',
                 next: '#cut-next'
@@ -413,8 +413,9 @@
           <pre class="line-numbers language-javascript">
             <code class="line-numbers language-javascript">
               new Glider(document.querySelector('.glider'), {
-                slidesToScroll: 1.337,
-                slidesToShow: 5.555,
+                slidesToScroll: 1,
+                slidesToShow: 5.5,
+                draggable: true,
                 dots: '.dots',
                 arrows: {
                   prev: '.glider-prev',
@@ -456,7 +457,6 @@
             var glider = new Glider(document.getElementById('glider-add'), {
               slidesToShow: 3,
               duration: .6,
-              slidesToScroll: 3,
               dots: '#add-dots',
               arrows: {
                 prev: '#glider-prev-add',
