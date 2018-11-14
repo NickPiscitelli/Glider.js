@@ -13,8 +13,11 @@
   Release Date: October 25th, 2018
   Last Update: November 10th, 2018
 */
-
-(function() {
+(function (factory){
+  typeof define === 'function' && define.amd ? define(factory) :
+  typeof exports !== 'undefined' ? module.exports = factory() :
+  factory();
+}(function() {
   'use strict';
 
   var Glider = window.Glider = (function() {
@@ -383,4 +386,4 @@
     });
     _.ele.dispatchEvent(e);
   }
-}());
+}()));
