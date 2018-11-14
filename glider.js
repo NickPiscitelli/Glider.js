@@ -5,13 +5,13 @@
   \___//_//_/ \_,_/ \__//_/  (_)__/ //___/
                               |___/
 
-  Version: 1.5
+  Version: 1.5.1
   Author: Nick Piscitelli (pickykneee)
   Website: https://nickpiscitelli.com
   Documentation: http://nickpiscitelli.github.io/Glider.js
   License: MIT License
   Release Date: October 25th, 2018
-  Last Update: November 10th, 2018
+
 */
 ;(function (factory) {
   typeof define === 'function' && define.amd ? define(factory) :
@@ -24,64 +24,64 @@
 
     function Glider(element, settings) {
 
-        var _ = this;
+      var _ = this;
 
-        if (element._glider)  return element._glider;
+      if (element._glider)  return element._glider;
 
-        _.ele = element
-        _.ele.classList.add('glider');
+      _.ele = element
+      _.ele.classList.add('glider');
 
-        // expose glider object to its DOM element
-        _.ele._glider = _
+      // expose glider object to its DOM element
+      _.ele._glider = _
 
-        // merge user setting with defaults
-        _.opt = Object.assign({}, {
-          slidesToScroll: 1,
-          slidesToShow: 1,
-          duration: .5,
-          // easeInQuad
-          easing: function (x, t, b, c, d) {
-            return c*(t/=d)*t + b;
-          }
+      // merge user setting with defaults
+      _.opt = Object.assign({}, {
+        slidesToScroll: 1,
+        slidesToShow: 1,
+        duration: .5,
+        // easeInQuad
+        easing: function (x, t, b, c, d) {
+          return c*(t/=d)*t + b;
+        }
       }, settings);
 
-        // set defaults
-        _.aIndex = _.page = _.slide = 0;
-        _.arrows = {};
+      // set defaults
+      _.aIndex = _.page = _.slide = 0;
+      _.arrows = {};
 
-        // preserve original options to
-        // extend breakpoint settings
-        _._opt =  _.opt;
+      // preserve original options to
+      // extend breakpoint settings
+      _._opt =  _.opt;
 
-        // create track and wrap slides
-        _.track = document.createElement('div');
-        _.track.className = 'glider-track';
-        _.ele.appendChild(_.track)
-        while (_.ele.children.length !== 1){
-          _.track.appendChild(_.ele.children[0])
+      // create track and wrap slides
+      _.track = document.createElement('div');
+      _.track.className = 'glider-track';
+      _.ele.appendChild(_.track)
+      while (_.ele.children.length !== 1){
+        _.track.appendChild(_.ele.children[0])
+      }
+
+      // calculate list dimensions
+      _.init();
+
+      // set events
+      _.ele.classList.toggle('draggable', _.opt.draggable === true)
+      if (_.opt.draggable){
+        _.mouseup = function(){
+          _.mouseDown = undefined;
+          _.ele.classList.remove('drag');
         }
-
-        // calculate list dimensions
-        _.init();
-
-        // set events
-        _.ele.classList.toggle('draggable', _.opt.draggable === true)
-        if (_.opt.draggable){
-          _.mouseup = function(){
-            _.mouseDown = undefined;
-            _.ele.classList.remove('drag');
-          }
-          _.ele.addEventListener('mouseup', _.mouseup);
-          _.ele.addEventListener('mouseleave', _.mouseup);
-          _.ele.addEventListener('mousedown',function(e){
-            _.mouseDown = e.clientX;
-            _.ele.classList.add('drag');
-          });
-          _.ele.addEventListener('mousemove', _.handleMouse.bind(_));
-        }
-        _.resize = _.init.bind(_, true);
-        _.ele.addEventListener('scroll', _.updateControls.bind(_))
-        window.addEventListener('resize', _.resize);
+        _.ele.addEventListener('mouseup', _.mouseup);
+        _.ele.addEventListener('mouseleave', _.mouseup);
+        _.ele.addEventListener('mousedown',function(e){
+          _.mouseDown = e.clientX;
+          _.ele.classList.add('drag');
+        });
+        _.ele.addEventListener('mousemove', _.handleMouse.bind(_));
+      }
+      _.resize = _.init.bind(_, true);
+      _.ele.addEventListener('scroll', _.updateControls.bind(_))
+      window.addEventListener('resize', _.resize);
     }
 
     return Glider;
@@ -132,7 +132,7 @@
       _.updateControls();
     }
 
-    _.event(refresh ? 'refresh ' : 'loaded')
+    _.emit(refresh ? 'refresh ' : 'loaded')
   };
 
   gliderPrototype.buildDots = function(){
@@ -226,7 +226,7 @@
       var isVisible = itemStart >= start && itemEnd <= end;
       slideClasses.toggle('visible', isVisible);
       if (isVisible != wasVisible){
-        _.event('slide-' +(isVisible ? 'visible' : 'hidden'), {
+        _.emit('slide-' +(isVisible ? 'visible' : 'hidden'), {
           slide: index
         })
       }
@@ -279,7 +279,7 @@
       _.opt.duration * (Math.abs(_.ele.scrollLeft - slide)),
       function() {
         _.updateControls();
-        _.event('animated',{
+        _.emit('animated',{
           value: originalSlide,
           type: typeof originalSlide === 'string' ? 'arrow' :
             dot ? 'dot' : 'slide'
@@ -328,7 +328,7 @@
     if (_.slides.length){
       _.track.removeChild(_.slides[index]);
       _.init(true, true);
-      _.event('remove')
+      _.emit('remove')
     }
   }
 
@@ -337,7 +337,7 @@
 
     _.track.appendChild(ele);
     _.init(true, true);
-    _.event('add')
+    _.emit('add')
   }
 
   gliderPrototype.handleMouse = function(e){
@@ -376,10 +376,10 @@
     [].forEach.call(replace.getElementsByTagName('*'),clear);
     _.ele.parentNode.replaceChild(replace, _.ele);
     window.removeEventListener('resize', _.resize);
-    _.event('destroy')
+    _.emit('destroy')
   }
 
-  gliderPrototype.event = function(name, arg){
+  gliderPrototype.emit = function(name, arg){
     var _ = this, e = new CustomEvent('glider-'+name, {
       bubbles: !_.opt.eventPropagate,
       detail: arg
