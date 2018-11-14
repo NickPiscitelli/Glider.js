@@ -30,26 +30,6 @@
   </noscript>
   <script src="assets/js/glider-compat.min.js"></script>
   <script src="assets/js/glider.js"></script>
-  <script>
-  // center arrows on load
-  document.addEventListener('glider-loaded',centerArrows);
-  document.addEventListener('glider-refresh',centerArrows);
-  function centerArrows(e){
-    var
-      glider = e.target._glider,
-      arrows = glider.arrows,
-      height = glider.ele.clientHeight;
-
-    if (arrows){
-      ['prev','next'].forEach(function(v){
-        if (arrows[v]){
-          var top = (height - arrows[v].clientHeight) / 2;
-          arrows[v].style.top = top + 'px';
-        }
-      });
-    }
-  }
-  </script>
 </head>
 
 <body class="is-preload">
@@ -163,6 +143,7 @@
             new Glider(document.getElementById('glider-single'), {
               slidesToShow: 1,
               dots: '#dots',
+              draggable: true,
               arrows: {
                 prev: '#glider-prev',
                 next: '#glider-next'
@@ -178,6 +159,7 @@
               new Glider(document.querySelector('.glider'), {
                 slidesToShow: 1,
                 dots: '#dots',
+                draggable: true,
                 arrows: {
                   prev: '.glider-prev',
                   next: '.glider-next'

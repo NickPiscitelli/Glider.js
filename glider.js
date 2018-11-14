@@ -13,9 +13,9 @@
   Release Date: October 25th, 2018
   Last Update: November 10th, 2018
 */
-(function (factory){
+;(function (factory) {
   typeof define === 'function' && define.amd ? define(factory) :
-  typeof exports !== 'undefined' ? module.exports = factory() :
+  typeof exports === 'object' ? module.exports = factory() :
   factory();
 }(function() {
   'use strict';
@@ -386,4 +386,4 @@
     });
     _.ele.dispatchEvent(e);
   }
-}()));
+}));

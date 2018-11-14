@@ -19,6 +19,11 @@ var isAndroid = !!navigator.platform && /android/i.test(navigator.platform);
 if(isAndroid) {
   document.body.classList.add('android')
 }
+
+// center arrows on load
+document.addEventListener('glider-loaded',centerArrows);
+document.addEventListener('glider-refresh',centerArrows);
+
 (function ($) {
 
   var $window = $(window),
@@ -150,7 +155,7 @@ if(isAndroid) {
     typeof ga !== 'undefined' && ga('send', 'event', 'Dot Click', $(this).parents('.glider-contain').data('name'), $(this).data('index'))
   });
 
-
+  $(document).on('click','.glider-slide h1', clickEffect);
 })($);
 
 function scrollIt(destination, duration = 350, easing = 'linear', callback) {
@@ -180,4 +185,29 @@ function scrollIt(destination, duration = 350, easing = 'linear', callback) {
   }
 
   scroller();
+}
+
+// make sure click still works
+function clickEffect(e){
+  var d=document.createElement("div");
+  d.className="clickEffect";
+  d.style.top=e.clientY+"px";d.style.left=e.clientX+"px";
+  document.body.appendChild(d);
+  d.addEventListener('animationend',function(){d.parentElement.removeChild(d);}.bind(this));
+}
+
+function centerArrows(e){
+  var
+    glider = e.target._glider,
+    arrows = glider.arrows,
+    height = glider.ele.clientHeight;
+
+  if (arrows){
+    ['prev','next'].forEach(function(v){
+      if (arrows[v]){
+        var top = (height - arrows[v].clientHeight) / 2;
+        arrows[v].style.top = top + 'px';
+      }
+    });
+  }
 }
