@@ -5,7 +5,7 @@
   \___//_//_/ \_,_/ \__//_/  (_)__/ //___/
                               |___/
 
-  Version: 1.5.3
+  Version: 1.5.4
   Author: Nick Piscitelli (pickykneee)
   Website: https://nickpiscitelli.com
   Documentation: http://nickpiscitelli.github.io/Glider.js
@@ -309,13 +309,18 @@
       for (var i = 0; i < resp.length;++i){
         var size = resp[i];
         if (window.innerWidth > size.breakpoint){
-          _.opt = Object.assign({}, _._opt, size.settings);
-          return true;
+          if (_.breakpoint != size.breakpoint){
+            _.opt = Object.assign({}, _._opt, size.settings);
+            _.breakpoint = size.breakpoint
+            return true;
+          }
+          return false;
         }
       }
     }
     // set back to defaults in case they were overriden
     _.opt = Object.assign({}, _._opt);
+    _.breakpoint = 0;
     return false;
   }
 
@@ -376,8 +381,19 @@
   }
 
   gliderPrototype.setOption = function(opt){
-    this.opt = Object.assign({}, this.opt, opt)
-    this._opt = Object.assign({}, this._opt, opt);
+    var _ = this;
+
+    if (_.breakpoint){
+      _._opt.responsive.forEach(function(v){
+        if (v.breakpoint === _.breakpoint){
+          v.settings = Object.assign({}, v.settings, opt)
+        }
+      });
+    } else {
+      _._opt = Object.assign({}, _._opt, opt)
+    }
+
+    _.opt = Object.assign({}, _.opt, opt)
   }
 
   gliderPrototype.destroy = function(){
