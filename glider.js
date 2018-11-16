@@ -5,7 +5,7 @@
   \___//_//_/ \_,_/ \__//_/  (_)__/ //___/
                               |___/
 
-  Version: 1.5.2
+  Version: 1.5.3
   Author: Nick Piscitelli (pickykneee)
   Website: https://nickpiscitelli.com
   Documentation: http://nickpiscitelli.github.io/Glider.js
@@ -343,7 +343,7 @@
 
     if (_.slides.length){
       _.track.removeChild(_.slides[index]);
-      _.init(true, true);
+      _.refresh(true);
       _.emit('remove')
     }
   }
@@ -352,7 +352,7 @@
     var _ = this
 
     _.track.appendChild(ele);
-    _.init(true, true);
+    _.refresh(true);
     _.emit('add')
   }
 
