@@ -377,6 +377,7 @@
 
   gliderPrototype.setOption = function(opt){
     this.opt = Object.assign({}, this.opt, opt)
+    this._opt = Object.assign({}, this._opt, opt);
   }
 
   gliderPrototype.destroy = function(){
