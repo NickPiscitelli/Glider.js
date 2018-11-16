@@ -3870,7 +3870,6 @@ input, select, textarea {
   position:relative;
   overflow-x: auto;
   overflow-y: hidden;
-  overflow: -moz-scrollbars-none;
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: none;
   }
