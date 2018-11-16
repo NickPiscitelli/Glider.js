@@ -1030,41 +1030,49 @@
             </code>
           </pre>
         </header>
-        <ul class="settings uneven">
+        <ul class="settings">
           <li>
-            <span class="setting-name">addItem</span><br>
+            <span class="setting-name">addItem(<span class="arguments">element</span>)</span><br>
             <span class="type">Arguments:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">Element</a><br>
             Add an item to the list<br>
           </li>
           <li>
-            <span class="setting-name">removeItem</span><br>
-            <span class="type">Arguments:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a> (slide position)<br>
+            <span class="setting-name">removeItem(<span class="arguments">itemIndex</span>)</span><br>
+            <span class="type">Arguments:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a><br>
             Remove an item from the list<br>
             <span class="aside">NOTE: Slide position starts at 0, not 1!</span>
           </li>
           <li>
-            <span class="setting-name">scrollItem</span><br>
+            <span class="setting-name">setOption(<span class="arguments">arguments, global</span>)</span><br>
+            <span class="type">Arguments:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>,  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a> <br>
+            Overrides options set during initialization. If called when a breakpoint is active, the settings
+            for the active breakpoint are updated.<br>
+            If second argument is true, the global settings are updated regardless of active breakpoint.<br>
+            Required for overriding <code class="slim">responsive</code> setting itself
+          </li>
+          <li>
+            <span class="setting-name">scrollItem(<span class="arguments">slideIndex, isActuallyDotIndex</span>)</span><br>
             <span class="type">Arguments:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a> | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a><br>
             Scroll to any slide or page. If second argument is explicitly true, then the first argument will refer to the page to scroll to, as opposed to the slide.<br>
           </li>
           <li>
-            <span class="setting-name">scrollTo</span><br>
+            <span class="setting-name">scrollTo(<span class="arguments">pixelOffset</span>)</span><br>
             <span class="type">Arguments:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a> <br>
-            Scroll directly to supplied scroll position<br>
+            Scroll directly to supplied scroll position in pixels<br>
           </li>
           <li>
-            <span class="setting-name">refresh</span><br>
-            <span class="type">Arguments:</span> rebuildPaging <br>
+            <span class="setting-name">refresh(<span class="arguments">rebuildPaging</span>)</span><br>
+            <span class="type">Arguments:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a> <br>
             Force a refresh of Glider.js. If rebuildPaging is true, paging controls will force a rebuild as well. This
             arument must be true if any options affecting paging controls (dots/arrows) are modified.
           </li>
           <li>
-            <span class="setting-name">updateControls</span><br>
+            <span class="setting-name">updateControls(<span class="arguments"></span>)</span><br>
             <span class="type">Arguments:</span> None <br>
             Force a refresh of Glider.js navigation controls
           </li>
           <li>
-            <span class="setting-name">destroy</span><br>
+            <span class="setting-name">destroy(<span class="arguments"></span>)</span><br>
             Destroy Glider.js.
             <span class="aside">NOTE: Since Glider.js does not create the arrows or dot container, it leaves them untouched.
               You may hide them yourself via CSS in the destroy event.</span>

@@ -4523,3 +4523,10 @@ user-select: none; /* Standard */
       right: 17px;
     }
   }
+  span.arguments {
+    color: #333;
+    font-weight: normal;
+    display: inline-block;
+    padding: 0 1px;
+    font-size: .9em;
+}

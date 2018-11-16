@@ -380,7 +380,7 @@
     this.init(true, paging)
   }
 
-  gliderPrototype.setOption = function(opt){
+  gliderPrototype.setOption = function(opt, global){
     var _ = this;
 
     if (_.breakpoint){
@@ -389,7 +389,9 @@
           v.settings = Object.assign({}, v.settings, opt)
         }
       });
-    } else {
+    }
+
+    if ((!_.breakpoint) || global) {
       _._opt = Object.assign({}, _._opt, opt)
     }
 
