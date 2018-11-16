@@ -1,6 +1,6 @@
 # Glider.js
 
-A fast, light-weight, dependency free, responsive, native scrolling list with paging controls. (2.1kb gzipped!)
+A fast, light-weight, dependency free, responsive, native scrolling list with paging controls. (2.3kb gzipped!)
 
 Demos and full documentation available on Github Pages: https://nickpiscitelli.github.io/Glider.js/
 
@@ -50,7 +50,7 @@ new Glider(document.querySelector('.glider'), {
     prev: '.glider-prev',
     next: '.glider-next'
   },
-  
+
   // allow mouse dragging
   draggable: false,
   // how much to scroll with each mouse delta

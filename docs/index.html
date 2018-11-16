@@ -92,7 +92,7 @@
               <h2>Features</h2>
             </header>
             <ul class="script-features">
-              <li><i class="fas fa-check"></i>Insanely Small (2.1kb gzipped!)</li>
+              <li><i class="fas fa-check"></i>Insanely Small (2.3kb gzipped!)</li>
               <li><i class="fas fa-check"></i>Ridiculously Fast (as low as 25ms initilization!)</li>
               <li><i class="fas fa-check"></i>Vanilla JS - No Dependencies (look Mom, no jQuery!)</li>
               <li><i class="fas fa-check"></i>Native Browser Scroll (momentum scrolling!)</li>
@@ -811,7 +811,7 @@
         <ul class="settings uneven">
           <li>
             <span class="setting-name">slidesToShow</span><br>
-            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a> | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a><br>
+            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a> | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a><br>
             <span class="type default">Default:</span> 1<br>
             The number of slides to show in container<br>
 
@@ -820,7 +820,7 @@
           </li>
           <li>
             <span class="setting-name">slidesToScroll</span><br>
-            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a> | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a><br>
+            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a> | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a><br>
             <span class="type default">Default:</span> 1<br>
             The number of slides to scroll when <b>arrow</b> navigation is used<br>
 
@@ -828,19 +828,19 @@
           </li>
           <li>
             <span class="setting-name">itemWidth</span><br>
-            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a><br>
+            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a><br>
             <span class="type default">Default:</span> undefined<br>
             This value is ignored unless <code class="slim slimmer">slidesToShow</code> is set to <code class="slim slimmer">auto</code>, in which it is then required.
           </li>
           <li>
             <span class="setting-name">scrollLock</span><br>
-            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a><br>
+            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a><br>
             <span class="type default">Default:</span> false<br>
             If true, Glider.js will scroll to the nearest slide after any scroll interactions.
           </li>
           <li>
             <span class="setting-name">arrows</span><br>
-            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a><br>
+            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a><br>
             <span class="type default">Default:</span> undefined<br>
             An object containing the prev/next arrows<br>
             <span class="indent">
@@ -850,52 +850,52 @@
           </li>
           <li>
             <span class="setting-name">dots</span><br>
-            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a><br>
+            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a><br>
             <span class="type default">Default:</span> undefined<br>
             An object containing the dot container<br>
           </li>
           <li>
             <span class="setting-name">responsive</span><br>
-            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">array</a> of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">objects</a> [{}]<br>
+            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a> of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Objects</a> [{}]<br>
             <span class="type default">Default:</span> undefined<br>
             An object containing custom settings per provided breakpoint. See demo for details.
             <span class="aside">NOTE: All responsive calculation are provided "mobile-first". Be conscious of your breakpoint order!</span>
           </li>
           <li>
             <span class="setting-name">scrollPropagate</span><br>
-            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a><br>
+            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a><br>
             <span class="type default">Default:</span> false<br>
             Whether or not to release the scroll events from the container
           </li>
           <li>
             <span class="setting-name">draggable</span><br>
-            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a><br>
+            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a><br>
             <span class="type default">Default:</span> false<br>
             If true, the list can be scrolled by click and dragging with the mouse
           </li>
           <li>
             <span class="setting-name">dragVelocity</span><br>
-            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a><br>
+            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a><br>
             <span class="type default">Default:</span> 3.3<br>
             How much to aggravate the velocity of the mouse dragging
           </li>
 
           <li>
             <span class="setting-name">duration</span><br>
-            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a><br>
+            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a><br>
             <span class="type default">Default:</span> 0.5<br>
             An aggravator used to control animation speed. <br>Higher is slower!<br>
           </li>
 
           <li>
             <span class="setting-name">scrollPropagate</span><br>
-            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a><br>
+            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a><br>
             <span class="type default">Default:</span> false<br>
             Whether or not to release the scroll events from the container
           </li>
           <li>
             <span class="setting-name">propagateEvent</span><br>
-            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a><br>
+            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a><br>
             <span class="type default">Default:</span> true<br>
             Whether or not Glider.js events should bubble (useful for binding events to all carousels)
           </li>
@@ -1044,7 +1044,7 @@
           </li>
           <li>
             <span class="setting-name">setOption(<span class="arguments">arguments, global</span>)</span><br>
-            <span class="type">Arguments:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>,  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a> <br>
+            <span class="type">Arguments:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>,  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a> <br>
             Overrides options set during initialization. If called when a breakpoint is active, the settings
             for the active breakpoint are updated.<br>
             If second argument is true, the global settings are updated regardless of active breakpoint.<br>
@@ -1062,7 +1062,7 @@
           </li>
           <li>
             <span class="setting-name">refresh(<span class="arguments">rebuildPaging</span>)</span><br>
-            <span class="type">Arguments:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a> <br>
+            <span class="type">Arguments:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a> <br>
             Force a refresh of Glider.js. If rebuildPaging is true, paging controls will force a rebuild as well. This
             arument must be true if any options affecting paging controls (dots/arrows) are modified.
           </li>
