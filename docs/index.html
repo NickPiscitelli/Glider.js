@@ -98,14 +98,12 @@
               <li><i class="fas fa-check"></i>Native Browser Scroll (momentum scrolling!)</li>
               <li><i class="fas fa-check"></i>Fully Responsive (breakpoint based settings)</li>
               <li><i class="fas fa-check"></i>Customizable Arrow and Dot Navigation</li>
-              <li><i class="fas fa-check"></i>Supports Mouse Dragging!</li>
+              <li><i class="fas fa-check"></i>Full Keyboard Accessibility + ARIA Labeling</li>
+              <li><i class="fas fa-check"></i>Mouse Dragging Support!</li>
               <li><i class="fas fa-check"></i>Flexbox Support (enabled by default)</li>
               <li><i class="fas fa-check"></i>Easily Extendable</li>
               <li><i class="fas fa-check"></i>Custom Events</li>
-            </ul>
-
-            <ul class="actions">
-              <li><a href="#faq" class="button smooth-scroll">Learn More</a></li>
+              <li><i class="fas fa-check"></i>and much more!</li>
             </ul>
           </div>
         </div>
@@ -136,8 +134,8 @@
               </div>
             </div>
             <div id="dots"></div>
-            <a class="glider-prev" id="glider-prev"><i class="fa fa-chevron-left"></i></i></a>
-            <a class="glider-next" id="glider-next"><i class="fa fa-chevron-right"></i></i></a>
+            <button role="button" aria-label="Previous" class="glider-prev" id="glider-prev"><i class="fa fa-chevron-left"></i></i></button>
+            <button role="button" aria-label="Next" class="glider-next" id="glider-next"><i class="fa fa-chevron-right"></i></i></button>
           </div>
           <script>
             window.addEventListener('load', function(){
@@ -199,8 +197,8 @@
               </div>
             </div>
             <div id="dots2"></div>
-            <a class="glider-prev" id="glider-prev-2"><i class="fa fa-chevron-left"></i></i></a>
-            <a class="glider-next" id="glider-next-2"><i class="fa fa-chevron-right"></i></i></a>
+            <button role="button" aria-label="Previous" class="glider-prev" id="glider-prev-2"><i class="fa fa-chevron-left"></i></i></button>
+            <button role="button" aria-label="Next" class="glider-next" id="glider-next-2"><i class="fa fa-chevron-right"></i></i></button>
           </div>
           <script>
             window.addEventListener('load', function () {
@@ -254,8 +252,8 @@
               <div><div class="gradient-border-bottom"><div class="gradient-border"><h1>15</h1></div></div></div>
             </div>
             <div id="dots-per"></div>
-            <a class="glider-prev" id="glider-prev-per"><i class="fa fa-chevron-left"></i></i></a>
-            <a class="glider-next" id="glider-next-per"><i class="fa fa-chevron-right"></i></i></a>
+            <button role="button" aria-label="Previous" class="glider-prev" id="glider-prev-per"><i class="fa fa-chevron-left"></i></i></button>
+            <button role="button" aria-label="Next" class="glider-next" id="glider-next-per"><i class="fa fa-chevron-right"></i></i></button>
           </div>
           <script>
             window.addEventListener('load', function () {
@@ -307,8 +305,8 @@
               </div>
             </div>
             <div id="resp-dots"></div>
-            <a class="glider-prev" id="glider-prev-resp"><i class="fa fa-chevron-left"></i></i></a>
-            <a class="glider-next" id="glider-next-resp"><i class="fa fa-chevron-right"></i></i></a>
+            <button role="button" aria-label="Previous" class="glider-prev" id="glider-prev-resp"><i class="fa fa-chevron-left"></i></i></button>
+            <button role="button" aria-label="Next" class="glider-next" id="glider-next-resp"><i class="fa fa-chevron-right"></i></i></button>
           </div>
           <script>
             window.addEventListener('load',function(){
@@ -398,9 +396,9 @@
                 </div>
               </div>
             </div>
-            <div id="frac-dots"></div>
-            <a class="glider-prev" id="cut-prev"><i class="fa fa-chevron-left"></i></i></a>
-            <a class="glider-next" id="cut-next"><i class="fa fa-chevron-right"></i></i></a>
+            <div role="tablist" id="frac-dots"></div>
+            <button role="button" aria-label="Previous" class="glider-prev" id="cut-prev"><i class="fa fa-chevron-left"></i></i></button>
+            <button role="button" aria-label="Next" class="glider-next" id="cut-next"><i class="fa fa-chevron-right"></i></i></button>
           </div>
           <script>
             window.addEventListener('load',function(){
@@ -453,8 +451,8 @@
               </div>
             </div>
             <div id="add-dots"></div>
-            <a class="glider-prev" id="glider-prev-add"><i class="fa fa-chevron-left"></i></i></a>
-            <a class="glider-next" id="glider-next-add"><i class="fa fa-chevron-right"></i></i></a>
+            <button role="button" aria-label="Previous" class="glider-prev" id="glider-prev-add"><i class="fa fa-chevron-left"></i></i></button>
+            <button role="button" aria-label="Next" class="glider-next" id="glider-next-add"><i class="fa fa-chevron-right"></i></i></button>
           </div>
           <p class="buttons">
             <a class="button" id="addSlide">Add</a>
@@ -669,8 +667,8 @@
               </div>
             </div>
             <div id="dots-content"></div>
-            <a class="glider-prev" id="glider-prev-content"><i class="fa fa-chevron-left"></i></i></a>
-            <a class="glider-next" id="glider-next-content"><i class="fa fa-chevron-right"></i></i></a>
+            <button role="button" aria-label="Previous" class="glider-prev" id="glider-prev-content"><i class="fa fa-chevron-left"></i></i></button>
+            <button role="button" aria-label="Next" class="glider-next" id="glider-next-content"><i class="fa fa-chevron-right"></i></i></button>
           </div>
           <script>
             new Glider(document.getElementById('glider-content'), {
@@ -767,9 +765,10 @@
                 &lt;div&gt;your content here&lt;/div&gt;
                 &lt;div&gt;your content here&lt;/div&gt;
               &lt;/div&gt;
-              &lt;div class="dots"&gt;&lt;/div&gt;
-              &lt;a class="glider-prev"&gt;&laquo;&lt;/a&gt;
-              &lt;a class="glider-next"&gt;&raquo;&lt;/a&gt;
+
+              &lt;button role="button" aria-label="Previous" class="glider-prev"&gt;&laquo;&lt;/button&gt;
+              &lt;button role="button" aria-label="Next" class="glider-next"&gt;&raquo;&lt;/button&gt;
+              &lt;div role="tablist" class="dots"&gt;&lt;/div&gt;
             &lt;/div&gt;
           </code>
         </pre>

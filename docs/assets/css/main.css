@@ -1829,7 +1829,6 @@ input, select, textarea {
   input[type="submit"],
   input[type="reset"],
   input[type="button"],
-  button,
   .button {
     -moz-appearance: none;
     -webkit-appearance: none;
@@ -1898,8 +1897,6 @@ input, select, textarea {
     input[type="reset"]:disabled,
     input[type="button"].disabled,
     input[type="button"]:disabled,
-    button.disabled,
-    button:disabled,
     .button.disabled,
     .button:disabled {
       pointer-events: none;
@@ -1911,7 +1908,6 @@ input, select, textarea {
       input[type="submit"],
       input[type="reset"],
       input[type="button"],
-      button,
       .button {
         min-width: 0;
       }
@@ -1921,7 +1917,6 @@ input, select, textarea {
   input[type="submit"],
   input[type="reset"],
   input[type="button"],
-  button,
   .button {
     background-color: transparent;
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
@@ -1931,7 +1926,6 @@ input, select, textarea {
     input[type="submit"]:hover,
     input[type="reset"]:hover,
     input[type="button"]:hover,
-    button:hover,
     .button:hover {
       background-color: rgba(255, 255, 255, 0.075);
     }
@@ -1939,7 +1933,6 @@ input, select, textarea {
     input[type="submit"]:active,
     input[type="reset"]:active,
     input[type="button"]:active,
-    button:active,
     .button:active {
       background-color: rgba(255, 255, 255, 0.2);
     }
@@ -3354,7 +3347,6 @@ input, select, textarea {
     #main input[type="submit"],
     #main input[type="reset"],
     #main input[type="button"],
-    #main button,
     #main .button {
       background-color: transparent;
       box-shadow: inset 0 0 0 1px #dddddd;
@@ -3364,7 +3356,6 @@ input, select, textarea {
       #main input[type="submit"]:hover,
       #main input[type="reset"]:hover,
       #main input[type="button"]:hover,
-      #main button:hover,
       #main .button:hover {
         background-color: rgba(222, 222, 222, 0.25);
       }
@@ -3372,7 +3363,6 @@ input, select, textarea {
       #main input[type="submit"]:active,
       #main input[type="reset"]:active,
       #main input[type="button"]:active,
-      #main button:active,
       #main .button:active {
         background-color: rgba(222, 222, 222, 0.5);
       }
@@ -3777,8 +3767,12 @@ input, select, textarea {
   height: 0;
   }
   .glider-prev, .glider-next {
+    user-select: none;
+    position: absolute;
+    outline: none;
   position: absolute;
-  width: 10px;
+  background: none;
+  width: 51px;
   z-index: 2;
   font-size: 40px;
   text-decoration: none;
@@ -3792,7 +3786,8 @@ input, select, textarea {
   transition: opacity .25s cubic-bezier(.17,.67,.83,.67),
     color .5s cubic-bezier(.17,.67,.83,.67);
   }
-  #main .glider-prev:hover, #main .glider-next:hover {
+  #main .glider-prev:hover, #main .glider-next:hover,
+  #main .glider-prev:focus, #main .glider-next:focus {
   color: #8cc9f0;
   }
   .multiple .glider-prev, .multiple .glider-next {
@@ -3800,14 +3795,14 @@ input, select, textarea {
   top: 37%;
   }
   .glider-next {
-  right: -23px;
+  right: -45px;
   left: auto;
   }
   .multiple .glider-next {
-  right: -18px;
+  right: -42px;
   }
   .multiple .glider-prev {
-  left: -22px;
+  left: -42px;
   }
   .glider-next.disabled,
   .glider-prev.disabled {
@@ -3832,6 +3827,10 @@ input, select, textarea {
   padding: 0;
   }
   .glider-dot {
+    background: none;
+  border: 0;
+  padding: 0;
+  outline: none;
   display: block;
   cursor: pointer;
   color: #ccc;
@@ -3840,6 +3839,11 @@ input, select, textarea {
   width: 12px;
   height: 12px;
   margin: 7px;
+  padding: 0;
+  border: 0;
+  }
+  .glider-dot:hover, .glider-dot:focus {
+    background: #8cc9f0;
   }
   .glider-dot.active {
   background: #a89cc8;

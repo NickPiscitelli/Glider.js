@@ -159,13 +159,14 @@
     _.dots.className = 'glider-dots';
 
     for (var i = 0; i < Math.ceil(_.slides.length / _.opt.slidesToShow); ++i){
-      var li = document.createElement(_.opt.dotTag || 'i');
-      li.setAttribute('data-index', i);
-      li.className = 'glider-dot '+(i ? '' : 'active');
-      _.event(li, 'add', {
+      var dot = document.createElement('button');
+      dot.dataset.index = i;
+      dot.setAttribute('aria-label', 'Page '+(i+1));
+      dot.className = 'glider-dot '+(i ? '' : 'active');
+      _.event(dot, 'add', {
         click: _.scrollItem.bind(_, i, true)
       })
-      _.dots.appendChild(li);
+      _.dots.appendChild(dot);
     }
   }
 
