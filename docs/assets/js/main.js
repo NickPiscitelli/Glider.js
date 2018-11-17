@@ -24,13 +24,6 @@ if(isAndroid) {
 document.addEventListener('glider-loaded',centerArrows);
 document.addEventListener('glider-refresh',centerArrows);
 
-document.addEventListener('glider-loaded', function(e){
-  $(e.target).parent().css({ height: ($(e.target).outerHeight() - 17)+'px'});
-});
-document.addEventListener('glider-refresh', function(e){
-  $(e.target).parent().css({ height: ($(e.target).outerHeight() - 17)+'px'});
-});
-
 (function ($) {
 
   var $window = $(window),
