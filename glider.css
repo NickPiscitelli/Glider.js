@@ -74,6 +74,11 @@
   color: #666;
   cursor: default;
 }
+.glider-prev:focus, .glider-next:focus {
+  color: transparent;
+  outline: none;
+  background: transparent;
+}
 .glider-slide {
   min-width: 150px;
 }

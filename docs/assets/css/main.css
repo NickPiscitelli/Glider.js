@@ -1829,7 +1829,6 @@ input, select, textarea {
   input[type="submit"],
   input[type="reset"],
   input[type="button"],
-  button,
   .button {
     -moz-appearance: none;
     -webkit-appearance: none;
@@ -1898,8 +1897,6 @@ input, select, textarea {
     input[type="reset"]:disabled,
     input[type="button"].disabled,
     input[type="button"]:disabled,
-    button.disabled,
-    button:disabled,
     .button.disabled,
     .button:disabled {
       pointer-events: none;
@@ -1911,7 +1908,6 @@ input, select, textarea {
       input[type="submit"],
       input[type="reset"],
       input[type="button"],
-      button,
       .button {
         min-width: 0;
       }
@@ -1921,7 +1917,6 @@ input, select, textarea {
   input[type="submit"],
   input[type="reset"],
   input[type="button"],
-  button,
   .button {
     background-color: transparent;
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
@@ -3354,7 +3349,6 @@ input, select, textarea {
     #main input[type="submit"],
     #main input[type="reset"],
     #main input[type="button"],
-    #main button,
     #main .button {
       background-color: transparent;
       box-shadow: inset 0 0 0 1px #dddddd;
@@ -3778,7 +3772,8 @@ input, select, textarea {
   }
   .glider-prev, .glider-next {
   position: absolute;
-  width: 10px;
+  background: none;
+  width: 51px;
   z-index: 2;
   font-size: 40px;
   text-decoration: none;
@@ -3800,11 +3795,11 @@ input, select, textarea {
   top: 37%;
   }
   .glider-next {
-  right: -23px;
+  right: -45px;
   left: auto;
   }
   .multiple .glider-next {
-  right: -18px;
+  right: -24px;
   }
   .multiple .glider-prev {
   left: -22px;
@@ -3840,6 +3835,8 @@ input, select, textarea {
   width: 12px;
   height: 12px;
   margin: 7px;
+  padding: 0;
+  border: 0;
   }
   .glider-dot.active {
   background: #a89cc8;

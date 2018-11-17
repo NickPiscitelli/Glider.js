@@ -159,8 +159,8 @@
     _.dots.className = 'glider-dots';
 
     for (var i = 0; i < Math.ceil(_.slides.length / _.opt.slidesToShow); ++i){
-      var li = document.createElement(_.opt.dotTag || 'i');
-      li.setAttribute('data-index', i);
+      var li = document.createElement('button');
+      li.dataset.index = i;
       li.className = 'glider-dot '+(i ? '' : 'active');
       _.event(li, 'add', {
         click: _.scrollItem.bind(_, i, true)
