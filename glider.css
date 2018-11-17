@@ -13,9 +13,6 @@
   -ms-overflow-style: none;
   transform: translateZ(0);
 }
-@-moz-document url-prefix() {
-  .glider {overflow: hidden;} 
-}
 .glider-track {
   transform: translateZ(0);
   width: 100%;

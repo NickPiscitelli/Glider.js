@@ -4530,3 +4530,12 @@ user-select: none; /* Standard */
     padding: 0 1px;
     font-size: .9em;
 }
+
+@-moz-document url-prefix() {
+  .glider-track {
+    margin-bottom: 17px;
+  }
+  .gradient-border {
+    overflow: hidden;
+  }
+}
