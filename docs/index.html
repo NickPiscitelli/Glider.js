@@ -140,17 +140,19 @@
             <a class="glider-next" id="glider-next"><i class="fa fa-chevron-right"></i></i></a>
           </div>
           <script>
-            new Glider(document.getElementById('glider-single'), {
-              slidesToShow: 1,
-              dots: '#dots',
-              draggable: true,
-              arrows: {
-                prev: '#glider-prev',
-                next: '#glider-next'
-              },
-              easing: function (x, t, b, c, d) {
-                return c*(t/=d)*t + b;
-              }
+            window.addEventListener('load', function(){
+              new Glider(document.getElementById('glider-single'), {
+                slidesToShow: 1,
+                dots: '#dots',
+                draggable: true,
+                arrows: {
+                  prev: '#glider-prev',
+                  next: '#glider-next'
+                },
+                easing: function (x, t, b, c, d) {
+                  return c*(t/=d)*t + b;
+                }
+              });
             });
           </script>
 
@@ -309,6 +311,7 @@
             <a class="glider-next" id="glider-next-resp"><i class="fa fa-chevron-right"></i></i></a>
           </div>
           <script>
+            window.addEventListener('load',function(){
               new Glider(document.querySelector('#glider-resp'), {
                 // Mobile-first defaults
                 slidesToShow: 1,
@@ -331,7 +334,8 @@
                     }
                   }
                 ]
-              });
+              })
+            });
           </script>
 
           <pre class="line-numbers language-javascript">
@@ -399,16 +403,18 @@
             <a class="glider-next" id="cut-next"><i class="fa fa-chevron-right"></i></i></a>
           </div>
           <script>
-            var glider = new Glider(document.getElementById('glider-cut'), {
-              slidesToScroll: 1,
-              slidesToShow: 5.5,
-              draggable: true,
-              dots: '#frac-dots',
-              arrows: {
-                prev: '#cut-prev',
-                next: '#cut-next'
-              }
-            });
+            window.addEventListener('load',function(){
+              var glider = new Glider(document.getElementById('glider-cut'), {
+                slidesToScroll: 1,
+                slidesToShow: 5.5,
+                draggable: true,
+                dots: '#frac-dots',
+                arrows: {
+                  prev: '#cut-prev',
+                  next: '#cut-next'
+                }
+              });
+            })
           </script>
 
           <pre class="line-numbers language-javascript">
@@ -455,6 +461,7 @@
             <a class="button" id="removeSlide">Remove</a>
           </p>
           <script>
+          window.addEventListener('load',function(){
             var glider = new Glider(document.getElementById('glider-add'), {
               slidesToShow: 3,
               duration: .6,
@@ -479,6 +486,7 @@
                 ga('send','event','Add/Remove Item', 'Remove')
               } catch(ex){}
             });
+          })
           </script>
 
           <pre class="line-numbers language-javascript">

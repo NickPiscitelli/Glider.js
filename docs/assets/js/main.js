@@ -24,6 +24,17 @@ if(isAndroid) {
 document.addEventListener('glider-loaded',centerArrows);
 document.addEventListener('glider-refresh',centerArrows);
 
+
+document.addEventListener('glider-loaded', hideFFScrollBars);
+document.addEventListener('glider-refresh', hideFFScrollBars);
+function hideFFScrollBars(e){
+  if(/firefox/i.test(navigator.userAgent)){
+    if (window.innerWidth > 575 && e.target.id !== 'glider-persp'){
+      e.target.parentNode.style.height = (e.target.offsetHeight - 17) + 'px'
+    }
+  }
+}
+
 (function ($) {
 
   var $window = $(window),
