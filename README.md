@@ -128,6 +128,38 @@ Glider.js should run on all modern browsers. Support for older browser can be ac
 
 Include `glider-compat.min.js` to load the aforementioned polyfills
 
+#### Native Scrollbars
+
+Since Glider.js uses native scrolling, the browser wants to apply the standard scrollbar to the glider. In most cases, this is fine since the scrollbar can be hidden with CSS and Glider.js does so when appropriate. In browsers such as Firefox though, the scrollbars cannot be hidden with CSS and require additional markup to hide.
+
+To hide the scrollbars in Firefox, you'll want to wrap your glider with `<div class="glider-wrap">` and apply the following CSS/JS:
+
+```css
+@-moz-document url-prefix() {
+  .glider-track {
+    margin-bottom: 17px;
+  }
+  .glider-wrap {
+    overflow: hidden;
+  }
+}
+```
+
+```javascript
+document.addEventListener('glider-loaded', hideFFScrollBars);
+document.addEventListener('glider-refresh', hideFFScrollBars);
+function hideFFScrollBars(e){
+  var scrollbarHeight = 17; // Currently 17, may change with updates
+  if(/firefox/i.test(navigator.userAgent)){
+    // We only need to appy to desktop. Firefox for mobile uses
+    // a different rendering engine (WebKit)
+    if (window.innerWidth > 575){
+      e.target.parentNode.style.height = (e.target.offsetHeight - scrollbarHeight) + 'px'
+    }
+  }
+}
+```
+
 #### Dependencies
 
 None :)

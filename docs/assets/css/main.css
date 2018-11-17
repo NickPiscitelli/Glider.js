@@ -3891,6 +3891,7 @@ input, select, textarea {
   justify-content: center;
   align-items: center;
   border: 1px solid #f5f5f5;
+  border-bottom: 0;
   }
   .multiple .glider-slide {
   min-height: 150px;
