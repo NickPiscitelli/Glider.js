@@ -3921,15 +3921,11 @@ input, select, textarea {
     width: 95%;
 
   }
-  .glider-prev {
-    left: -25px;
-  }
+
   .glider-prev, .glider-next {
     font-size: 25px;
   }
-  .glider-next {
-    right: -18px;
-  }
+
   .glider-slide {
     min-height: 180px;
   }
