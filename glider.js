@@ -5,7 +5,7 @@
   \___//_//_/ \_,_/ \__//_/  (_)__/ //___/
                               |___/
 
-  Version: 1.5.4
+  Version: 1.6.0
   Author: Nick Piscitelli (pickykneee)
   Website: https://nickpiscitelli.com
   Documentation: http://nickpiscitelli.github.io/Glider.js
@@ -36,6 +36,7 @@
       _.opt = Object.assign({}, {
         slidesToScroll: 1,
         slidesToShow: 1,
+        resizeLock: true,
         duration: .5,
         // easeInQuad
         easing: function (x, t, b, c, d) {
@@ -44,7 +45,7 @@
       }, settings);
 
       // set defaults
-      _.aIndex = _.page = _.slide = 0;
+      _.animate_id = _.page = _.slide = 0;
       _.arrows = {};
 
       // preserve original options to
@@ -59,7 +60,7 @@
         _.track.appendChild(_.ele.children[0])
       }
 
-      // calculate list dimensions
+      // start glider
       _.init();
 
       // set events
@@ -89,14 +90,18 @@
     var breakpointChanged = _.settingsBreakpoint();
     if (!paging) paging = breakpointChanged;
 
-    if (_.opt.slidesToShow === 'auto'){
-      _.opt.slidesToShow = Math.floor(_.containerWidth / _.opt.itemWidth);
+    if (_.opt.slidesToShow === 'auto' || _.opt._autoSlide){
+      var slideCount = _.containerWidth / _.opt.itemWidth;
+
+      _.opt._autoSlide = _.opt.slidesToShow = _.opt.exactWidth ?
+        slideCount : Math.floor(slideCount);
     }
     if (_.opt.slidesToScroll === 'auto'){
-      _.opt.slidesToScroll = _.opt.slidesToShow;
+      _.opt.slidesToScroll = Math.floor(_.opt.slidesToShow);
     }
 
-    _.itemWidth = _.containerWidth / _.opt.slidesToShow;
+    _.itemWidth = _.opt.exactWidth ?
+      _.opt.itemWidth : _.containerWidth / _.opt.slidesToShow;
 
     // set slide dimensions
     [].forEach.call(_.slides, function(__){
@@ -109,13 +114,15 @@
     _.track.style.width = width + 'px';
     _.trackWidth = width;
 
-    // rebuild paging controls when settings changed
-    if (!refresh || paging){
+    _.opt.resizeLock && _.scrollTo(_.slide * _.itemWidth, 0);
+
+    if (breakpointChanged || paging){
       _.bindArrows();
       _.buildDots();
-      _.updateControls();
       _.bindDrag();
     }
+
+    _.updateControls();
 
     _.emit(refresh ? 'refresh ' : 'loaded')
   };
@@ -172,7 +179,13 @@
 
   gliderPrototype.bindArrows = function(){
     var _ = this;
-    if (!_.opt.arrows)  return
+    if (!_.opt.arrows) {
+      Object.keys(_.arrows).forEach(function(direction){
+        var element = _.arrows[direction];
+        _.event(element, 'remove', { click: element._func })
+      });
+      return;
+    }
     ['prev','next'].forEach(function(direction){
       var arrow = _.opt.arrows[direction]
       if (arrow){
@@ -198,8 +211,10 @@
 
     var disableArrows = _.containerWidth >= _.trackWidth;
 
-    if (_.arrows.prev) _.arrows.prev.classList.toggle('disabled', _.ele.scrollLeft <= 0 || disableArrows)
-    if (_.arrows.next) _.arrows.next.classList.toggle('disabled', _.ele.scrollLeft + _.containerWidth >=  Math.floor(_.trackWidth) || disableArrows)
+    if (!_.opt.rewind){
+      if (_.arrows.prev) _.arrows.prev.classList.toggle('disabled', _.ele.scrollLeft <= 0 || disableArrows)
+      if (_.arrows.next) _.arrows.next.classList.toggle('disabled', _.ele.scrollLeft + _.containerWidth >=  Math.floor(_.trackWidth) || disableArrows)
+    }
 
     _.slide = Math.round(_.ele.scrollLeft / _.itemWidth);
     _.page = Math.round(_.ele.scrollLeft / _.containerWidth);
@@ -210,9 +225,10 @@
       extraMiddle = 0;
     }
 
+    // the last page may be less than one half of a normal page width so
+    // the page is rounded down. when at the end, force the page to turn
     if (_.ele.scrollLeft + _.containerWidth >= Math.floor(_.trackWidth)){
       _.page = _.dots ? _.dots.children.length - 1 : 0;
-      _.slide = _.slides.length - _.opt.slidesToShow;
     }
 
     [].forEach.call(_.slides,function(slide,index){
@@ -265,10 +281,11 @@
     if(e)   e.preventDefault();
 
     var _ = this, originalSlide = slide;
-    _.aIndex++;
+    ++_.animate_id;
 
     if (dot === true) {
       slide = slide * _.containerWidth
+      slide = Math.round(slide / _.itemWidth) * _.itemWidth
     } else {
       if (typeof slide === 'string') {
         var backwards = slide === 'prev';
@@ -283,8 +300,16 @@
         if (backwards) slide -= _.opt.slidesToScroll;
         else  slide += _.opt.slidesToScroll;
 
+        if (_.opt.rewind){
+          var scrollLeft = _.ele.scrollLeft;
+          slide = backwards && !scrollLeft ? _.slides.length :
+            !backwards && scrollLeft + _.containerWidth >= Math.floor(_.trackWidth) ?
+              0 : slide;
+        }
       }
+
       slide = Math.max(Math.min(slide, _.slides.length), 0)
+
       _.slide = slide;
       slide = _.itemWidth * slide
     }
@@ -320,20 +345,21 @@
       }
     }
     // set back to defaults in case they were overriden
+    var breakpointChanged = _.breakpoint !== 0;
     _.opt = Object.assign({}, _._opt);
     _.breakpoint = 0;
-    return false;
+    return breakpointChanged;
   }
 
   gliderPrototype.scrollTo = function(scrollTarget, scrollDuration, callback) {
     var
       _ = this,
       start = new Date().getTime(),
-      animateIndex = _.aIndex,
+      animateIndex = _.animate_id,
       animate = function(){
         var now = (new Date().getTime() - start);
         _.ele.scrollLeft = _.ele.scrollLeft + (scrollTarget - _.ele.scrollLeft) * _.opt.easing(0, now, 0, 1, scrollDuration);
-        if(now < scrollDuration && animateIndex == _.aIndex){
+        if(now < scrollDuration && animateIndex == _.animate_id){
           window.requestAnimationFrame(animate);
         } else {
           _.ele.scrollLeft = scrollTarget

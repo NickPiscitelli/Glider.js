@@ -92,7 +92,7 @@
               <h2>Features</h2>
             </header>
             <ul class="script-features">
-              <li><i class="fas fa-check"></i>Insanely Small (2.3kb gzipped!)</li>
+              <li><i class="fas fa-check"></i>Insanely Small (&lt; 2.5kb gzipped!)</li>
               <li><i class="fas fa-check"></i>Ridiculously Fast (as low as 25ms initilization!)</li>
               <li><i class="fas fa-check"></i>Vanilla JS - No Dependencies (look Mom, no jQuery!)</li>
               <li><i class="fas fa-check"></i>Native Browser Scroll (momentum scrolling!)</li>
@@ -133,9 +133,9 @@
                 </div>
               </div>
             </div>
-            <div id="dots"></div>
             <button role="button" aria-label="Previous" class="glider-prev" id="glider-prev"><i class="fa fa-chevron-left"></i></i></button>
             <button role="button" aria-label="Next" class="glider-next" id="glider-next"><i class="fa fa-chevron-right"></i></i></button>
+            <div id="dots"></div>
           </div>
           <script>
             window.addEventListener('load', function(){
@@ -196,9 +196,9 @@
                 </div>
               </div>
             </div>
-            <div id="dots2"></div>
             <button role="button" aria-label="Previous" class="glider-prev" id="glider-prev-2"><i class="fa fa-chevron-left"></i></i></button>
             <button role="button" aria-label="Next" class="glider-next" id="glider-next-2"><i class="fa fa-chevron-right"></i></i></button>
+            <div id="dots2"></div>
           </div>
           <script>
             window.addEventListener('load', function () {
@@ -251,9 +251,9 @@
               <div><div class="gradient-border-bottom"><div class="gradient-border"><h1>14</h1></div></div></div>
               <div><div class="gradient-border-bottom"><div class="gradient-border"><h1>15</h1></div></div></div>
             </div>
-            <div id="dots-per"></div>
             <button role="button" aria-label="Previous" class="glider-prev" id="glider-prev-per"><i class="fa fa-chevron-left"></i></i></button>
             <button role="button" aria-label="Next" class="glider-next" id="glider-next-per"><i class="fa fa-chevron-right"></i></i></button>
+            <div id="dots-per"></div>
           </div>
           <script>
             window.addEventListener('load', function () {
@@ -304,9 +304,9 @@
                 </div>
               </div>
             </div>
-            <div id="resp-dots"></div>
             <button role="button" aria-label="Previous" class="glider-prev" id="glider-prev-resp"><i class="fa fa-chevron-left"></i></i></button>
             <button role="button" aria-label="Next" class="glider-next" id="glider-next-resp"><i class="fa fa-chevron-right"></i></i></button>
+            <div id="resp-dots"></div>
           </div>
           <script>
             window.addEventListener('load',function(){
@@ -386,6 +386,7 @@
                   <div><h1>14</h1></div>
                   <div><h1>15</h1></div>
                   <div><h1>16</h1></div>
+                  <div><h1>17</h1></div>
                   <div><h1>18</h1></div>
                   <div><h1>19</h1></div>
                   <div><h1>20</h1></div>
@@ -396,9 +397,9 @@
                 </div>
               </div>
             </div>
-            <div role="tablist" id="frac-dots"></div>
             <button role="button" aria-label="Previous" class="glider-prev" id="cut-prev"><i class="fa fa-chevron-left"></i></i></button>
             <button role="button" aria-label="Next" class="glider-next" id="cut-next"><i class="fa fa-chevron-right"></i></i></button>
+            <div role="tablist" id="frac-dots"></div>
           </div>
           <script>
             window.addEventListener('load',function(){
@@ -450,9 +451,9 @@
                 </div>
               </div>
             </div>
-            <div id="add-dots"></div>
             <button role="button" aria-label="Previous" class="glider-prev" id="glider-prev-add"><i class="fa fa-chevron-left"></i></i></button>
             <button role="button" aria-label="Next" class="glider-next" id="glider-next-add"><i class="fa fa-chevron-right"></i></i></button>
+            <div id="add-dots"></div>
           </div>
           <p class="buttons">
             <a class="button" id="addSlide">Add</a>
@@ -786,7 +787,7 @@
           Include the required CSS in your &lt;head&gt; tag
         </p>
         <pre class="line-numbers language-html">
-          <code class="line-numbers language-html"> 
+          <code class="line-numbers language-html">
             &lt;link rel="stylesheet" type="text/css" href="glider.css"&gt;
           </code>
         </pre>
@@ -815,7 +816,7 @@
         <header class="major">
           <h2>Settings</h2>
         </header>
-        <ul class="settings uneven">
+        <ul class="settings">
           <li>
             <span class="setting-name">slidesToShow</span><br>
             <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a> | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a><br>
@@ -834,22 +835,10 @@
             If this value is set to <code class="slim slimmer">auto</code>, it will match the value of <code class="slim slimmer">slidesToScroll</code>.
           </li>
           <li>
-            <span class="setting-name">itemWidth</span><br>
-            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a><br>
-            <span class="type default">Default:</span> undefined<br>
-            This value is ignored unless <code class="slim slimmer">slidesToShow</code> is set to <code class="slim slimmer">auto</code>, in which it is then required.
-          </li>
-          <li>
-            <span class="setting-name">scrollLock</span><br>
-            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a><br>
-            <span class="type default">Default:</span> false<br>
-            If true, Glider.js will scroll to the nearest slide after any scroll interactions.
-          </li>
-          <li>
             <span class="setting-name">arrows</span><br>
             <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a><br>
             <span class="type default">Default:</span> undefined<br>
-            An object containing the prev/next arrows<br>
+            An object containing the prev/next arrow settings<br>
             <span class="indent">
               <span class="type">Keys:</span> prev | next<br>
               <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">Element</a> | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a> (HTML Selector)<br>
@@ -857,9 +846,35 @@
           </li>
           <li>
             <span class="setting-name">dots</span><br>
-            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a><br>
+            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">Element</a> | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a> (HTML Selector)<br>
             <span class="type default">Default:</span> undefined<br>
-            An object containing the dot container<br>
+            An HTML element or selector containing the dot container<br>
+          </li>
+          <li>
+            <span class="setting-name">itemWidth</span><br>
+            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a><br>
+            <span class="type default">Default:</span> undefined<br>
+            This value is ignored unless <code class="slim slimmer">slidesToShow</code> is set to <code class="slim slimmer">auto</code>, in which it is then required.
+          </li>
+          <li>
+            <span class="setting-name">exactWidth</span><br>
+            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a><br>
+            <span class="type default">Default:</span> undefined<br>
+            This prevents resizing items to fit when <code clas="slim slimmer">slidesToShow</code> is set to auto.
+
+            <span class="aside">NOTE: This will yield fractional slides if your container is not sized appropriately</span>
+          </li>
+          <li>
+            <span class="setting-name">scrollLock</span><br>
+            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a><br>
+            <span class="type default">Default:</span> false<br>
+            If true, Glider.js will scroll to the nearest slide after any scroll interactions
+          </li>
+          <li>
+            <span class="setting-name">resizeLock</span><br>
+            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a><br>
+            <span class="type default">Default:</span> true<br>
+            If true, Glider.js will lock to the nearest slide on resizing of the window
           </li>
           <li>
             <span class="setting-name">responsive</span><br>
@@ -867,6 +882,12 @@
             <span class="type default">Default:</span> undefined<br>
             An object containing custom settings per provided breakpoint. See demo for details.
             <span class="aside">NOTE: All responsive calculation are provided "mobile-first". Be conscious of your breakpoint order!</span>
+          </li>
+          <li>
+            <span class="setting-name">rewind</span><br>
+            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a><br>
+            <span class="type default">Default:</span> false<br>
+            If true, Glider.js will scroll to the beginning/end when it's respective endpoint is reached
           </li>
           <li>
             <span class="setting-name">scrollPropagate</span><br>

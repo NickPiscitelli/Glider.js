@@ -69,7 +69,7 @@
 .glider-next:hover,
 .glider-prev:focus,
 .glider-next:focus {
-  color: #ccc;
+  color: #a89cc8;
 }
 .glider-next {
   right: -23px;
@@ -111,9 +111,7 @@
   margin: 7px;
 }
 .glider-dot:hover,
-.glider-dot:focus {
-  background: #ddd;
-}
+.glider-dot:focus,
 .glider-dot.active {
   background: #a89cc8;
 }
@@ -128,7 +126,6 @@
     opacity: 1;
     border-radius: 99px;
     background-color: rgba(156, 156, 156, 0.25);
-    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.25);
     box-shadow: 0 0 1px rgba(255,255,255,.25);
   }
 }

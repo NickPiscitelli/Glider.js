@@ -1,6 +1,6 @@
 # Glider.js
 
-A fast, light-weight, dependency free, responsive, native scrolling list with paging controls. (2.3kb gzipped!)
+A fast, light-weight, dependency free, responsive, accessible, extendable, native scrolling list with paging controls, methods and events. (< 2.5kb gzipped!)
 
 Demos and full documentation available on Github Pages: https://nickpiscitelli.github.io/Glider.js/
 
@@ -41,14 +41,33 @@ Glider.js Initialization w/ full options:
 
 ```javascript
 new Glider(document.querySelector('.glider'), {
+
+  // `auto` allows automatic responsive
+  // width calculations
   slidesToShow: 'auto',
   slidesToScroll: 'auto',
-  itemWidth: 150,
+
+  // should have been named `itemMinWidth`
+  // slides grow to fit the container viewport
+  // ignored unless `slidesToShow` is set to `auto`
+  itemWidth: undefined,
+
+  // if true, slides wont be resized to fit viewport
+  // requires `itemWidth` to be set
+  // * this may cause fractional slides
+  exactWidth: false,
+
+  // speed aggravator - higher is slower
   duration: .5,
-  dots: '.glider-dots',
+
+  // dot container element or selector
+  dots: 'CSS Selector',
+
+  // arrow container elements or selector
   arrows: {
-    prev: '.glider-prev',
-    next: '.glider-next'
+    prev: 'CSS Selector',
+    // may also pass element directly
+    next: document.querySelector('CSS Selector')
   },
 
   // allow mouse dragging
@@ -71,6 +90,9 @@ new Glider(document.querySelector('.glider'), {
   // how long to wait after scroll event before locking
   // if too low, it might interrupt normal scrolling
   scrollLockDelay: 150,
+
+  // Force centering slide after resize event
+  resizeLock: true,
 
   // Glider.js breakpoints are mobile-first
   // be conscious of your ordering

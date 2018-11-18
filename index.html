@@ -1,56 +1,76 @@
 <!doctype html>
 <html>
   <head>
-    <link rel="stylesheet" type="text/css" href="glider.min.css" />
-    <script src="glider.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <style type="text/css">@-ms-viewport{width:auto!important;}</style>
+    <link rel="stylesheet" type="text/css" href="glider.css" />
+    <script src="glider.js"></script>
     <script>
       window.addEventListener('load',function(){
-        // example event hook implementing basic lazy loading images
-
         document.querySelector('.glider').addEventListener('glider-slide-visible', function(event){
-            var imgs_to_anticipate = 3;
             var glider = Glider(this);
-            for (var i = 0; i <= imgs_to_anticipate; ++i){
-                var index = Math.min(event.detail.slide + i, glider.slides.length - 1),
-                    glider = glider;
-                loadImages.call(glider.slides[index],function(){
-                    glider.refresh(true);
-                })
-            }
+            console.log('Slide Visible %s', event.detail.slide)
+        });
+        document.querySelector('.glider').addEventListener('glider-slide-hidden', function(event){
+            console.log('Slide Hidden %s', event.detail.slide)
+        });
+        document.querySelector('.glider').addEventListener('glider-refresh', function(event){
+            console.log('Refresh')
+        });
+        document.querySelector('.glider').addEventListener('glider-loaded', function(event){
+            console.log('Loaded')
         });
 
         window._ = new Glider(document.querySelector('.glider'), {
-            slidesToShow: 'auto',
-            itemWidth: 300,
-            slidesToScroll: 'auto',
+            slidesToShow: 1, //'auto',
+            slidesToScroll: 1,
+            itemWidth: 150,
             draggable: true,
+            scrollLock: false,
             dots: '#dots',
+            rewind: true,
             arrows: {
                 prev: '.glider-prev',
                 next: '.glider-next'
             },
             responsive: [
                 {
+                    breakpoint: 800,
+                    settings: {
+                        slidesToScroll: 'auto',
+                        itemWidth: 300,
+                        slidesToShow: 'auto',
+                        exactWidth: true
+                    }
+                },
+                {
                     breakpoint: 700,
                     settings: {
-                        draggable: false
+                        slidesToScroll: 4,
+                        slidesToShow: 4,
+                        dots: false,
+                        arrows: false,
+                    }
+                },
+                {
+                    breakpoint: 600,
+                    settings: {
+                        slidesToScroll: 3,
+                        slidesToShow: 3
+                    }
+                },
+                {
+                    breakpoint: 500,
+                    settings: {
+                        slidesToScroll: 2,
+                        slidesToShow: 2,
+                        dots: false,
+                        arrows: false,
+                        scrollLock: true
                     }
                 }
             ]
         });
-        function loadImages(callback){
-            [].forEach.call(this.querySelectorAll('img'),function(img){
-                var _img = new Image,  _src = img.getAttribute('data-src');
-                _img.onload = function(){
-                    img.src = _src;
-                    img.classList.add('loaded');
-                    callback && callback(img);
-                }
-                if(img.src !== _src) _img.src = _src;
-            });
-        }
       });
-
     </script>
 
 
@@ -60,6 +80,9 @@
         Not necessary for Glider.js
     -->
     <style type="text/css">
+        * {
+            box-sizing: border-box
+        }
         html, body {
             width: 100%;
             overflow: hidden;
@@ -71,38 +94,40 @@
         }
         .glider-contain {
             width: 90%;
-            max-width: 750px;
+            max-width: 997px;
             margin: 0 auto;
         }
         .glider-slide {
             min-height: 150px;
         }
-
+        .glider-slide img {
+            width: 100%;
+        }
     </style>
   </head>
   <body>
     <div class="glider-contain">
         <div class="glider">
-            <div><img alt="Test" data-src="http://placehold.it/300x300?text=1"></div>
-            <div><img alt="Test" data-src="http://placehold.it/300x300?text=2"></div>
-            <div><img alt="Test" data-src="http://placehold.it/300x300?text=3"></div>
-            <div><img alt="Test" data-src="http://placehold.it/300x300?text=4"></div>
-            <div><img alt="Test" data-src="http://placehold.it/300x300?text=5"></div>
-            <div><img alt="Test" data-src="http://placehold.it/300x300?text=6"></div>
-            <div><img alt="Test" data-src="http://placehold.it/300x300?text=7"></div>
-            <div><img alt="Test" data-src="http://placehold.it/300x300?text=8"></div>
-            <div><img alt="Test" data-src="http://placehold.it/300x300?text=9"></div>
-            <div><img alt="Test" data-src="http://placehold.it/300x300?text=10"></div>
-            <div><img alt="Test" data-src="http://placehold.it/300x300?text=11"></div>
-            <div><img alt="Test" data-src="http://placehold.it/300x300?text=12"></div>
-            <div><img alt="Test" data-src="http://placehold.it/300x300?text=13"></div>
-            <div><img alt="Test" data-src="http://placehold.it/300x300?text=14"></div>
-            <div><img alt="Test" data-src="http://placehold.it/300x300?text=15"></div>
-            <div><img alt="Test" data-src="http://placehold.it/300x300?text=16"></div>
+            <div><img alt="Test" src="http://placehold.it/300x300?text=1"></div>
+            <div><img alt="Test" src="http://placehold.it/300x300?text=2"></div>
+            <div><img alt="Test" src="http://placehold.it/300x300?text=3"></div>
+            <div><img alt="Test" src="http://placehold.it/300x300?text=4"></div>
+            <div><img alt="Test" src="http://placehold.it/300x300?text=5"></div>
+            <div><img alt="Test" src="http://placehold.it/300x300?text=6"></div>
+            <div><img alt="Test" src="http://placehold.it/300x300?text=7"></div>
+            <div><img alt="Test" src="http://placehold.it/300x300?text=8"></div>
+            <div><img alt="Test" src="http://placehold.it/300x300?text=9"></div>
+            <div><img alt="Test" src="http://placehold.it/300x300?text=10"></div>
+            <div><img alt="Test" src="http://placehold.it/300x300?text=11"></div>
+            <div><img alt="Test" src="http://placehold.it/300x300?text=12"></div>
+            <div><img alt="Test" src="http://placehold.it/300x300?text=13"></div>
+            <div><img alt="Test" src="http://placehold.it/300x300?text=14"></div>
+            <div><img alt="Test" src="http://placehold.it/300x300?text=15"></div>
+            <div><img alt="Test" src="http://placehold.it/300x300?text=16"></div>
         </div>
+        <button class="glider-prev">&laquo;</button>
+        <button class="glider-next">&raquo;</button>
         <div id="dots"></div>
-        <a class="glider-prev">&laquo;</a>
-        <a class="glider-next">&raquo;</a>
     </div>
   </body>
 </html>

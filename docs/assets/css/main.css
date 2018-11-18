@@ -3771,6 +3771,7 @@ input, select, textarea {
     position: absolute;
     outline: none;
   position: absolute;
+  padding: 2px 2px 2px 3px;
   background: none;
   width: 51px;
   z-index: 2;
@@ -3789,6 +3790,9 @@ input, select, textarea {
   #main .glider-prev:hover, #main .glider-next:hover,
   #main .glider-prev:focus, #main .glider-next:focus {
   color: #8cc9f0;
+  }
+  #main .glider-prev:focus-visible i, #main .glider-next:focus-visible i {
+    border: 1px dashed #666;
   }
   .multiple .glider-prev, .multiple .glider-next {
   font-size: 20px;
@@ -3828,22 +3832,26 @@ input, select, textarea {
   }
   .glider-dot {
     background: none;
-  border: 0;
-  padding: 0;
-  outline: none;
-  display: block;
-  cursor: pointer;
-  color: #ccc;
-  border-radius: 99px;
-  background: #ccc;
-  width: 12px;
-  height: 12px;
-  margin: 7px;
-  padding: 0;
-  border: 0;
+    border: 0;
+    padding: 0;
+    outline: none;
+    display: block;
+    cursor: pointer;
+    color: #ccc;
+    border-radius: 99px;
+    background: #ccc;
+    width: 12px;
+    height: 12px;
+    margin: 7px;
+    padding: 0;
+    border: 0;
   }
   .glider-dot:hover, .glider-dot:focus {
     background: #8cc9f0;
+  }
+  .glider-dot:focus-visible {
+    border: 1px dashed #000;
+    padding: 2px;
   }
   .glider-dot.active {
   background: #a89cc8;
