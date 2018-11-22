@@ -182,6 +182,10 @@ function hideFFScrollBars(e){
 }
 ```
 
+#### Packages using Glider.js :rocket:
+
+- [react-glider](https://www.npmjs.com/package/react-glider) - A react wrapper for Glider.js written in typescript. 
+
 #### Dependencies
 
 None :)
