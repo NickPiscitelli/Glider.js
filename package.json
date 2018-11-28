@@ -7,6 +7,7 @@
     "doc": "docs"
   },
   "scripts": {
+    "start": "http-server docs/",
     "test": "\"echo \\\"Error: no test specified\\\" && exit 1\""
   },
   "repository": {
@@ -26,6 +27,7 @@
   },
   "homepage": "https://github.com/NickPiscitelli/Glider.js#readme",
   "devDependencies": {
+    "http-server": "^0.11.1",
     "husky": "1.2.0",
     "lint-staged": "8.1.0",
     "prettier": "1.15.2",
