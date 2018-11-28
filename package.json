@@ -28,7 +28,8 @@
   "devDependencies": {
     "husky": "1.2.0",
     "lint-staged": "8.1.0",
-    "prettier": "1.15.2"
+    "prettier": "1.15.2",
+    "standard": "12.0.1"
   },
   "husky": {
     "hooks": {
@@ -39,6 +40,7 @@
     "linters": {
       "*.{js}": [
         "prettier --write",
+        "standard --fix",
         "git add"
       ]
     },
