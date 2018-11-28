@@ -24,5 +24,26 @@
   "bugs": {
     "url": "https://github.com/NickPiscitelli/Glider.js/issues"
   },
-  "homepage": "https://github.com/NickPiscitelli/Glider.js#readme"
+  "homepage": "https://github.com/NickPiscitelli/Glider.js#readme",
+  "devDependencies": {
+    "husky": "1.2.0",
+    "lint-staged": "8.1.0",
+    "prettier": "1.15.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "linters": {
+      "*.{js}": [
+        "prettier --write",
+        "git add"
+      ]
+    },
+    "ignore": [
+      "*.min.js"
+    ]
+  }
 }
