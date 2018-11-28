@@ -13,6 +13,9 @@
   Release Date: October 25th, 2018
 
 */
+
+/*global define */
+
 ;(function (factory) {
   typeof define === 'function' && define.amd ? define(factory) :
   typeof exports === 'object' ? module.exports = factory() :
@@ -221,7 +224,7 @@
 
     var middle =  _.slide + Math.floor(Math.floor(_.opt.slidesToShow) / 2),
       extraMiddle = Math.floor(_.opt.slidesToShow) % 2 ? 0 : middle + 1;
-    if ( Math.floor(_.opt.slidesToShow) == 1){
+    if ( Math.floor(_.opt.slidesToShow) === 1){
       extraMiddle = 0;
     }
 
@@ -244,7 +247,7 @@
         /^left|right/.test(className) && slideClasses.remove(className)
       });
       slideClasses.toggle('active', _.slide === index)
-      if (middle == index || (extraMiddle && (extraMiddle == index))){
+      if (middle === index || (extraMiddle && (extraMiddle === index))){
         slideClasses.add('center');
       } else {
         slideClasses.remove('center');
@@ -256,7 +259,7 @@
 
       var isVisible = itemStart >= start && itemEnd <= end;
       slideClasses.toggle('visible', isVisible);
-      if (isVisible != wasVisible){
+      if (isVisible !== wasVisible){
         _.emit('slide-' +(isVisible ? 'visible' : 'hidden'), {
           slide: index
         })
@@ -335,7 +338,7 @@
       for (var i = 0; i < resp.length;++i){
         var size = resp[i];
         if (window.innerWidth > size.breakpoint){
-          if (_.breakpoint != size.breakpoint){
+          if (_.breakpoint !== size.breakpoint){
             _.opt = Object.assign({}, _._opt, size.settings);
             _.breakpoint = size.breakpoint
             return true;
@@ -359,7 +362,7 @@
       animate = function(){
         var now = (new Date().getTime() - start);
         _.ele.scrollLeft = _.ele.scrollLeft + (scrollTarget - _.ele.scrollLeft) * _.opt.easing(0, now, 0, 1, scrollDuration);
-        if(now < scrollDuration && animateIndex == _.animate_id){
+        if(now < scrollDuration && animateIndex === _.animate_id){
           window.requestAnimationFrame(animate);
         } else {
           _.ele.scrollLeft = scrollTarget
@@ -398,13 +401,15 @@
 
   // used to round to the nearest 0.XX fraction
   gliderPrototype.round = function(double){
-    var step = (this.opt.slidesToScroll % 1) || 1;
+    var _ = this;
+    var step = (_.opt.slidesToScroll % 1) || 1;
     var inv = 1.0 / step;
     return Math.round(double * inv) / inv;
   }
 
   gliderPrototype.refresh = function(paging){
-    this.init(true, paging)
+    var _ = this;
+    _.init(true, paging)
   }
 
   gliderPrototype.setOption = function(opt, global){
@@ -444,7 +449,7 @@
   }
 
   gliderPrototype.emit = function(name, arg){
-    var _ = this, e = new CustomEvent('glider-'+name, {
+    var _ = this, e = new window.CustomEvent('glider-'+name, {
       bubbles: !_.opt.eventPropagate,
       detail: arg
     });
@@ -457,4 +462,6 @@
       eventHandler(k, args[k]);
     });
   }
+
+  return Glider;
 }));
