@@ -1,4 +1,4 @@
-/*
+/* @preserve
     _____ __ _     __                _
    / ___// /(_)___/ /___  ____      (_)___
   / (_ // // // _  // -_)/ __/_    / /(_-<
@@ -171,7 +171,9 @@
       return
     }
 
-    if (typeof _.opt.dots === 'string') { _.dots = document.querySelector(_.opt.dots) } else _.dots = _.opt.dots
+    if (typeof _.opt.dots === 'string') {
+      _.dots = document.querySelector(_.opt.dots)
+    } else _.dots = _.opt.dots
     if (!_.dots) return
 
     _.dots.innerHTML = ''
@@ -402,9 +404,9 @@
     var animate = function () {
       var now = new Date().getTime() - start
       _.ele.scrollLeft =
-          _.ele.scrollLeft +
-          (scrollTarget - _.ele.scrollLeft) *
-            _.opt.easing(0, now, 0, 1, scrollDuration)
+        _.ele.scrollLeft +
+        (scrollTarget - _.ele.scrollLeft) *
+          _.opt.easing(0, now, 0, 1, scrollDuration)
       if (now < scrollDuration && animateIndex === _.animate_id) {
         window.requestAnimationFrame(animate)
       } else {

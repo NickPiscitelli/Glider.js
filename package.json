@@ -31,7 +31,8 @@
     "husky": "1.2.0",
     "lint-staged": "8.1.0",
     "prettier": "1.15.2",
-    "standard": "12.0.1"
+    "standard": "12.0.1",
+    "uglify-js": "^3.4.9"
   },
   "husky": {
     "hooks": {
@@ -40,10 +41,12 @@
   },
   "lint-staged": {
     "linters": {
-      "*.{js}": [
+      "glider.js": [
         "prettier --write",
         "standard --fix",
-        "git add"
+        "uglifyjs --compress --mangle --comment -o glider.min.js --",
+        "uglifyjs --compress --mangle --comment -o docs/assets/js/glider.min.js --",
+        "git add glider.min.js docs/assets/js/glider.min.js"
       ]
     },
     "ignore": [
