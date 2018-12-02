@@ -23,7 +23,10 @@
       ? (module.exports = factory())
       : factory()
 })(function () {
-  'use strict'
+  /* globals window:true */
+  window = typeof window !== 'undefined' ? window : this;
+
+  ('use strict') // eslint-disable-line no-unused-expressions
 
   var Glider = (window.Glider = function (element, settings) {
     var _ = this
