@@ -95,7 +95,6 @@ new Glider(document.querySelector('.glider'), {
   resizeLock: true,
 
   // Glider.js breakpoints are mobile-first
-  // be conscious of your ordering
   responsive: [
     {
       breakpoint: 900,

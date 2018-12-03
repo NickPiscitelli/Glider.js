@@ -320,13 +320,20 @@
                   prev: '#glider-prev-resp',
                   next: '#glider-next-resp'
                 },
-                // Breakpoints must be in descending order!
                 responsive: [
                   {
                     breakpoint: 775,
                     settings: {
                       slidesToShow: 'auto',
                       slidesToScroll: 'auto',
+                      itemWidth: 150,
+                      duration: 0.25
+                    }
+                  },{
+                    breakpoint: 1024,
+                    settings: {
+                      slidesToShow: 2,
+                      slidesToScroll: 1,
                       itemWidth: 150,
                       duration: 0.25
                     }
@@ -347,16 +354,26 @@
                   prev: '.glider-prev',
                   next: '.glider-next'
                 },
-                // Breakpoints must be in descending order!
-                responsive: [{
-                  // screens greater than > 775px
-                  breakpoint: 775,
-                  settings: {
-                    // Set to `auto` and provide item width to adjust to viewport
-                    slidesToShow: 'auto',
-                    slidesToScroll: 'auto',
-                    itemWidth: 150,
-                    duration: 0.25
+                responsive: [
+                  {
+                    // screens greater than >= 775px
+                    breakpoint: 775,
+                    settings: {
+                      // Set to `auto` and provide item width to adjust to viewport
+                      slidesToShow: 'auto',
+                      slidesToScroll: 'auto',
+                      itemWidth: 150,
+                      duration: 0.25
+                    }
+                  },{
+                    // screens greater than >= 1024px
+                    breakpoint: 1024,
+                    settings: {
+                      slidesToShow: 2,
+                      slidesToScroll: 1,
+                      itemWidth: 150,
+                      duration: 0.25
+                    }
                   }
                 }]
               });
@@ -881,7 +898,7 @@
             <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a> of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Objects</a> [{}]<br>
             <span class="type default">Default:</span> undefined<br>
             An object containing custom settings per provided breakpoint. See demo for details.
-            <span class="aside">NOTE: All responsive calculation are provided "mobile-first". Be conscious of your breakpoint order!</span>
+            <span class="aside">NOTE: All responsive calculation are provided "mobile-first".</span>
           </li>
           <li>
             <span class="setting-name">rewind</span><br>
