@@ -1,6 +1,6 @@
 # Glider.js
 
-A fast, light-weight, dependency free, responsive, accessible, extendable, native scrolling list with paging controls, methods and events. (< 2.5kb gzipped!)
+A fast, light-weight, dependency free, responsive, accessible, extendable, native scrolling list with paging controls, methods and events. (< 2.8kb gzipped!)
 
 Demos and full documentation available on Github Pages: https://nickpiscitelli.github.io/Glider.js/
 
@@ -95,7 +95,6 @@ new Glider(document.querySelector('.glider'), {
   resizeLock: true,
 
   // Glider.js breakpoints are mobile-first
-  // be conscious of your ordering
   responsive: [
     {
       breakpoint: 900,
