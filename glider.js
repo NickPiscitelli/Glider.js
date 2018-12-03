@@ -377,10 +377,11 @@
     var _ = this
 
     var resp = _._opt.responsive
+
     if (resp) {
       for (var i = 0; i < resp.length; ++i) {
         var size = resp[i]
-        if (window.innerWidth > size.breakpoint) {
+        if (window.innerWidth >= size.breakpoint) {
           if (_.breakpoint !== size.breakpoint) {
             _.opt = Object.assign({}, _._opt, size.settings)
             _.breakpoint = size.breakpoint
