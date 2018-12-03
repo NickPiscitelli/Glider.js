@@ -44,8 +44,8 @@
       "glider.js": [
         "prettier --write",
         "standard --fix",
-        "uglifyjs --compress --mangle --comment -o glider.min.js --",
-        "uglifyjs --compress --mangle --comment -o docs/assets/js/glider.min.js --",
+        "uglifyjs --compress --mangle --comments -o glider.min.js --",
+        "uglifyjs --compress --mangle --comments -o docs/assets/js/glider.min.js --",
         "git add glider.min.js docs/assets/js/glider.min.js"
       ]
     },
