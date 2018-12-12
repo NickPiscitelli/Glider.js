@@ -349,7 +349,8 @@
                 // Mobile-first defaults
                 slidesToShow: 1,
                 slidesToScroll: 1,
-                dots: '#dots',
+                scrollLock: true,
+                dots: '#resp-dots',
                 arrows: {
                   prev: '.glider-prev',
                   next: '.glider-next'
@@ -877,7 +878,7 @@
             <span class="setting-name">exactWidth</span><br>
             <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a><br>
             <span class="type default">Default:</span> undefined<br>
-            This prevents resizing items to fit when <code clas="slim slimmer">slidesToShow</code> is set to auto.
+            This prevents resizing items to fit when <code class="slim slimmer">slidesToShow</code> is set to auto.
 
             <span class="aside">NOTE: This will yield fractional slides if your container is not sized appropriately</span>
           </li>
@@ -886,6 +887,12 @@
             <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a><br>
             <span class="type default">Default:</span> false<br>
             If true, Glider.js will scroll to the nearest slide after any scroll interactions
+          </li>
+          <li>
+            <span class="setting-name">scrollLockDelay</span><br>
+            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a><br>
+            <span class="type default">Default:</span> 250<br>
+            When <code class="slim slimmer">scrollLock</code> is set, this is the delay in milliseconds to wait before the scroll happens
           </li>
           <li>
             <span class="setting-name">resizeLock</span><br>
