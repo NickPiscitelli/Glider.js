@@ -1251,26 +1251,35 @@
   -->
 
   <!-- Scripts -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/cash/3.0.0-beta.0/cash.min.js"></script>
-
-  <!-- Some people just can't let go -->
-  <script>
-    var jQuery = $;
-    $.fn.extend({
-      scrollTop: function(){
-        if (this[0] === window){
-          return window.pageYOffset || document.body.scrollTop
+  <!--
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cash/3.0.0-beta.0/cash.min.js"></script>
+    -- Some people just can't let go
+    <script>
+      console.log('blah');
+      /*
+      var jQuery = $;
+      $.fn.extend({
+        scrollTop: function(){
+          if (this[0] === window){
+            return window.pageYOffset || document.body.scrollTop
+          }
+          return this[0].scrollTop;
         }
-        return this[0].scrollTop;
-      }
-    });
-    $.map = function(mapObject, cb){
-      var keys = Object.keys(mapObject);
-      for (var i = 0; i < keys.length; ++i){
-        cb(mapObject[keys[i]], keys[i])
-      }
-    };
-  </script>
+      });
+      $.map = function(mapObject, cb){
+        var keys = Object.keys(mapObject);
+        for (var i = 0; i < keys.length; ++i){
+          cb(mapObject[keys[i]], keys[i])
+        }
+      };
+      */
+    </script>
+  -->
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
   <script src="assets/js/prism.js"></script>
   <script src="assets/js/main.js"></script>
 
