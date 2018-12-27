@@ -5,7 +5,7 @@
   \___//_//_/ \_,_/ \__//_/  (_)__/ //___/
                               |___/
 
-  Version: 1.6.1
+  Version: 1.6.2
   Author: Nick Piscitelli (pickykneee)
   Website: https://nickpiscitelli.com
   Documentation: http://nickpiscitelli.github.io/Glider.js
@@ -470,19 +470,18 @@
   gliderPrototype.setOption = function (opt, global) {
     var _ = this
 
-    if (_.breakpoint) {
+    if (_.breakpoint && !global) {
       _._opt.responsive.forEach(function (v) {
         if (v.breakpoint === _.breakpoint) {
           v.settings = Object.assign({}, v.settings, opt)
         }
       })
-    }
-
-    if (!_.breakpoint || global) {
+    } else {
       _._opt = Object.assign({}, _._opt, opt)
     }
 
-    _.opt = Object.assign({}, _.opt, opt)
+    _.breakpoint = 0
+    _.settingsBreakpoint()
   }
 
   gliderPrototype.destroy = function () {
