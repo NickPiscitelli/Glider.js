@@ -50,7 +50,8 @@
         // easeInQuad
         easing: function (x, t, b, c, d) {
           return c * (t /= d) * t + b
-        }
+        },
+        addTrack: true
       },
       settings
     )
@@ -63,12 +64,18 @@
     // extend breakpoint settings
     _._opt = _.opt
 
-    // create track and wrap slides
-    _.track = document.createElement('div')
-    _.track.className = 'glider-track'
-    _.ele.appendChild(_.track)
-    while (_.ele.children.length !== 1) {
-      _.track.appendChild(_.ele.children[0])
+    if (_.opt.addTrack) {
+      // create track and wrap slides
+      _.track = document.createElement('div')
+      _.track.className = 'glider-track'
+      _.ele.appendChild(_.track)
+      while (_.ele.children.length !== 1) {
+        _.track.appendChild(_.ele.children[0])
+      }
+    } else {
+      // first and only child is the track
+      _.track = _.ele.children[0]
+      _.track.classList.add('glider-track')
     }
 
     // start glider
