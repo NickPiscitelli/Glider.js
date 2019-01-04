@@ -1,6 +1,6 @@
 {
   "name": "glider-js",
-  "version": "1.6.3",
+  "version": "1.6.4",
   "description": "A fast, lightweight carousel alternative",
   "main": "glider.js",
   "directories": {

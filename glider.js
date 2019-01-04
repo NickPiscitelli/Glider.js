@@ -5,7 +5,7 @@
   \___//_//_/ \_,_/ \__//_/  (_)__/ //___/
                               |___/
 
-  Version: 1.6.3
+  Version: 1.6.4
   Author: Nick Piscitelli (pickykneee)
   Website: https://nickpiscitelli.com
   Documentation: http://nickpiscitelli.github.io/Glider.js
@@ -278,9 +278,9 @@
 
       var itemStart = _.itemWidth * index
 
-      var itemEnd = itemStart + _.itemWidth
+      var itemEnd = itemStart + _.itemWidth;
 
-      slideClasses.forEach(function (className) {
+      [].forEach.call(slideClasses, function (className) {
         /^left|right/.test(className) && slideClasses.remove(className)
       })
       slideClasses.toggle('active', _.slide === index)
@@ -497,8 +497,8 @@
     var replace = _.ele.cloneNode(true)
 
     var clear = function (ele) {
-      ele.removeAttribute('style')
-      ele.classList.forEach(function (className) {
+      ele.removeAttribute('style');
+      [].forEach.call(ele.classList, function (className) {
         /^glider/.test(className) && ele.classList.remove(className)
       })
     }
