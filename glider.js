@@ -136,7 +136,7 @@
     _.track.style.width = width + 'px'
     _.trackWidth = width
 
-    _.opt.resizeLock && _.scrollTo(_.slide * _.itemWidth, 0)
+    _.opt.resizeLock && _.scrollTo(_.page * _.containerWidth, 0)
 
     if (breakpointChanged || paging) {
       _.bindArrows()
