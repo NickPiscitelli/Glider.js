@@ -340,7 +340,7 @@
         if (_.opt.slidesToScroll % 1 || _.opt.slidesToShow % 1) {
           slide = _.round(_.ele.scrollLeft / _.itemWidth)
         } else {
-          slide = _.slide
+          slide = _.slide - (_.slide % _.opt.slidesToScroll)
         }
 
         if (backwards) slide -= _.opt.slidesToScroll
