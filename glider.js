@@ -366,7 +366,7 @@
 
     _.scrollTo(
       slide,
-      _.opt.duration * Math.abs(_.ele.scrollLeft - slide),
+      _.opt.duration,
       function () {
         _.updateControls()
         _.emit('animated', {
@@ -413,20 +413,20 @@
   gliderPrototype.scrollTo = function (scrollTarget, scrollDuration, callback) {
     var _ = this
 
-    var start = new Date().getTime()
+    _.animationStart = new Date().getTime();
+    _.scrollTarget = scrollTarget;
 
     var animateIndex = _.animate_id
 
     var animate = function () {
-      var now = new Date().getTime() - start
+      var now = new Date().getTime() - _.animationStart
+      var delta = (_.scrollTarget - _.ele.scrollLeft);
       _.ele.scrollLeft =
-        _.ele.scrollLeft +
-        (scrollTarget - _.ele.scrollLeft) *
-          _.opt.easing(0, now, 0, 1, scrollDuration)
-      if (now < scrollDuration && animateIndex === _.animate_id) {
+          _.opt.easing(0, now, _.ele.scrollLeft, delta, scrollDuration)
+      if (now < scrollDuration) {
         window.requestAnimationFrame(animate)
       } else {
-        _.ele.scrollLeft = scrollTarget
+        _.ele.scrollLeft = _.scrollTarget
         callback && callback.call(_)
       }
     }
