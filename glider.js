@@ -136,7 +136,11 @@
     _.track.style.width = width + 'px'
     _.trackWidth = width
 
-    _.opt.resizeLock && _.scrollTo(_.page * _.containerWidth, 0)
+    if (! _.animationContainerWidth) {
+      _.opt.resizeLock && _.scrollTo(_.page * _.containerWidth, 0)
+    } else if (_.animationContainerWidth != _.containerWidth) {
+      _.scrollTarget = _.scrollTarget * _.containerWidth / _.animationContainerWidth;
+    }
 
     if (breakpointChanged || paging) {
       _.bindArrows()
@@ -414,6 +418,7 @@
     var _ = this
 
     _.animationStart = new Date().getTime();
+    _.animationContainerWidth = _.containerWidth;
     _.scrollTarget = scrollTarget;
 
     var animateIndex = _.animate_id
@@ -427,6 +432,7 @@
         window.requestAnimationFrame(animate)
       } else {
         _.ele.scrollLeft = _.scrollTarget
+        _.animationStart = _animationContainerWidth = null;
         callback && callback.call(_)
       }
     }
