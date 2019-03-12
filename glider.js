@@ -23,12 +23,12 @@
       ? (module.exports = factory())
       : factory()
 })(function () {
-  /* globals window:true */
-  window = typeof window !== 'undefined' ? window : this;
-
   ('use strict') // eslint-disable-line no-unused-expressions
 
-  var Glider = (window.Glider = function (element, settings) {
+  /* globals window:true */
+  var _window = typeof window !== 'undefined' ? window : this;
+
+  var Glider = (_window.Glider = function (element, settings) {
     var _ = this
 
     if (element._glider) return element._glider
@@ -86,7 +86,7 @@
     _.event(_.ele, 'add', {
       scroll: _.updateControls.bind(_)
     })
-    _.event(window, 'add', {
+    _.event(_window, 'add', {
       resize: _.resize
     })
   })
@@ -393,7 +393,7 @@
 
       for (var i = 0; i < resp.length; ++i) {
         var size = resp[i]
-        if (window.innerWidth >= size.breakpoint) {
+        if (_window.innerWidth >= size.breakpoint) {
           if (_.breakpoint !== size.breakpoint) {
             _.opt = Object.assign({}, _._opt, size.settings)
             _.breakpoint = size.breakpoint
@@ -424,14 +424,14 @@
         (scrollTarget - _.ele.scrollLeft) *
           _.opt.easing(0, now, 0, 1, scrollDuration)
       if (now < scrollDuration && animateIndex === _.animate_id) {
-        window.requestAnimationFrame(animate)
+        _window.requestAnimationFrame(animate)
       } else {
         _.ele.scrollLeft = scrollTarget
         callback && callback.call(_)
       }
     }
 
-    window.requestAnimationFrame(animate)
+    _window.requestAnimationFrame(animate)
   }
 
   gliderPrototype.removeItem = function (index) {
@@ -507,7 +507,7 @@
     clear(replace);
     [].forEach.call(replace.getElementsByTagName('*'), clear)
     _.ele.parentNode.replaceChild(replace, _.ele)
-    _.event(window, 'remove', {
+    _.event(_window, 'remove', {
       resize: _.resize
     })
     _.emit('destroy')
@@ -516,7 +516,7 @@
   gliderPrototype.emit = function (name, arg) {
     var _ = this
 
-    var e = new window.CustomEvent('glider-' + name, {
+    var e = new _window.CustomEvent('glider-' + name, {
       bubbles: !_.opt.eventPropagate,
       detail: arg
     })
