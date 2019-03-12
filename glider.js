@@ -5,7 +5,7 @@
   \___//_//_/ \_,_/ \__//_/  (_)__/ //___/
                               |___/
 
-  Version: 1.6.4
+  Version: 1.6.5
   Author: Nick Piscitelli (pickykneee)
   Website: https://nickpiscitelli.com
   Documentation: http://nickpiscitelli.github.io/Glider.js
@@ -26,7 +26,7 @@
   ('use strict') // eslint-disable-line no-unused-expressions
 
   /* globals window:true */
-  var _window = typeof window !== 'undefined' ? window : this;
+  var _window = typeof window !== 'undefined' ? window : this
 
   var Glider = (_window.Glider = function (element, settings) {
     var _ = this
