@@ -5,7 +5,7 @@
   \___//_//_/ \_,_/ \__//_/  (_)__/ //___/
                               |___/
 
-  Version: 1.6.5
+  Version: 1.6.6
   Author: Nick Piscitelli (pickykneee)
   Website: https://nickpiscitelli.com
   Documentation: http://nickpiscitelli.github.io/Glider.js
@@ -50,8 +50,7 @@
         // easeInQuad
         easing: function (x, t, b, c, d) {
           return c * (t /= d) * t + b
-        },
-        addTrack: true
+        }
       },
       settings
     )
@@ -64,16 +63,16 @@
     // extend breakpoint settings
     _._opt = _.opt
 
-    if (_.opt.addTrack) {
+    if (_.opt.skipTrack) {
+      // first and only child is the track
+      _.track = _.ele.children[0]
+    } else {
       // create track and wrap slides
       _.track = document.createElement('div')
       _.ele.appendChild(_.track)
       while (_.ele.children.length !== 1) {
         _.track.appendChild(_.ele.children[0])
       }
-    } else {
-      // first and only child is the track
-      _.track = _.ele.children[0]
     }
 
     _.track.classList.add('glider-track')
