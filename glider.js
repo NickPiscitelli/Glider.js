@@ -296,7 +296,7 @@
       }
 
       var isVisible =
-        Math.ceil(itemStart) >= start && Math.ceil(itemEnd) <= end
+        Math.ceil(itemStart) >= start && Math.floor(itemEnd) <= end
       slideClasses.toggle('visible', isVisible)
       if (isVisible !== wasVisible) {
         _.emit('slide-' + (isVisible ? 'visible' : 'hidden'), {
