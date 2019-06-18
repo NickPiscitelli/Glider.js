@@ -5,7 +5,7 @@
   \___//_//_/ \_,_/ \__//_/  (_)__/ //___/
                               |___/
 
-  Version: 1.6.6
+  Version: 1.6.7
   Author: Nick Piscitelli (pickykneee)
   Website: https://nickpiscitelli.com
   Documentation: http://nickpiscitelli.github.io/Glider.js
@@ -314,7 +314,7 @@
       clearTimeout(_.scrollLock)
       _.scrollLock = setTimeout(function () {
         clearTimeout(_.scrollLock)
-        if ((_.ele.scrollLeft / _.itemWidth) % 1) {
+        if (Math.round(_.ele.scrollLeft / _.itemWidth) % 1) {
           _.scrollItem(_.round(_.ele.scrollLeft / _.itemWidth))
         }
       }, _.opt.scrollLockDelay || 250)
