@@ -5,7 +5,7 @@
   \___//_//_/ \_,_/ \__//_/  (_)__/ //___/
                               |___/
 
-  Version: 1.7.0
+  Version: 1.7.1
   Author: Nick Piscitelli (pickykneee)
   Website: https://nickpiscitelli.com
   Documentation: http://nickpiscitelli.github.io/Glider.js
@@ -145,7 +145,7 @@
 
     _.updateControls()
 
-    _.emit(refresh ? 'refresh ' : 'loaded')
+    _.emit(refresh ? 'refresh' : 'loaded')
   }
 
   gliderPrototype.bindDrag = function () {
