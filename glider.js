@@ -188,13 +188,16 @@
     _.dots.innerHTML = ''
     _.dots.className += ' glider-dots'
 
-    for (var i = 0; i < Math.ceil(_.slides.length / _.opt.slidesToShow); ++i) {
+    var numDots = _.opt.oneDotPerItem
+      ? _.slides.length
+      : Math.ceil(_.slides.length / _.opt.slidesToShow)
+    for (var i = 0; i < numDots; ++i) {
       var dot = document.createElement('button')
       dot.dataset.index = i
       dot.setAttribute('aria-label', 'Page ' + (i + 1))
       dot.className = 'glider-dot ' + (i ? '' : 'active')
       _.event(dot, 'add', {
-        click: _.scrollItem.bind(_, i, true)
+        click: _.scrollItem.bind(_, i, !_.opt.oneDotPerItem)
       })
       _.dots.appendChild(dot)
     }
@@ -306,7 +309,10 @@
     })
     if (_.dots) {
       [].forEach.call(_.dots.children, function (dot, index) {
-        dot.classList.toggle('active', _.page === index)
+        dot.classList.toggle(
+          'active',
+          (_.opt.oneDotPerItem ? _.slide : _.page) === index
+        )
       })
     }
 
@@ -346,8 +352,9 @@
           slide = _.slide
         }
 
-        if (backwards) slide -= _.opt.slidesToScroll
-        else slide += _.opt.slidesToScroll
+        slide +=
+          (backwards ? -1 : 1) *
+          (_.opt.oneDotPerItem ? 1 : _.opt.slidesToScroll)
 
         if (_.opt.rewind) {
           var scrollLeft = _.ele.scrollLeft

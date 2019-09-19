@@ -261,7 +261,8 @@
                 slidesToShow: 5,
                 slidesToScroll: 1,
                 draggable: true,
-                dots: '#dots-per',
+								dots: '#dots-per',
+								oneDotPerItem: true,
                 arrows: {
                   prev: '#glider-prev-per',
                   next: '#glider-next-per'
@@ -276,6 +277,7 @@
                 slidesToScroll: 1,
                 draggable: true,
                 dots: '.dots',
+                oneDotPerItem: true,
                 arrows: {
                   prev: '.glider-prev',
                   next: '.glider-next'
@@ -867,6 +869,12 @@
             <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">Element</a> | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a> (HTML Selector)<br>
             <span class="type default">Default:</span> undefined<br>
             An HTML element or selector containing the dot container<br>
+					</li>
+					<li>
+            <span class="setting-name">oneDotPerItem</span><br>
+            <span class="type">Type:</span> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a><br>
+            <span class="type default">Default:</span> undefined<br>
+            If true, dots will represent items instead of pages<br>
           </li>
           <li>
             <span class="setting-name">itemWidth</span><br>
