@@ -155,6 +155,17 @@ Include `glider-compat.min.js` to load the aforementioned polyfills
 
 #### Native Scrollbars
 
+Most browsers now support the `scrollbar-width` property allowing us to avoid the messy hack below.
+
+**NOTE:** This feature is marked as experimental and may not work in all browsers.
+
+```
+.glider-track {
+  scrollbar-width: none;
+}
+```
+
+
 Since Glider.js uses native scrolling, the browser wants to apply the standard scrollbar to the glider. In most cases, this is fine since the scrollbar can be hidden with CSS and Glider.js does so when appropriate. In browsers such as Firefox though, the scrollbars cannot be hidden with CSS and require additional markup to hide.
 
 To hide the scrollbars in Firefox, you'll want to wrap your glider with `<div class="glider-wrap">` and apply the following CSS/JS:
