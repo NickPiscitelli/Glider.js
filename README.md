@@ -9,13 +9,17 @@ Demos and full documentation available on Github Pages: https://nickpiscitelli.g
 Include glider.min.css:
 
 ```html
-<link href="glider.min.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="glider.min.css">
+or
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.css">
 ```
 
 Include Glider.js:
 
 ```html
 <script src="glider.min.js"></script>
+or
+<script src="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.js"></script>
 ```
 
 Example HTML:
