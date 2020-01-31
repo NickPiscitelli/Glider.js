@@ -244,7 +244,7 @@
       if (_.arrows.next) {
         _.arrows.next.classList.toggle(
           'disabled',
-          _.ele.scrollLeft + _.containerWidth >= Math.floor(_.trackWidth) ||
+          Math.ceil(_.ele.scrollLeft + _.containerWidth) >= Math.floor(_.trackWidth) ||
             disableArrows
         )
       }
