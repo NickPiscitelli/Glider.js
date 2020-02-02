@@ -5,7 +5,7 @@
   \___//_//_/ \_,_/ \__//_/  (_)__/ //___/
                               |___/
 
-  Version: 1.7.1
+  Version: 1.7.2
   Author: Nick Piscitelli (pickykneee)
   Website: https://nickpiscitelli.com
   Documentation: http://nickpiscitelli.github.io/Glider.js
@@ -186,7 +186,7 @@
     if (!_.dots) return
 
     _.dots.innerHTML = ''
-    _.dots.className += ' glider-dots'
+    _.dots.classList.add('glider-dots')
 
     for (var i = 0; i < Math.ceil(_.slides.length / _.opt.slidesToShow); ++i) {
       var dot = document.createElement('button')
@@ -244,8 +244,8 @@
       if (_.arrows.next) {
         _.arrows.next.classList.toggle(
           'disabled',
-          Math.ceil(_.ele.scrollLeft + _.containerWidth) >= Math.floor(_.trackWidth) ||
-            disableArrows
+          Math.ceil(_.ele.scrollLeft + _.containerWidth) >=
+            Math.floor(_.trackWidth) || disableArrows
         )
       }
     }
