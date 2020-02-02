@@ -109,6 +109,67 @@
         </div>
       </section>
 
+      <div class="demo">
+        <h2>Multiple Items</h2>
+        <div data-name="Multiple Item" class="glider-contain multiple">
+          <div class="gradient-border-bottom">
+            <div class="gradient-border">
+              <div class="glider" id="glider-double">
+                <div><h1>1</h1></div>
+                <div><h1>2</h1></div>
+                <div><h1>3</h1></div>
+                <div><h1>4</h1></div>
+                <div><h1>5</h1></div>
+                <div><h1>6</h1></div>
+                <div><h1>7</h1></div>
+                <div><h1>8</h1></div>
+                <div><h1>9</h1></div>
+                <div><h1>10</h1></div>
+                <div><h1>11</h1></div>
+                <div><h1>12</h1></div>
+                <div><h1>13</h1></div>
+                <div><h1>14</h1></div>
+                <div><h1>15</h1></div>
+                <div><h1>16</h1></div>
+                <div><h1>17</h1></div>
+                <div><h1>18</h1></div>
+              </div>
+            </div>
+          </div>
+          <button role="button" aria-label="Previous" class="glider-prev" id="glider-prev-2"><i class="fa fa-chevron-left"></i></i></button>
+          <button role="button" aria-label="Next" class="glider-next" id="glider-next-2"><i class="fa fa-chevron-right"></i></i></button>
+          <div id="dots2"></div>
+        </div>
+        <script>
+          window.addEventListener('load', function () {
+            window.glides = new Glider(document.getElementById('glider-double'), {
+              slidesToShow: 5,
+              slidesToScroll: 5,
+              draggable: true,
+              dots: '#dots2',
+              arrows: {
+                prev: '#glider-prev-2',
+                next: '#glider-next-2'
+              }
+            })
+          });
+        </script>
+        <pre class="line-numbers language-javascript">
+          <code class="line-numbers language-javascript">
+            new Glider(document.querySelector('.glider'), {
+              slidesToShow: 5,
+              slidesToScroll: 5,
+              draggable: true,
+              dots: '.dots',
+              arrows: {
+                prev: '.glider-prev',
+                next: '.glider-next'
+              }
+            });
+          </code>
+        </pre>
+      </div>
+
       <!-- First Section -->
       <section id="demos" class="main special">
         <header class="major">
@@ -168,68 +229,6 @@
             </code>
           </pre>
         </div>
-
-        <div class="demo">
-          <h2>Multiple Item</h2>
-          <div data-name="Multiple Item" class="glider-contain multiple">
-            <div class="gradient-border-bottom">
-              <div class="gradient-border">
-                <div class="glider" id="glider-double">
-                  <div><h1>1</h1></div>
-                  <div><h1>2</h1></div>
-                  <div><h1>3</h1></div>
-                  <div><h1>4</h1></div>
-                  <div><h1>5</h1></div>
-                  <div><h1>6</h1></div>
-                  <div><h1>7</h1></div>
-                  <div><h1>8</h1></div>
-                  <div><h1>9</h1></div>
-                  <div><h1>10</h1></div>
-                  <div><h1>11</h1></div>
-                  <div><h1>12</h1></div>
-                  <div><h1>13</h1></div>
-                  <div><h1>14</h1></div>
-                  <div><h1>15</h1></div>
-                  <div><h1>16</h1></div>
-                  <div><h1>17</h1></div>
-                  <div><h1>18</h1></div>
-                </div>
-              </div>
-            </div>
-            <button role="button" aria-label="Previous" class="glider-prev" id="glider-prev-2"><i class="fa fa-chevron-left"></i></i></button>
-            <button role="button" aria-label="Next" class="glider-next" id="glider-next-2"><i class="fa fa-chevron-right"></i></i></button>
-            <div id="dots2"></div>
-          </div>
-          <script>
-            window.addEventListener('load', function () {
-              window.glides = new Glider(document.getElementById('glider-double'), {
-                slidesToShow: 5,
-                slidesToScroll: 5,
-                draggable: true,
-                dots: '#dots2',
-                arrows: {
-                  prev: '#glider-prev-2',
-                  next: '#glider-next-2'
-                }
-              })
-            });
-          </script>
-          <pre class="line-numbers language-javascript">
-            <code class="line-numbers language-javascript">
-              new Glider(document.querySelector('.glider'), {
-                slidesToShow: 5,
-                slidesToScroll: 5,
-                draggable: true,
-                dots: '.dots',
-                arrows: {
-                  prev: '.glider-prev',
-                  next: '.glider-next'
-                }
-              });
-            </code>
-          </pre>
-        </div>
-
 
         <div class="demo persp">
           <h2>Perspective View<span class="aside">(themeable CSS)</span></h2>
@@ -1214,17 +1213,6 @@
               </aside>
             </p>
           </li>
-          <li>
-            <p class="question">
-              Um, I still have questions.
-            </p>
-            <p class="answer">
-              Feel free to drop me a line at mail &lt;at&gt; <a href="https://nickpiscitelli.com">nickpiscitell.com!</a>
-
-
-            </p>
-          </li>
-
         </ul>
 
       </section>
