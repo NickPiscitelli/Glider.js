@@ -346,8 +346,8 @@
           slide = _.slide
         }
 
-        if (backwards) slide -= _.opt.slidesToScroll
-        else slide += _.opt.slidesToScroll
+        if (backwards) slide -= Number(_.opt.slidesToScroll)
+        else slide += Number(_.opt.slidesToScroll)
 
         if (_.opt.rewind) {
           var scrollLeft = _.ele.scrollLeft
