@@ -134,6 +134,8 @@
 
     _.track.style.width = width + 'px'
     _.trackWidth = width
+    _.isDrag = false
+    _.preventClick = false
 
     _.opt.resizeLock && _.scrollTo(_.slide * _.itemWidth, 0)
 
@@ -155,16 +157,28 @@
     var mouseup = function () {
       _.mouseDown = undefined
       _.ele.classList.remove('drag')
+      if (_.isDrag) {
+        _.preventClick = true
+      }
+      _.isDrag = false
     }
 
     var events = {
       mouseup: mouseup,
       mouseleave: mouseup,
       mousedown: function (e) {
+        e.preventDefault()
+        e.stopPropagation()
         _.mouseDown = e.clientX
         _.ele.classList.add('drag')
       },
-      mousemove: _.mouse
+      mousemove: _.mouse,
+      click: function (e) {
+        if (_.preventClick) {
+          e.preventDefault()
+        }
+        _.preventClick = false
+      }
     }
 
     _.ele.classList.toggle('draggable', _.opt.draggable === true)
@@ -458,6 +472,7 @@
   gliderPrototype.handleMouse = function (e) {
     var _ = this
     if (_.mouseDown) {
+      _.isDrag = true
       _.ele.scrollLeft +=
         (_.mouseDown - e.clientX) * (_.opt.dragVelocity || 3.3)
       _.mouseDown = e.clientX
