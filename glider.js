@@ -176,6 +176,7 @@
       click: function (e) {
         if (_.preventClick) {
           e.preventDefault()
+          e.stopPropagation()
         }
         _.preventClick = false
       }
