@@ -5,7 +5,7 @@
   \___//_//_/ \_,_/ \__//_/  (_)__/ //___/
                               |___/
 
-  Version: 1.7.2
+  Version: 1.7.3
   Author: Nick Piscitelli (pickykneee)
   Website: https://nickpiscitelli.com
   Documentation: http://nickpiscitelli.github.io/Glider.js
@@ -109,7 +109,10 @@
     var breakpointChanged = _.settingsBreakpoint()
     if (!paging) paging = breakpointChanged
 
-    if (_.opt.slidesToShow === 'auto' || _.opt._autoSlide) {
+    if (
+      _.opt.slidesToShow === 'auto' ||
+      typeof _.opt._autoSlide !== 'undefined'
+    ) {
       var slideCount = _.containerWidth / _.opt.itemWidth
 
       _.opt._autoSlide = _.opt.slidesToShow = _.opt.exactWidth
