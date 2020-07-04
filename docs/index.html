@@ -1008,6 +1008,7 @@
             <code class="language-javascript">
               // example event hook implementing basic lazy loading images
               // appropriate image CSS (opacity/transform) must be set to work
+              // the images should have a data-src attribute that contains the image to load
               document.querySelector('.glider').addEventListener('glider-slide-visible', function(event){
                 var imgs_to_anticipate = 3;
                 var glider = Glider(this);
