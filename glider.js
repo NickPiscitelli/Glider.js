@@ -350,7 +350,11 @@
     var originalSlide = slide
     ++_.animate_id
 
+    var prevSlide = _.slide
+    var nextSlide
+
     if (dot === true) {
+      nextSlide = slide;
       slide = slide * _.containerWidth
       slide = Math.round(slide / _.itemWidth) * _.itemWidth
     } else {
@@ -379,11 +383,13 @@
         }
       }
 
-      slide = Math.max(Math.min(slide, _.slides.length), 0)
+      slide = nextSlide = Math.max(Math.min(slide, _.slides.length), 0)
 
       _.slide = slide
       slide = _.itemWidth * slide
     }
+
+    _.emit('scroll-item', {prevSlide, nextSlide});
 
     _.scrollTo(
       slide,
