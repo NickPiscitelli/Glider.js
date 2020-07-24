@@ -5,7 +5,7 @@
   \___//_//_/ \_,_/ \__//_/  (_)__/ //___/
                               |___/
 
-  Version: 1.7.3
+  Version: 1.7.4
   Author: Nick Piscitelli (pickykneee)
   Website: https://nickpiscitelli.com
   Documentation: http://nickpiscitelli.github.io/Glider.js
@@ -335,11 +335,19 @@
         // dont attempt to scroll less than a pixel fraction - causes looping
         if (Math.abs(_.ele.scrollLeft / _.itemWidth - _.slide) > 0.02) {
           if (!_.mouseDown) {
-            _.scrollItem(_.round(_.ele.scrollLeft / _.itemWidth))
+            // Only scroll if not at the end (#94)
+            if (_.trackWidth > _.containerWidth + _.ele.scrollLeft) {
+              _.scrollItem(_.getCurrentSlide())
+            }
           }
         }
       }, _.opt.scrollLockDelay || 250)
     }
+  }
+
+  gliderPrototype.getCurrentSlide = function () {
+    var _ = this
+    return _.round(_.ele.scrollLeft / _.itemWidth)
   }
 
   gliderPrototype.scrollItem = function (slide, dot, e) {
@@ -359,7 +367,7 @@
 
         // use precise location if fractional slides are on
         if (_.opt.slidesToScroll % 1 || _.opt.slidesToShow % 1) {
-          slide = _.round(_.ele.scrollLeft / _.itemWidth)
+          slide = _.getCurrentSlide()
         } else {
           slide = _.slide
         }
