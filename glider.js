@@ -230,7 +230,7 @@
     ['prev', 'next'].forEach(function (direction) {
       var arrow = _.opt.arrows[direction]
       if (arrow) {
-        if (typeof arrow === 'string') arrow = document.querySelector(arrow)
+        if (typeof arrow === 'string') arrow = _.ele.parentElement.querySelector(arrow)
         arrow._func = arrow._func || _.scrollItem.bind(_, direction)
         _.event(arrow, 'remove', {
           click: arrow._func
