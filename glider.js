@@ -100,8 +100,9 @@
 
     _.slides = _.track.children;
 
-    [].forEach.call(_.slides, function (_) {
-      _.classList.add('glider-slide')
+    [].forEach.call(_.slides, function (_,i) {
+      _.classList.add('glider-slide');
+      _.setAttribute('data-gslide',i)
     })
 
     _.containerWidth = _.ele.clientWidth
