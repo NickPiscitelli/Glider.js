@@ -100,9 +100,9 @@
 
     _.slides = _.track.children;
 
-    [].forEach.call(_.slides, function (_,i) {
-      _.classList.add('glider-slide');
-      _.setAttribute('data-gslide',i)
+    [].forEach.call(_.slides, function (_, i) {
+      _.classList.add('glider-slide')
+      _.setAttribute('data-gslide', i)
     })
 
     _.containerWidth = _.ele.clientWidth
@@ -232,14 +232,18 @@
       var arrow = _.opt.arrows[direction]
       if (arrow) {
         if (typeof arrow === 'string') arrow = document.querySelector(arrow)
-        arrow._func = arrow._func || _.scrollItem.bind(_, direction)
-        _.event(arrow, 'remove', {
-          click: arrow._func
-        })
-        _.event(arrow, 'add', {
-          click: arrow._func
-        })
-        _.arrows[direction] = arrow
+        try {
+          arrow._func = arrow._func || _.scrollItem.bind(_, direction)
+          _.event(arrow, 'remove', {
+            click: arrow._func
+          })
+          _.event(arrow, 'add', {
+            click: arrow._func
+          })
+          _.arrows[direction] = arrow
+        } catch (e) {
+          console.error('caught:', e)
+        }
       }
     })
   }
