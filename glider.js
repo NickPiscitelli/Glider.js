@@ -242,7 +242,8 @@
           })
           _.arrows[direction] = arrow
         } catch (e) {
-          console.error('caught:', e)
+          var arrowVal = arrow || null
+          console.error('caught! arrowVal:', arrowVal, e)
         }
       }
     })
