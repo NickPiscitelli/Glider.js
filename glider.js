@@ -232,7 +232,7 @@
       var arrow = _.opt.arrows[direction]
       if (arrow) {
         if (typeof arrow === 'string') arrow = document.querySelector(arrow)
-        try {
+        if (arrow) {
           arrow._func = arrow._func || _.scrollItem.bind(_, direction)
           _.event(arrow, 'remove', {
             click: arrow._func
@@ -241,8 +241,6 @@
             click: arrow._func
           })
           _.arrows[direction] = arrow
-        } catch (e) {
-          console.error('caught! arrowStr:', _.opt.arrows[direction], e)
         }
       }
     })
