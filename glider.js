@@ -56,7 +56,7 @@
     )
 
     // set defaults
-    _.animate_id = _.page = _.slide = 0
+    _.animate_id = _.page = _.slide = _.scrollLeft = 0
     _.arrows = {}
 
     // preserve original options to
@@ -452,14 +452,13 @@
 
     var animate = function () {
       var now = new Date().getTime() - start
-      _.ele.scrollLeft =
-        _.ele.scrollLeft +
-        (scrollTarget - _.ele.scrollLeft) *
-          _.opt.easing(0, now, 0, 1, scrollDuration)
+      _.scrollLeft = _.scrollLeft + (scrollTarget - _.scrollLeft) * _.opt.easing(0, now, 0, 1, scrollDuration)
+      _.ele.scrollLeft = _.scrollLeft
+
       if (now < scrollDuration && animateIndex === _.animate_id) {
         _window.requestAnimationFrame(animate)
       } else {
-        _.ele.scrollLeft = scrollTarget
+        _.ele.scrollLeft = _.scrollLeft = scrollTarget
         callback && callback.call(_)
       }
     }
