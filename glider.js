@@ -5,7 +5,7 @@
   \___//_//_/ \_,_/ \__//_/  (_)__/ //___/
                               |___/
 
-  Version: 1.7.3
+  Version: 1.7.4
   Author: Nick Piscitelli (pickykneee)
   Website: https://nickpiscitelli.com
   Documentation: http://nickpiscitelli.github.io/Glider.js
@@ -56,7 +56,7 @@
     )
 
     // set defaults
-    _.animate_id = _.page = _.slide = 0
+    _.animate_id = _.page = _.slide = _.scrollLeft = 0
     _.arrows = {}
 
     // preserve original options to
@@ -100,8 +100,10 @@
 
     _.slides = _.track.children;
 
-    [].forEach.call(_.slides, function (_) {
+
+    [].forEach.call(_.slides, function (_, i) {
       _.classList.add('glider-slide')
+      _.setAttribute('data-gslide', i)
     })
 
     _.containerWidth = _.ele.clientWidth
@@ -231,14 +233,16 @@
       var arrow = _.opt.arrows[direction]
       if (arrow) {
         if (typeof arrow === 'string') arrow = document.querySelector(arrow)
-        arrow._func = arrow._func || _.scrollItem.bind(_, direction)
-        _.event(arrow, 'remove', {
-          click: arrow._func
-        })
-        _.event(arrow, 'add', {
-          click: arrow._func
-        })
-        _.arrows[direction] = arrow
+        if (arrow) {
+          arrow._func = arrow._func || _.scrollItem.bind(_, direction)
+          _.event(arrow, 'remove', {
+            click: arrow._func
+          })
+          _.event(arrow, 'add', {
+            click: arrow._func
+          })
+          _.arrows[direction] = arrow
+        }
       }
     })
   }
@@ -262,14 +266,14 @@
       if (_.arrows.next) {
         _.arrows.next.classList.toggle(
           'disabled',
-          Math.ceil(_.ele.scrollLeft + _.containerWidth) >=
+          Math.ceil(_.scrollLeft + _.containerWidth) >=
             Math.floor(_.trackWidth) || disableArrows
         )
       }
     }
 
-    _.slide = Math.round(_.ele.scrollLeft / _.itemWidth)
-    _.page = Math.round(_.ele.scrollLeft / _.containerWidth)
+    _.slide = Math.round(_.scrollLeft / _.itemWidth)
+    _.page = Math.round(_.scrollLeft / _.containerWidth)
 
     var middle = _.slide + Math.floor(Math.floor(_.opt.slidesToShow) / 2)
 
@@ -280,7 +284,7 @@
 
     // the last page may be less than one half of a normal page width so
     // the page is rounded down. when at the end, force the page to turn
-    if (_.ele.scrollLeft + _.containerWidth >= Math.floor(_.trackWidth)) {
+    if (_.scrollLeft + _.containerWidth >= Math.floor(_.trackWidth)) {
       _.page = _.dots ? _.dots.children.length - 1 : 0
     }
 
@@ -289,9 +293,9 @@
 
       var wasVisible = slideClasses.contains('visible')
 
-      var start = _.ele.scrollLeft
+      var start = _.scrollLeft
 
-      var end = _.ele.scrollLeft + _.containerWidth
+      var end = _.scrollLeft + _.containerWidth
 
       var itemStart = _.itemWidth * index
 
@@ -335,11 +339,19 @@
         // dont attempt to scroll less than a pixel fraction - causes looping
         if (Math.abs(_.ele.scrollLeft / _.itemWidth - _.slide) > 0.02) {
           if (!_.mouseDown) {
-            _.scrollItem(_.round(_.ele.scrollLeft / _.itemWidth))
+            // Only scroll if not at the end (#94)
+            if (_.trackWidth > _.containerWidth + _.ele.scrollLeft) {
+              _.scrollItem(_.getCurrentSlide())
+            }
           }
         }
       }, _.opt.scrollLockDelay || 250)
     }
+  }
+
+  gliderPrototype.getCurrentSlide = function () {
+    var _ = this
+    return _.round(_.ele.scrollLeft / _.itemWidth)
   }
 
   gliderPrototype.scrollItem = function (slide, dot, e) {
@@ -359,7 +371,7 @@
 
         // use precise location if fractional slides are on
         if (_.opt.slidesToScroll % 1 || _.opt.slidesToShow % 1) {
-          slide = _.round(_.ele.scrollLeft / _.itemWidth)
+          slide = _.getCurrentSlide()
         } else {
           slide = _.slide
         }
@@ -440,14 +452,13 @@
 
     var animate = function () {
       var now = new Date().getTime() - start
-      _.ele.scrollLeft =
-        _.ele.scrollLeft +
-        (scrollTarget - _.ele.scrollLeft) *
-          _.opt.easing(0, now, 0, 1, scrollDuration)
+      _.scrollLeft = _.scrollLeft + (scrollTarget - _.scrollLeft) * _.opt.easing(0, now, 0, 1, scrollDuration)
+      _.ele.scrollLeft = _.scrollLeft
+
       if (now < scrollDuration && animateIndex === _.animate_id) {
         _window.requestAnimationFrame(animate)
       } else {
-        _.ele.scrollLeft = scrollTarget
+        _.ele.scrollLeft = _.scrollLeft = scrollTarget
         callback && callback.call(_)
       }
     }
@@ -477,9 +488,10 @@
     var _ = this
     if (_.mouseDown) {
       _.isDrag = true
-      _.ele.scrollLeft +=
+       _.scrollLeft +=
         (_.mouseDown - e.clientX) * (_.opt.dragVelocity || 3.3)
       _.mouseDown = e.clientX
+      _.ele.scrollLeft = _.scrollLeft
     }
   }
 
