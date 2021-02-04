@@ -1,5 +1,5 @@
 {
-  "name": "glider-js",
+  "name": "@lighting-beetle/glider-js",
   "version": "1.7.4",
   "description": "A fast, lightweight carousel alternative",
   "main": "glider.js",
