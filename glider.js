@@ -56,7 +56,7 @@
     )
 
     // set defaults
-    _.animate_id = _.page = _.slide = _.scrollLeft = 0
+    _.animate_id = _.page = _.slide = 0
     _.arrows = {}
 
     // preserve original options to
@@ -268,7 +268,7 @@
       if (_.arrows.next) {
         _.arrows.next.classList.toggle(
           'disabled',
-          Math.ceil(_.scrollLeft + _.containerWidth) >=
+          Math.ceil(_.ele.scrollLeft + _.containerWidth) >=
             Math.floor(_.trackWidth) || disableArrows
         )
         _.arrows.next.classList.contains('disabled')
@@ -277,8 +277,8 @@
       }
     }
 
-    _.slide = Math.round(_.scrollLeft / _.itemWidth)
-    _.page = Math.round(_.scrollLeft / _.containerWidth)
+    _.slide = Math.round(_.ele.scrollLeft / _.itemWidth)
+    _.page = Math.round(_.ele.scrollLeft / _.containerWidth)
 
     var middle = _.slide + Math.floor(Math.floor(_.opt.slidesToShow) / 2)
 
@@ -289,7 +289,7 @@
 
     // the last page may be less than one half of a normal page width so
     // the page is rounded down. when at the end, force the page to turn
-    if (_.scrollLeft + _.containerWidth >= Math.floor(_.trackWidth)) {
+    if (_.ele.scrollLeft + _.containerWidth >= Math.floor(_.trackWidth)) {
       _.page = _.dots ? _.dots.children.length - 1 : 0
     }
 
@@ -298,9 +298,9 @@
 
       var wasVisible = slideClasses.contains('visible')
 
-      var start = _.scrollLeft
+      var start = _.ele.scrollLeft
 
-      var end = _.scrollLeft + _.containerWidth
+      var end = _.ele.scrollLeft + _.containerWidth
 
       var itemStart = _.itemWidth * index
 
@@ -458,16 +458,14 @@
 
     var animate = function () {
       var now = new Date().getTime() - start
-      _.scrollLeft =
-        _.scrollLeft +
-        (scrollTarget - _.scrollLeft) *
+      _.ele.scrollLeft =
+        _.ele.scrollLeft +
+        (scrollTarget - _.ele.scrollLeft) *
           _.opt.easing(0, now, 0, 1, scrollDuration)
-      _.ele.scrollLeft = _.scrollLeft
-
       if (now < scrollDuration && animateIndex === _.animate_id) {
         _window.requestAnimationFrame(animate)
       } else {
-        _.ele.scrollLeft = _.scrollLeft = scrollTarget
+        _.ele.scrollLeft = scrollTarget
         callback && callback.call(_)
       }
     }
@@ -497,9 +495,9 @@
     var _ = this
     if (_.mouseDown) {
       _.isDrag = true
-      _.scrollLeft += (_.mouseDown - e.clientX) * (_.opt.dragVelocity || 3.3)
+      _.ele.scrollLeft +=
+        (_.mouseDown - e.clientX) * (_.opt.dragVelocity || 3.3)
       _.mouseDown = e.clientX
-      _.ele.scrollLeft = _.scrollLeft
     }
   }
 
