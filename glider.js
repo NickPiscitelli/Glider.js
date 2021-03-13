@@ -118,7 +118,7 @@
 
       _.opt._autoSlide = _.opt.slidesToShow = _.opt.exactWidth
         ? slideCount
-        : Math.floor(slideCount)
+        : Math.max(1, Math.floor(slideCount))
     }
     if (_.opt.slidesToScroll === 'auto') {
       _.opt.slidesToScroll = Math.floor(_.opt.slidesToShow)
