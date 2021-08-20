@@ -100,7 +100,6 @@
 
     _.slides = _.track.children;
 
-
     [].forEach.call(_.slides, function (_, i) {
       _.classList.add('glider-slide')
       _.setAttribute('data-gslide', i)
@@ -324,7 +323,8 @@
       }
 
       var isVisible =
-        Math.ceil(itemStart) >= Math.floor(start) && Math.floor(itemEnd) <= Math.ceil(end)
+        Math.ceil(itemStart) >= Math.floor(start) &&
+        Math.floor(itemEnd) <= Math.ceil(end)
       slideClasses.toggle('visible', isVisible)
       if (isVisible !== wasVisible) {
         _.emit('slide-' + (isVisible ? 'visible' : 'hidden'), {
@@ -369,8 +369,8 @@
     ++_.animate_id
 
     if (dot === true) {
-      slide = slide * _.containerWidth
-      slide = Math.round(slide / _.itemWidth) * _.itemWidth
+      slide = slide * Math.floor(_.opt.slidesToShow)
+      slide = slide * _.itemWidth
     } else {
       if (typeof slide === 'string') {
         var backwards = slide === 'prev'
@@ -458,7 +458,10 @@
 
     var animate = function () {
       var now = new Date().getTime() - start
-      _.scrollLeft = _.scrollLeft + (scrollTarget - _.scrollLeft) * _.opt.easing(0, now, 0, 1, scrollDuration)
+      _.scrollLeft =
+        _.scrollLeft +
+        (scrollTarget - _.scrollLeft) *
+          _.opt.easing(0, now, 0, 1, scrollDuration)
       _.ele.scrollLeft = _.scrollLeft
 
       if (now < scrollDuration && animateIndex === _.animate_id) {
@@ -494,8 +497,7 @@
     var _ = this
     if (_.mouseDown) {
       _.isDrag = true
-       _.scrollLeft +=
-        (_.mouseDown - e.clientX) * (_.opt.dragVelocity || 3.3)
+      _.scrollLeft += (_.mouseDown - e.clientX) * (_.opt.dragVelocity || 3.3)
       _.mouseDown = e.clientX
       _.ele.scrollLeft = _.scrollLeft
     }
