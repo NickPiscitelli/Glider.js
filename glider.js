@@ -370,8 +370,8 @@
     ++_.animate_id
 
     if (dot === true) {
-      slide = slide * _.containerWidth
-      slide = Math.round(slide / _.itemWidth) * _.itemWidth
+      slide = slide * Math.floor(_.opt.slidesToShow)
+      slide = slide * _.itemWidth
     } else {
       if (typeof slide === 'string') {
         var backwards = slide === 'prev'
