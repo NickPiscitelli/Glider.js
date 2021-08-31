@@ -119,7 +119,7 @@
 
       _.opt._autoSlide = _.opt.slidesToShow = _.opt.exactWidth
         ? slideCount
-        : Math.floor(slideCount)
+        : Math.max(1, Math.floor(slideCount))
     }
     if (_.opt.slidesToScroll === 'auto') {
       _.opt.slidesToScroll = Math.floor(_.opt.slidesToShow)
@@ -212,6 +212,7 @@
       var dot = document.createElement('button')
       dot.dataset.index = i
       dot.setAttribute('aria-label', 'Page ' + (i + 1))
+      dot.setAttribute('role', 'tab')
       dot.className = 'glider-dot ' + (i ? '' : 'active')
       _.event(dot, 'add', {
         click: _.scrollItem.bind(_, i, true)
@@ -262,6 +263,9 @@
           'disabled',
           _.ele.scrollLeft <= 0 || disableArrows
         )
+        _.arrows.prev.classList.contains('disabled')
+          ? _.arrows.prev.setAttribute('aria-disabled', true)
+          : _.arrows.prev.setAttribute('aria-disabled', false)
       }
       if (_.arrows.next) {
         _.arrows.next.classList.toggle(
@@ -269,6 +273,9 @@
           Math.ceil(_.ele.scrollLeft + _.containerWidth) >=
             Math.floor(_.trackWidth) || disableArrows
         )
+        _.arrows.next.classList.contains('disabled')
+          ? _.arrows.next.setAttribute('aria-disabled', true)
+          : _.arrows.next.setAttribute('aria-disabled', false)
       }
     }
 
@@ -318,7 +325,8 @@
       }
 
       var isVisible =
-        Math.ceil(itemStart) >= start && Math.floor(itemEnd) <= end
+        Math.ceil(itemStart) >= Math.floor(start) &&
+        Math.floor(itemEnd) <= Math.ceil(end)
       slideClasses.toggle('visible', isVisible)
       if (isVisible !== wasVisible) {
         _.emit('slide-' + (isVisible ? 'visible' : 'hidden'), {
