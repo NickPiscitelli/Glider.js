@@ -34,7 +34,6 @@
     if (element._glider) return element._glider
 
     _.ele = element
-    _.ele.classList.add('glider')
 
     // expose glider object to its DOM element
     _.ele._glider = _
@@ -50,13 +49,25 @@
         // easeInQuad
         easing: function (x, t, b, c, d) {
           return c * (t /= d) * t + b
+        },
+        classes: {
+          glider: 'glider',
+          track: 'glider-track',
+          slide: 'glider-slide',
+          drag: 'drag',
+          draggable: 'draggable',
+          disabled: 'disabled',
+          active: 'active',
+          visible: 'visible',
+          dot: 'glider-dot',
+          dots: 'glider-dots'
         }
       },
       settings
     )
 
     // set defaults
-    _.animate_id = _.page = _.slide = _.scrollLeft = 0
+    _.animate_id = _.page = _.slide = 0
     _.arrows = {}
 
     // preserve original options to
@@ -75,7 +86,8 @@
       }
     }
 
-    _.track.classList.add('glider-track')
+    _.ele.classList.add(_.opt.classes.glider)
+    _.track.classList.add(_.opt.classes.track)
 
     // start glider
     _.init()
@@ -118,7 +130,7 @@
 
       _.opt._autoSlide = _.opt.slidesToShow = _.opt.exactWidth
         ? slideCount
-        : Math.floor(slideCount)
+        : Math.max(1, Math.floor(slideCount))
     }
     if (_.opt.slidesToScroll === 'auto') {
       _.opt.slidesToScroll = Math.floor(_.opt.slidesToShow)
@@ -160,7 +172,7 @@
 
     var mouseup = function () {
       _.mouseDown = undefined
-      _.ele.classList.remove('drag')
+      _.ele.classList.remove(_.opt.classes.drag)
       if (_.isDrag) {
         _.preventClick = true
       }
@@ -174,7 +186,7 @@
         e.preventDefault()
         e.stopPropagation()
         _.mouseDown = e.clientX
-        _.ele.classList.add('drag')
+        _.ele.classList.add(_.opt.classes.drag)
       },
       mousemove: _.mouse,
       click: function (e) {
@@ -186,7 +198,7 @@
       }
     }
 
-    _.ele.classList.toggle('draggable', _.opt.draggable === true)
+    _.ele.classList.toggle(_.opt.classes.draggable, _.opt.draggable === true)
     _.event(_.ele, 'remove', events)
     if (_.opt.draggable) _.event(_.ele, 'add', events)
   }
@@ -205,13 +217,14 @@
     if (!_.dots) return
 
     _.dots.innerHTML = ''
-    _.dots.classList.add('glider-dots')
+    _.dots.classList.add(_.opt.classes.dots)
 
     for (var i = 0; i < Math.ceil(_.slides.length / _.opt.slidesToShow); ++i) {
       var dot = document.createElement('button')
       dot.dataset.index = i
       dot.setAttribute('aria-label', 'Page ' + (i + 1))
-      dot.className = 'glider-dot ' + (i ? '' : 'active')
+      dot.setAttribute('role', 'tab')
+      dot.className = _.opt.classes.dot + ' ' + (i ? '' : _.opt.classes.active)
       _.event(dot, 'add', {
         click: _.scrollItem.bind(_, i, true)
       })
@@ -258,7 +271,7 @@
     if (!_.opt.rewind) {
       if (_.arrows.prev) {
         _.arrows.prev.classList.toggle(
-          'disabled',
+          _.opt.classes.disabled,
           _.ele.scrollLeft <= 0 || disableArrows
         )
         _.arrows.prev.classList.contains('disabled')
@@ -267,8 +280,8 @@
       }
       if (_.arrows.next) {
         _.arrows.next.classList.toggle(
-          'disabled',
-          Math.ceil(_.scrollLeft + _.containerWidth) >=
+          _.opt.classes.disabled,
+          Math.ceil(_.ele.scrollLeft + _.containerWidth) >=
             Math.floor(_.trackWidth) || disableArrows
         )
         _.arrows.next.classList.contains('disabled')
@@ -277,8 +290,8 @@
       }
     }
 
-    _.slide = Math.round(_.scrollLeft / _.itemWidth)
-    _.page = Math.round(_.scrollLeft / _.containerWidth)
+    _.slide = Math.round(_.ele.scrollLeft / _.itemWidth)
+    _.page = Math.round(_.ele.scrollLeft / _.containerWidth)
 
     var middle = _.slide + Math.floor(Math.floor(_.opt.slidesToShow) / 2)
 
@@ -289,18 +302,18 @@
 
     // the last page may be less than one half of a normal page width so
     // the page is rounded down. when at the end, force the page to turn
-    if (_.scrollLeft + _.containerWidth >= Math.floor(_.trackWidth)) {
+    if (_.ele.scrollLeft + _.containerWidth >= Math.floor(_.trackWidth)) {
       _.page = _.dots ? _.dots.children.length - 1 : 0
     }
 
     [].forEach.call(_.slides, function (slide, index) {
       var slideClasses = slide.classList
 
-      var wasVisible = slideClasses.contains('visible')
+      var wasVisible = slideClasses.contains(_.opt.classes.visible)
 
-      var start = _.scrollLeft
+      var start = _.ele.scrollLeft
 
-      var end = _.scrollLeft + _.containerWidth
+      var end = _.ele.scrollLeft + _.containerWidth
 
       var itemStart = _.itemWidth * index
 
@@ -334,7 +347,7 @@
     })
     if (_.dots) {
       [].forEach.call(_.dots.children, function (dot, index) {
-        dot.classList.toggle('active', _.page === index)
+        dot.classList.toggle(_.opt.classes.active, _.page === index)
       })
     }
 
@@ -458,16 +471,14 @@
 
     var animate = function () {
       var now = new Date().getTime() - start
-      _.scrollLeft =
-        _.scrollLeft +
-        (scrollTarget - _.scrollLeft) *
+      _.ele.scrollLeft =
+        _.ele.scrollLeft +
+        (scrollTarget - _.ele.scrollLeft) *
           _.opt.easing(0, now, 0, 1, scrollDuration)
-      _.ele.scrollLeft = _.scrollLeft
-
       if (now < scrollDuration && animateIndex === _.animate_id) {
         _window.requestAnimationFrame(animate)
       } else {
-        _.ele.scrollLeft = _.scrollLeft = scrollTarget
+        _.ele.scrollLeft = scrollTarget
         callback && callback.call(_)
       }
     }
@@ -497,9 +508,9 @@
     var _ = this
     if (_.mouseDown) {
       _.isDrag = true
-      _.scrollLeft += (_.mouseDown - e.clientX) * (_.opt.dragVelocity || 3.3)
+      _.ele.scrollLeft +=
+        (_.mouseDown - e.clientX) * (_.opt.dragVelocity || 3.3)
       _.mouseDown = e.clientX
-      _.ele.scrollLeft = _.scrollLeft
     }
   }
 
