@@ -55,7 +55,7 @@
       },
       settings
     )
-
+    if(Math.abs(_.opt.dir) != 1) _.opt.dir = 1;
     // set defaults
     _.animate_id = _.page = _.slide = 0
     _.arrows = {}
@@ -262,7 +262,7 @@
       if (_.arrows.prev) {
         _.arrows.prev.classList.toggle(
           'disabled',
-          _.ele.scrollLeft <= 0 || disableArrows
+          (_.opt.dir * _.ele.scrollLeft) <= 0 || disableArrows
         )
         _.arrows.prev.classList.contains('disabled')
           ? _.arrows.prev.setAttribute('aria-disabled', true)
@@ -271,7 +271,7 @@
       if (_.arrows.next) {
         _.arrows.next.classList.toggle(
           'disabled',
-          Math.ceil(_.ele.scrollLeft + _.containerWidth) >=
+          Math.ceil((_.opt.dir * _.ele.scrollLeft) + _.containerWidth) >=
             Math.floor(_.trackWidth) || disableArrows
         )
         _.arrows.next.classList.contains('disabled')
@@ -280,8 +280,8 @@
       }
     }
 
-    _.slide = Math.round(_.ele.scrollLeft / _.itemWidth)
-    _.page = Math.round(_.ele.scrollLeft / _.containerWidth)
+    _.slide = Math.round((_.opt.dir * _.ele.scrollLeft) / _.itemWidth)
+    _.page = Math.round((_.opt.dir * _.ele.scrollLeft) / _.containerWidth)
 
     var middle = _.slide + Math.floor(Math.floor(_.opt.slidesToShow) / 2)
 
@@ -292,7 +292,7 @@
 
     // the last page may be less than one half of a normal page width so
     // the page is rounded down. when at the end, force the page to turn
-    if (_.ele.scrollLeft + _.containerWidth >= Math.floor(_.trackWidth)) {
+    if ((_.opt.dir * _.ele.scrollLeft) + _.containerWidth >= Math.floor(_.trackWidth)) {
       _.page = _.dots ? _.dots.children.length - 1 : 0
     }
 
@@ -301,9 +301,9 @@
 
       var wasVisible = slideClasses.contains('visible')
 
-      var start = _.ele.scrollLeft
+      var start = (_.opt.dir * _.ele.scrollLeft)
 
-      var end = _.ele.scrollLeft + _.containerWidth
+      var end = (_.opt.dir * _.ele.scrollLeft) + _.containerWidth
 
       var itemStart = _.itemWidth * index
 
@@ -346,10 +346,10 @@
       _.scrollLock = setTimeout(function () {
         clearTimeout(_.scrollLock)
         // dont attempt to scroll less than a pixel fraction - causes looping
-        if (Math.abs(_.ele.scrollLeft / _.itemWidth - _.slide) > 0.02) {
+        if (Math.abs((_.opt.dir * _.ele.scrollLeft) / _.itemWidth - _.slide) > 0.02) {
           if (!_.mouseDown) {
             // Only scroll if not at the end (#94)
-            if (_.trackWidth > _.containerWidth + _.ele.scrollLeft) {
+            if (_.trackWidth > (_.containerWidth + _.opt.dir * _.ele.scrollLeft)) {
               _.scrollItem(_.getCurrentSlide())
             }
           }
@@ -360,7 +360,7 @@
 
   gliderPrototype.getCurrentSlide = function () {
     var _ = this
-    return _.round(_.ele.scrollLeft / _.itemWidth)
+    return _.round((_.opt.dir * _.ele.scrollLeft) / _.itemWidth)
   }
 
   gliderPrototype.scrollItem = function (slide, dot, e) {
@@ -389,7 +389,7 @@
         else slide += _.opt.slidesToScroll
 
         if (_.opt.rewind) {
-          var scrollLeft = _.ele.scrollLeft
+          var scrollLeft = (_.opt.dir * _.ele.scrollLeft)
           slide =
             backwards && !scrollLeft
               ? _.slides.length
@@ -408,7 +408,7 @@
 
     _.scrollTo(
       slide,
-      _.opt.duration * Math.abs(_.ele.scrollLeft - slide),
+      _.opt.duration * Math.abs((_.opt.dir * _.ele.scrollLeft) - slide),
       function () {
         _.updateControls()
         _.emit('animated', {
@@ -461,14 +461,17 @@
 
     var animate = function () {
       var now = new Date().getTime() - start
-      _.ele.scrollLeft =
-        _.ele.scrollLeft +
-        (scrollTarget - _.ele.scrollLeft) *
-          _.opt.easing(0, now, 0, 1, scrollDuration)
+
+      var scrollLeft = _.opt.dir * _.ele.scrollLeft
+      _.ele.scrollLeft = _.opt.dir * (
+          scrollLeft +
+          (scrollTarget - scrollLeft) *
+            _.opt.easing(0, now, 0, 1, scrollDuration)
+        )
       if (now < scrollDuration && animateIndex === _.animate_id) {
         _window.requestAnimationFrame(animate)
       } else {
-        _.ele.scrollLeft = scrollTarget
+        _.ele.scrollLeft = _.opt.dir * scrollTarget
         callback && callback.call(_)
       }
     }
@@ -499,7 +502,7 @@
     if (_.mouseDown) {
       _.isDrag = true
       _.ele.scrollLeft +=
-        (_.mouseDown - e.clientX) * (_.opt.dragVelocity || 3.3)
+        _.opt.dir * (_.mouseDown - e.clientX) * (_.opt.dragVelocity || 3.3)
       _.mouseDown = e.clientX
     }
   }
