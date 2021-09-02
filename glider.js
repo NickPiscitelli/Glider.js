@@ -219,7 +219,11 @@
     _.dots.innerHTML = ''
     _.dots.classList.add(_.opt.classes.dots)
 
-    for (var i = 0; i < Math.ceil(_.slides.length / _.opt.slidesToShow); ++i) {
+    for (
+      var i = 0;
+      i < Math.ceil(_.slides.length / Math.floor(_.opt.slidesToShow));
+      ++i
+    ) {
       var dot = document.createElement('button')
       dot.dataset.index = i
       dot.setAttribute('aria-label', 'Page ' + (i + 1))
@@ -291,7 +295,9 @@
     }
 
     _.slide = Math.round(_.ele.scrollLeft / _.itemWidth)
-    _.page = Math.round(_.ele.scrollLeft / _.containerWidth)
+    _.page = Math.round(
+      _.ele.scrollLeft / (_.itemWidth * Math.floor(_.opt.slidesToShow))
+    )
 
     var middle = _.slide + Math.floor(Math.floor(_.opt.slidesToShow) / 2)
 
