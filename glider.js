@@ -101,7 +101,6 @@
 
     _.slides = _.track.children;
 
-
     [].forEach.call(_.slides, function (_, i) {
       _.classList.add('glider-slide')
       _.setAttribute('data-gslide', i)
