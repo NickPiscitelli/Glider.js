@@ -47,7 +47,6 @@
         slidesToShow: 1,
         resizeLock: true,
         duration: 0.5,
-        dir: (_window.getComputedStyle(_.ele).direction === 'rtl') ? -1:1,
         // easeInQuad
         easing: function (x, t, b, c, d) {
           return c * (t /= d) * t + b
