@@ -193,6 +193,9 @@
 
   gliderPrototype.buildDots = function () {
     var _ = this
+    
+    //please don't show just a dot
+    if(Math.ceil(_.slides.length / _.opt.slidesToShow)==1) return;
 
     if (!_.opt.dots) {
       if (_.dots) _.dots.innerHTML = ''
