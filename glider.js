@@ -262,9 +262,11 @@
           'disabled',
           _.ele.scrollLeft <= 0 || disableArrows
         )
-        _.arrows.prev.classList.contains('disabled')
-          ? _.arrows.prev.setAttribute('aria-disabled', true)
-          : _.arrows.prev.setAttribute('aria-disabled', false)
+
+        _.arrows.prev.setAttribute(
+          'aria-disabled',
+          _.arrows.prev.classList.contains('disabled')
+        )
       }
       if (_.arrows.next) {
         _.arrows.next.classList.toggle(
@@ -272,9 +274,11 @@
           Math.ceil(_.ele.scrollLeft + _.containerWidth) >=
             Math.floor(_.trackWidth) || disableArrows
         )
-        _.arrows.next.classList.contains('disabled')
-          ? _.arrows.next.setAttribute('aria-disabled', true)
-          : _.arrows.next.setAttribute('aria-disabled', false)
+
+        _.arrows.next.setAttribute(
+          'aria-disabled',
+          _.arrows.next.classList.contains('disabled')
+        )
       }
     }
 
