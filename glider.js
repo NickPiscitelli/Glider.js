@@ -386,9 +386,12 @@
     var originalSlide = slide
     ++_.animate_id
 
+    var prevSlide = _.slide
+    var position
+
     if (dot === true) {
-      slide = slide * _.containerWidth
-      slide = Math.round(slide / _.itemWidth) * _.itemWidth
+      slide = Math.round(slide * _.containerWidth / _.itemWidth)
+      position = slide * _.itemWidth
     } else {
       if (typeof slide === 'string') {
         var backwards = slide === 'prev'
@@ -418,12 +421,14 @@
       slide = Math.max(Math.min(slide, _.slides.length), 0)
 
       _.slide = slide
-      slide = _.itemWidth * slide
+      position = _.itemWidth * slide
     }
 
+    _.emit('scroll-item', {prevSlide, slide});
+
     _.scrollTo(
-      slide,
-      _.opt.duration * Math.abs(_.ele.scrollLeft - slide),
+      position,
+      _.opt.duration * Math.abs(_.ele.scrollLeft - position),
       function () {
         _.updateControls()
         _.emit('animated', {
