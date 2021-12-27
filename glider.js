@@ -140,6 +140,7 @@
     _.trackWidth = width
     _.isDrag = false
     _.preventClick = false
+    _.move = false
 
     _.opt.resizeLock && _.scrollTo(_.slide * _.itemWidth, 0)
 
@@ -166,6 +167,10 @@
       }
       _.isDrag = false
     }
+    
+    const move = function(){
+      _.move = true
+    };
 
     var events = {
       mouseup: mouseup,
@@ -175,14 +180,22 @@
         e.stopPropagation()
         _.mouseDown = e.clientX
         _.ele.classList.add('drag')
+        _.move = false
+        setTimeout(move, 300);
+      },
+      touchstart: function (e) {
+        _.ele.classList.add('drag')
+        _.move = false
+        setTimeout(move, 300);
       },
       mousemove: _.mouse,
       click: function (e) {
-        if (_.preventClick) {
+        if (_.preventClick && _.move) {
           e.preventDefault()
           e.stopPropagation()
         }
         _.preventClick = false
+        _.move = false
       }
     }
 
