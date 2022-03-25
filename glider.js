@@ -167,10 +167,10 @@
       }
       _.isDrag = false
     }
-    
-    const move = function(){
+
+    const move = function () {
       _.move = true
-    };
+    }
 
     var events = {
       mouseup: mouseup,
@@ -181,12 +181,12 @@
         _.mouseDown = e.clientX
         _.ele.classList.add('drag')
         _.move = false
-        setTimeout(move, 300);
+        setTimeout(move, 300)
       },
       touchstart: function (e) {
         _.ele.classList.add('drag')
         _.move = false
-        setTimeout(move, 300);
+        setTimeout(move, 300)
       },
       mousemove: _.mouse,
       click: function (e) {
@@ -218,6 +218,7 @@
     if (!_.dots) return
 
     _.dots.innerHTML = ''
+    _.dots.setAttribute('role', 'tablist')
     _.dots.classList.add('glider-dots')
 
     for (var i = 0; i < Math.ceil(_.slides.length / _.opt.slidesToShow); ++i) {
@@ -390,7 +391,7 @@
     var position
 
     if (dot === true) {
-      slide = Math.round(slide * _.containerWidth / _.itemWidth)
+      slide = Math.round((slide * _.containerWidth) / _.itemWidth)
       position = slide * _.itemWidth
     } else {
       if (typeof slide === 'string') {
@@ -424,7 +425,7 @@
       position = _.itemWidth * slide
     }
 
-    _.emit('scroll-item', {prevSlide, slide});
+    _.emit('scroll-item', { prevSlide, slide })
 
     _.scrollTo(
       position,
