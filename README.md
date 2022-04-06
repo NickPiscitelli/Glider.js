@@ -147,6 +147,16 @@ Destroy with:
 Glider(document.querySelector(element_path)).destroy();
 ```
 
+#### Install using package managers NPM / YARN
+
+```
+$ npm install glider-js
+```
+
+```
+$ yarn add glider-js
+```
+
 #### Browser support
 
 Glider.js should run on all modern browsers. Support for older browser can be achieved by polyfilling `document.classList`, `window.requestAnimationFrame`, `Object.assign` and `CustomEvent`
