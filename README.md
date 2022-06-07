@@ -84,7 +84,7 @@ new Glider(document.querySelector('.glider'), {
   easing: function (x, t, b, c, d) {
     return c*(t/=d)*t + b;
   },
-AppleWebKit/537.36
+
   // event control
   scrollPropagate: false,
   eventPropagate: true,
