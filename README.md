@@ -1,8 +1,8 @@
 # Glider.js
 
-A fast, light-weight, dependency free, responsive, accessible, extendable, native scrolling list with paging controls, methods and events. (< 2.8kb gzipped!)
+A fast, light-weight, dependency-free, responsive, accessible, extendable, native scrolling list with paging controls, methods and events. (< 2.8kb gzipped!)
 
-Demos and full documentation available on Github Pages: https://nickpiscitelli.github.io/Glider.js/
+Demos and full documentation are available on Github Pages: https://nickpiscitelli.github.io/Glider.js/
 
 ##### Quick Start
 
@@ -84,7 +84,7 @@ new Glider(document.querySelector('.glider'), {
   easing: function (x, t, b, c, d) {
     return c*(t/=d)*t + b;
   },
-
+AppleWebKit/537.36
   // event control
   scrollPropagate: false,
   eventPropagate: true,
@@ -159,7 +159,7 @@ $ yarn add glider-js
 
 #### Browser support
 
-Glider.js should run on all modern browsers. Support for older browser can be achieved by polyfilling `document.classList`, `window.requestAnimationFrame`, `Object.assign` and `CustomEvent`
+Glider.js should run on all modern browsers. Support for older browsers can be achieved by polyfilling `document.classList`, `window.requestAnimationFrame`, `Object.assign` and `CustomEvent`
 
 Include `glider-compat.min.js` to load the aforementioned polyfills
 

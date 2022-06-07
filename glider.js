@@ -131,7 +131,8 @@
     // set slide dimensions
     [].forEach.call(_.slides, function (__) {
       __.style.height = 'auto'
-      __.style.width = _.itemWidth + 'px'
+      __.style.minWidth = _.itemWidth + 'px'
+      __.style.maxWidth = _.itemWidth + 'px'
       width += _.itemWidth
       height = Math.max(__.offsetHeight, height)
     })
