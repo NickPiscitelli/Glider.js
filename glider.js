@@ -132,11 +132,10 @@
     [].forEach.call(_.slides, function (__) {
       var computedStyle = window.getComputedStyle(__)
       __.style.height = 'auto'
-      __.style.minWidth =
-        _.itemWidth -
-        computedStyle.marginLeft -
-        computedStyle.marginRight +
-        'px'
+      __.style.minWidth = `calc(${_.itemWidth}px - ${
+        computedStyle.marginLeft
+      } - ${computedStyle.marginRight})`
+
       width += _.itemWidth
       height = Math.max(__.offsetHeight, height)
     })
