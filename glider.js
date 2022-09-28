@@ -566,8 +566,10 @@
         /^glider/.test(className) && ele.classList.remove(className)
       })
     }
-    // remove track
-    replace.children[0].outerHTML = replace.children[0].innerHTML
+    // remove track if it was created by glider
+    if (!_.opt.skipTrack) {
+      replace.children[0].outerHTML = replace.children[0].innerHTML
+    }
     clear(replace);
     [].forEach.call(replace.getElementsByTagName('*'), clear)
     _.ele.parentNode.replaceChild(replace, _.ele)
