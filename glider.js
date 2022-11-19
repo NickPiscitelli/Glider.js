@@ -82,12 +82,22 @@
 
     // set events
     _.resize = _.init.bind(_, true)
-    _.event(_.ele, 'add', {
-      scroll: _.updateControls.bind(_)
-    })
-    _.event(_window, 'add', {
-      resize: _.resize
-    })
+    _.event(
+      _.ele,
+      'add',
+      {
+        scroll: _.updateControls.bind(_)
+      },
+      { passive: true }
+    )
+    _.event(
+      _window,
+      'add',
+      {
+        resize: _.resize
+      },
+      { passive: true }
+    )
   })
 
   var gliderPrototype = Glider.prototype
@@ -592,7 +602,7 @@
   gliderPrototype.event = function (ele, type, args) {
     var eventHandler = ele[type + 'EventListener'].bind(ele)
     Object.keys(args).forEach(function (k) {
-      eventHandler(k, args[k])
+      if (k === 'mousedown' || (k === 'click' && !this.preventClick)) { eventHandler(k, args[k]) } else eventHandler(k, args[k], { passive: true })
     })
   }
 
