@@ -77,6 +77,10 @@
 
     _.track.classList.add('glider-track')
 
+    if (_.opt.scrollLock) {
+      _.ele.classList.add('scroll-lock')
+    }
+
     // start glider
     _.init()
 
@@ -355,22 +359,6 @@
       [].forEach.call(_.dots.children, function (dot, index) {
         dot.classList.toggle('active', _.page === index)
       })
-    }
-
-    if (event && _.opt.scrollLock) {
-      clearTimeout(_.scrollLock)
-      _.scrollLock = setTimeout(function () {
-        clearTimeout(_.scrollLock)
-        // dont attempt to scroll less than a pixel fraction - causes looping
-        if (Math.abs(_.ele.scrollLeft / _.itemWidth - _.slide) > 0.02) {
-          if (!_.mouseDown) {
-            // Only scroll if not at the end (#94)
-            if (_.trackWidth > _.containerWidth + _.ele.scrollLeft) {
-              _.scrollItem(_.getCurrentSlide())
-            }
-          }
-        }
-      }, _.opt.scrollLockDelay || 250)
     }
   }
 
