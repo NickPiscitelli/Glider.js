@@ -93,32 +93,64 @@
             margin: 0 auto;
         }
         .glider-slide {
-            min-height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 300px;
+            border: 3px solid currentColor;
+            background-image: url('logo.svg');
+            background-size:contain;
+            background-repeat: no-repeat;
+            background-position: center;
+
         }
         .glider-slide img {
             width: 100%;
         }
+        .glider-slide .slide-title {
+            font-family: Inter, Roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif;
+            /* https://modernfontstacks.com/ */
+            font-size: 4rem;
+            position: relative;
+            top: 100px;
+        }
+
+        .glider-slide:nth-child(4n+1){
+            color:#8cc9f0;
+        }
+        .glider-slide:nth-child(4n+2) {
+            color:#a89cc8;
+        }
+        .glider-slide:nth-child(4n+3) {
+            color:#efa8b0;
+        }
+        .glider-slide:nth-child(4n) {
+            color:#9ef096;
+        }
+     
+
+        
     </style>
   </head>
   <body>
     <div class="glider-contain">
         <div class="glider">
-            <div><img alt="Test" src="http://placehold.it/300x300?text=1"></div>
-            <div><img alt="Test" src="http://placehold.it/300x300?text=2"></div>
-            <div><img alt="Test" src="http://placehold.it/300x300?text=3"></div>
-            <div><img alt="Test" src="http://placehold.it/300x300?text=4"></div>
-            <div><img alt="Test" src="http://placehold.it/300x300?text=5"></div>
-            <div><img alt="Test" src="http://placehold.it/300x300?text=6"></div>
-            <div><img alt="Test" src="http://placehold.it/300x300?text=7"></div>
-            <div><img alt="Test" src="http://placehold.it/300x300?text=8"></div>
-            <div><img alt="Test" src="http://placehold.it/300x300?text=9"></div>
-            <div><img alt="Test" src="http://placehold.it/300x300?text=10"></div>
-            <div><img alt="Test" src="http://placehold.it/300x300?text=11"></div>
-            <div><img alt="Test" src="http://placehold.it/300x300?text=12"></div>
-            <div><img alt="Test" src="http://placehold.it/300x300?text=13"></div>
-            <div><img alt="Test" src="http://placehold.it/300x300?text=14"></div>
-            <div><img alt="Test" src="http://placehold.it/300x300?text=15"></div>
-            <div><img alt="Test" src="http://placehold.it/300x300?text=16"></div>
+            <div><span class="slide-title">Slide 1</span></div>
+            <div><span class="slide-title">Slide 2</span></div>
+            <div><span class="slide-title">Slide 3</span></div>
+            <div><span class="slide-title">Slide 4</span></div>
+            <div><span class="slide-title">Slide 5</span></div>
+            <div><span class="slide-title">Slide 6</span></div>
+            <div><span class="slide-title">Slide 7</span></div>
+            <div><span class="slide-title">Slide 8</span></div>
+            <div><span class="slide-title">Slide 9</span></div>
+            <div><span class="slide-title">Slide 10</span></div>
+            <div><span class="slide-title">Slide 11</span></div>
+            <div><span class="slide-title">Slide 12</span></div>
+            <div><span class="slide-title">Slide 13</span></div>
+            <div><span class="slide-title">Slide 14</span></div>
+            <div><span class="slide-title">Slide 15</span></div>
+            <div><span class="slide-title">Slide 16</span></div>
         </div>
         <button class="glider-prev">&laquo;</button>
         <button class="glider-next">&raquo;</button>
