@@ -4552,3 +4552,10 @@ user-select: none; /* Standard */
     overflow: hidden;
   }
 }
+.scroll-lock {
+  scroll-snap-type: x mandatory;
+  scroll-padding: 0;
+}
+.scroll-lock .glider-slide {
+  scroll-snap-align: start;
+}

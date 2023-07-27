@@ -92,9 +92,6 @@ new Glider(document.querySelector('.glider'), {
 
   // Force centering slide after scroll event
   scrollLock: false,
-  // how long to wait after scroll event before locking
-  // if too low, it might interrupt normal scrolling
-  scrollLockDelay: 150,
 
   // Force centering slide after resize event
   resizeLock: true,
