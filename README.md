@@ -115,7 +115,10 @@ new Glider(document.querySelector('.glider'), {
         slidesToScroll: 3
       }
     }
-  ]
+  ],
+
+  // Aria label prefix for dot
+  dotLabel: "Slide "
 });
  ```
 
