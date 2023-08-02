@@ -207,6 +207,7 @@
   gliderPrototype.buildDots = function () {
     var _ = this
 
+
     if (!_.opt.dots) {
       if (_.dots) _.dots.innerHTML = ''
       return
@@ -220,6 +221,10 @@
     _.dots.innerHTML = ''
     _.dots.setAttribute('role', 'tablist')
     _.dots.classList.add('glider-dots')
+
+    //hide single dot
+    if (Math.ceil(_.slides.length / _.opt.slidesToShow) == 1) return;
+
 
     for (var i = 0; i < Math.ceil(_.slides.length / _.opt.slidesToShow); ++i) {
       var dot = document.createElement('button')
@@ -286,7 +291,7 @@
         _.arrows.next.classList.toggle(
           'disabled',
           Math.ceil(_.ele.scrollLeft + _.containerWidth) >=
-            Math.floor(_.trackWidth) || disableArrows
+          Math.floor(_.trackWidth) || disableArrows
         )
 
         _.arrows.next.setAttribute(
@@ -485,7 +490,7 @@
       _.ele.scrollLeft =
         _.ele.scrollLeft +
         (scrollTarget - _.ele.scrollLeft) *
-          _.opt.easing(0, now, 0, 1, scrollDuration)
+        _.opt.easing(0, now, 0, 1, scrollDuration)
       if (now < scrollDuration && animateIndex === _.animate_id) {
         _window.requestAnimationFrame(animate)
       } else {
