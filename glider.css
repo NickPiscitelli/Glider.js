@@ -19,6 +19,13 @@
   display: flex;
   z-index: 1;
 }
+.label-dots .glider-dot {
+	width: 1.1rem;
+	height: 1.1rem;
+	font-size: 1rem;
+	line-height: 1;
+	padding-bottom: 2px;
+}
 .glider.draggable {
   user-select: none;
   cursor: -webkit-grab;

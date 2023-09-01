@@ -47,6 +47,7 @@
         slidesToShow: 1,
         resizeLock: true,
         duration: 0.5,
+        labelDots:false,
         // easeInQuad
         easing: function (x, t, b, c, d) {
           return c * (t /= d) * t + b
@@ -220,6 +221,7 @@
     _.dots.innerHTML = ''
     _.dots.setAttribute('role', 'tablist')
     _.dots.classList.add('glider-dots')
+    if(false !== _.opt.labelDots) _.dots.classList.add('label-dots')
 
     for (var i = 0; i < Math.ceil(_.slides.length / _.opt.slidesToShow); ++i) {
       var dot = document.createElement('button')
@@ -227,6 +229,10 @@
       dot.setAttribute('aria-label', 'Page ' + (i + 1))
       dot.setAttribute('role', 'tab')
       dot.className = 'glider-dot ' + (i ? '' : 'active')
+      if(false !== _.opt.labelDots){
+        if(_.opt.labelDots[i]) dot.innerText = _.opt.labelDots[i]
+        else dot.innerText = (i+1)
+      }
       _.event(dot, 'add', {
         click: _.scrollItem.bind(_, i, true)
       })
