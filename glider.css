@@ -128,12 +128,3 @@
     box-shadow: 0 0 1px rgba(255, 255, 255, 0.25);
   }
 }
-@media screen and (pointer: coarse), (pointer: none) {
-  .glider-track {
-    scroll-snap-type: x mandatory;
-    scroll-padding: 0;
-  }
-  .glider-slide {
-    scroll-snap-align: start;
-  }
-}
