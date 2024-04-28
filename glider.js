@@ -47,6 +47,7 @@
         slidesToShow: 1,
         resizeLock: true,
         duration: 0.5,
+        passiveListeners: false,
         // easeInQuad
         easing: function (x, t, b, c, d) {
           return c * (t /= d) * t + b
@@ -88,16 +89,11 @@
       {
         scroll: _.updateControls.bind(_)
       },
-      { passive: true }
+      { passive: _.opt.passiveListeners }
     )
-    _.event(
-      _window,
-      'add',
-      {
-        resize: _.resize
-      },
-      { passive: true }
-    )
+    _.event(_window, 'add', {
+      resize: _.resize
+    })
   })
 
   var gliderPrototype = Glider.prototype
@@ -211,7 +207,11 @@
 
     _.ele.classList.toggle('draggable', _.opt.draggable === true)
     _.event(_.ele, 'remove', events)
-    if (_.opt.draggable) _.event(_.ele, 'add', events)
+    if (_.opt.draggable) {
+      _.event(_.ele, 'add', events, {
+        passive: _.opt.passiveListeners
+      })
+    }
   }
 
   gliderPrototype.buildDots = function () {
@@ -602,7 +602,7 @@
   gliderPrototype.event = function (ele, type, args) {
     var eventHandler = ele[type + 'EventListener'].bind(ele)
     Object.keys(args).forEach(function (k) {
-      if (k === 'mousedown' || (k === 'click' && !this.preventClick)) { eventHandler(k, args[k]) } else eventHandler(k, args[k], { passive: true })
+      eventHandler(k, args[k])
     })
   }
 
