@@ -43,6 +43,7 @@
     _.opt = Object.assign(
       {},
       {
+        axis: 'x',
         slidesToScroll: 1,
         slidesToShow: 1,
         resizeLock: true,
@@ -184,7 +185,7 @@
       mousedown: function (e) {
         e.preventDefault()
         e.stopPropagation()
-        _.mouseDown = e.clientX
+        _.mouseDown = _.opt.axis === 'x' ? e.clientX : e.clientY
         _.ele.classList.add('drag')
         _.move = false
         setTimeout(move, 300)
@@ -527,11 +528,19 @@
 
   gliderPrototype.handleMouse = function (e) {
     var _ = this
+    const isX = _.opt.axis === 'x'
     if (_.mouseDown) {
       _.isDrag = true
-      _.ele.scrollLeft +=
-        (_.mouseDown - e.clientX) * (_.opt.dragVelocity || 3.3)
-      _.mouseDown = e.clientX
+      if (isX) {
+        _.ele.scrollLeft +=
+          (_.mouseDown - e.clientX) * (_.opt.dragVelocity || 3.3)
+        _.mouseDown = e.clientX
+      } else {
+        _.ele.scrollTop +=
+          (_.mouseDown - e.clientY) * (_.opt.dragVelocity || 3.3)
+
+        _.mouseDown = e.clientY
+      }
     }
   }
 
