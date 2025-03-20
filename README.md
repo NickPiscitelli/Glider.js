@@ -116,6 +116,9 @@ new Glider(document.querySelector('.glider'), {
       }
     }
   ]
+
+  // Use passive event listeners for scroll events 
+  passiveListeners: false
 });
  ```
 
