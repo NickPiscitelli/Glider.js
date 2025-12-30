@@ -231,16 +231,18 @@
     _.dots.setAttribute('role', 'tablist')
     _.dots.classList.add('glider-dots')
 
-    for (var i = 0; i < Math.ceil(_.slides.length / _.opt.slidesToShow); ++i) {
-      var dot = document.createElement('button')
-      dot.dataset.index = i
-      dot.setAttribute('aria-label', 'Page ' + (i + 1))
-      dot.setAttribute('role', 'tab')
-      dot.className = 'glider-dot ' + (i ? '' : 'active')
-      _.event(dot, 'add', {
-        click: _.scrollItem.bind(_, i, true)
-      })
-      _.dots.appendChild(dot)
+    if ( _.opt.slidesToShow) {
+      for (var i = 0; i < Math.ceil(_.slides.length / _.opt.slidesToShow); ++i) {
+        var dot = document.createElement('button')
+        dot.dataset.index = i
+        dot.setAttribute('aria-label', 'Page ' + (i + 1))
+        dot.setAttribute('role', 'tab')
+        dot.className = 'glider-dot ' + (i ? '' : 'active')
+        _.event(dot, 'add', {
+          click: _.scrollItem.bind(_, i, true)
+        })
+        _.dots.appendChild(dot)
+      }
     }
   }
 
