@@ -94,6 +94,20 @@
     _.event(_window, 'add', {
       resize: _.resize
     })
+
+    if (ResizeObserver) {
+      _.resizeObserver = new ResizeObserver(function(entries) {
+        [].forEach.call(entries, function (__) {
+          var _ = __.target._glider
+          if (_) {
+              var paging = _.ele.clientWidth > 0 && _.containerWidth == 0
+              _.refresh(paging);
+          }
+        });
+      });
+
+      _.resizeObserver.observe(_.ele);
+    }
   })
 
   var gliderPrototype = Glider.prototype
