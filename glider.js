@@ -548,10 +548,10 @@
     _.init(true, paging)
   }
 
-  gliderPrototype.setOption = function (opt, global) {
+  gliderPrototype.setOption = function (opt, isGlobal) {
     var _ = this
 
-    if (_.breakpoint && !global) {
+    if (_.breakpoint && !isGlobal) {
       _._opt.responsive.forEach(function (v) {
         if (v.breakpoint === _.breakpoint) {
           v.settings = Object.assign({}, v.settings, opt)
