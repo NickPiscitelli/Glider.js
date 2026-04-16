@@ -217,7 +217,7 @@
   gliderPrototype.buildDots = function () {
     var _ = this
 
-    if (!_.opt.dots) {
+    if (!_.opt.dots || !_.opt.slidesToShow) {
       if (_.dots) _.dots.innerHTML = ''
       return
     }
