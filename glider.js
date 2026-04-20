@@ -36,6 +36,9 @@
     _.ele = element
     _.ele.classList.add('glider')
 
+    // used to make the slide-active event emit only once per active slide
+    _.lastEmittedActiveSlide = null
+
     // expose glider object to its DOM element
     _.ele._glider = _
 
@@ -339,6 +342,7 @@
         /^left|right/.test(className) && slideClasses.remove(className)
       })
       slideClasses.toggle('active', _.slide === index)
+
       if (middle === index || (extraMiddle && extraMiddle === index)) {
         slideClasses.add('center')
       } else {
@@ -355,6 +359,14 @@
         Math.ceil(itemStart) >= Math.floor(start) &&
         Math.floor(itemEnd) <= Math.ceil(end)
       slideClasses.toggle('visible', isVisible)
+      
+      if (isVisible && index === _.slide && _.lastEmittedActiveSlide !== _.slide) {
+        _.emit('slide-active', {
+            slide: index
+          })
+        _.lastEmittedActiveSlide = index
+      }
+
       if (isVisible !== wasVisible) {
         _.emit('slide-' + (isVisible ? 'visible' : 'hidden'), {
           slide: index
