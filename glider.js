@@ -94,6 +94,20 @@
     _.event(_window, 'add', {
       resize: _.resize
     })
+
+    if (ResizeObserver) {
+      _.resizeObserver = new ResizeObserver(function(entries) {
+        [].forEach.call(entries, function (__) {
+          var _ = __.target._glider
+          if (_) {
+              var paging = _.ele.clientWidth > 0 && _.containerWidth == 0
+              _.refresh(paging);
+          }
+        });
+      });
+
+      _.resizeObserver.observe(_.ele);
+    }
   })
 
   var gliderPrototype = Glider.prototype
@@ -231,16 +245,18 @@
     _.dots.setAttribute('role', 'tablist')
     _.dots.classList.add('glider-dots')
 
-    for (var i = 0; i < Math.ceil(_.slides.length / _.opt.slidesToShow); ++i) {
-      var dot = document.createElement('button')
-      dot.dataset.index = i
-      dot.setAttribute('aria-label', 'Page ' + (i + 1))
-      dot.setAttribute('role', 'tab')
-      dot.className = 'glider-dot ' + (i ? '' : 'active')
-      _.event(dot, 'add', {
-        click: _.scrollItem.bind(_, i, true)
-      })
-      _.dots.appendChild(dot)
+    if ( _.opt.slidesToShow) {
+      for (var i = 0; i < Math.ceil(_.slides.length / _.opt.slidesToShow); ++i) {
+        var dot = document.createElement('button')
+        dot.dataset.index = i
+        dot.setAttribute('aria-label', 'Page ' + (i + 1))
+        dot.setAttribute('role', 'tab')
+        dot.className = 'glider-dot ' + (i ? '' : 'active')
+        _.event(dot, 'add', {
+          click: _.scrollItem.bind(_, i, true)
+        })
+        _.dots.appendChild(dot)
+      }
     }
   }
 
