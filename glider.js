@@ -94,6 +94,21 @@
     _.event(_window, 'add', {
       resize: _.resize
     })
+    
+    // reset breakpoint and refresh on show / hide
+    if (ResizeObserver) {
+      _.resizeObserver = new ResizeObserver(function (entries) {
+        [].forEach.call(entries, function(__) {
+          var _ = __.target._glider;
+          if (_ && _.ele.clientWidth !== _.containerWidth && (_.ele.clientWidth == 0 || _.containerWidth == 0)) {
+            _.breakpoint = 0;
+            _.refresh(false);
+          }
+        });
+      });
+                
+      _.resizeObserver.observe(_.ele);
+    }
   })
 
   var gliderPrototype = Glider.prototype
